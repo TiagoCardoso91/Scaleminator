@@ -23,7 +23,7 @@
 			--line: rgba(51, 31, 22, .78);
 			--pink: #d65c91;
 			--neck-min-width: 1306px;
-			--neck-row-template: 30px 258px 30px;
+			--neck-row-template: 30px calc(258px * var(--string-scale, 1)) 30px;
 			--note-size: 39px;
 			--note-font-size: 13px;
 			--note-small-size: 9px;
@@ -78,7 +78,7 @@
 		@media screen and (min-width: 1800px) and (min-height: 721px) {
 			:root:not([data-view="compact"]) {
 				--neck-min-width: 100%;
-				--neck-row-template: 40px 380px 40px;
+				--neck-row-template: 40px calc(380px * var(--string-scale, 1)) 40px;
 				--note-size: 54px;
 				--note-font-size: 18px;
 				--note-small-size: 11px;
@@ -90,7 +90,7 @@
 
 		body[data-view="compact"] {
 			--neck-min-width: 100%;
-			--neck-row-template: 24px 180px 24px;
+			--neck-row-template: 24px calc(180px * var(--string-scale, 1)) 24px;
 			--note-size: 26px;
 			--note-font-size: 10px;
 			--note-small-size: 0px;
@@ -499,7 +499,7 @@
 			grid-column: 1;
 			grid-row: 2;
 			display: grid;
-			grid-template-rows: repeat(6, minmax(0, 1fr));
+			grid-template-rows: repeat(var(--string-count, 6), minmax(0, 1fr));
 			padding: 5px 0;
 			align-items: center;
 			color: #59635b;
@@ -539,7 +539,7 @@
 			grid-column: 2;
 			grid-row: 2;
 			display: grid;
-			grid-template-rows: repeat(6, minmax(0, 1fr));
+			grid-template-rows: repeat(var(--string-count, 6), minmax(0, 1fr));
 			padding: 5px 0;
 			place-items: center;
 		}
@@ -555,7 +555,7 @@
 			grid-row: 2;
 			display: grid;
 			grid-template-columns: repeat(24, minmax(0, 1fr));
-			grid-template-rows: repeat(6, minmax(0, 1fr));
+			grid-template-rows: repeat(var(--string-count, 6), minmax(0, 1fr));
 			overflow: visible;
 			border: 1px solid var(--wood-dark);
 			border-left: 5px solid #332b25;
@@ -725,7 +725,7 @@
 			.fret-range-slider input[type="range"]::-webkit-slider-thumb { width: 22px; height: 22px; margin-top: -9px; }
 			.fret-range-slider input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; }
 			.fret-range-track { right: 11px; left: 11px; }
-			.neck-layout { width: 100%; min-width: 0; grid-template-columns: 30px 28px minmax(0, 1fr); grid-template-rows: 22px 210px 20px; column-gap: 4px; }
+			.neck-layout { width: 100%; min-width: 0; grid-template-columns: 30px 28px minmax(0, 1fr); grid-template-rows: 22px calc(210px * var(--string-scale, 1)) 20px; column-gap: 4px; }
 			.fret-numbers,
 			.fretboard,
 			.position-markers { grid-template-columns: repeat(12, minmax(0, 1fr)); }
@@ -790,7 +790,7 @@
 			.scale-notes { gap: 8px; margin-bottom: 12px; }
 			.scale-note-button { min-height: 44px; }
 			/* Keep compact mode fluid: 12 frets fit the available viewport. */
-			.neck-layout { min-width: 0; grid-template-rows: 24px 210px 24px; --inlay-size: 11px; }
+			.neck-layout { min-width: 0; grid-template-rows: 24px calc(210px * var(--string-scale, 1)) 24px; --inlay-size: 11px; }
 			.note { width: min(30px, calc(100% - 2px)); }
 		}
 
@@ -812,7 +812,7 @@
 			.scale-notes strong { width: 19px; font-size: 9px; }
 			.blue-note-tag { padding-left: 3px; font-size: 8px; }
 			.neck-scroll { overflow-x: hidden; padding-bottom: 2px; }
-			.neck-layout { width: 100%; min-width: 0; grid-template-columns: 30px 30px minmax(0, 1fr); grid-template-rows: 17px 180px 17px; column-gap: 4px; }
+			.neck-layout { width: 100%; min-width: 0; grid-template-columns: 30px 30px minmax(0, 1fr); grid-template-rows: 17px calc(180px * var(--string-scale, 1)) 17px; column-gap: 4px; }
 			.neck-layout { --fret-number-size: 12px; --inlay-size: 9px; }
 			.string-labels { font-size: 12px; }
 			.open-cell { width: 30px; }
@@ -824,7 +824,7 @@
 		}
 
 		@media (max-width: 700px) and (orientation: landscape), (max-height: 420px), (pointer: coarse) and (orientation: landscape) {
-			.neck-layout { grid-template-columns: 28px 25px minmax(0, 1fr); grid-template-rows: 15px 150px 15px; column-gap: 3px; --fret-number-size: 11px; --inlay-size: 8px; }
+			.neck-layout { grid-template-columns: 28px 25px minmax(0, 1fr); grid-template-rows: 15px calc(150px * var(--string-scale, 1)) 15px; column-gap: 3px; --fret-number-size: 11px; --inlay-size: 8px; }
 			.open-cell { width: 25px; }
 			.note { width: min(23px, calc(100% - 2px)); border-width: 2px; }
 			.note strong { font-size: 8px; }
@@ -835,7 +835,7 @@
 		@media (max-width: 650px) {
 			.neck-layout {
 				/* Reduz ligeiramente a altura total para não esmagar em ecrãs baixos */
-				grid-template-rows: 20px 170px 20px !important; 
+				grid-template-rows: 20px calc(170px * var(--string-scale, 1)) 20px !important; 
 			}
 			
 			.note {
@@ -873,6 +873,13 @@
 		<div id="key-control-slot">
 		<div class="key-control" id="key-control">
 			<div class="control-group">
+				<label for="string-count">Strings</label>
+				<select id="string-count">
+					<option value="3">3</option><option value="4">4</option><option value="5">5</option>
+					<option value="6" selected>6</option><option value="7">7</option><option value="8">8</option>
+				</select>
+			</div>
+			<div class="control-group">
 				<span id="tuning-caption">Tuning</span>
 				<details class="scale-menu tuning-menu" id="tuning-menu">
 					<summary id="tuning-menu-summary"><span id="selected-tuning-label">E standard</span></summary>
@@ -893,7 +900,7 @@
 			<div class="control-group">
 				<span id="scale-label">Scale</span>
 				<details class="scale-menu" id="scale-menu">
-					<summary id="scale-menu-summary">Choose scale</summary>
+					<summary id="scale-menu-summary">Minor</summary>
 					<div class="scale-menu-panel" id="scale-menu-panel">
 						<div class="scale-family-list" id="scale-family-list"></div>
 						<div class="scale-submenu" id="scale-submenu"></div>
@@ -941,24 +948,19 @@
 	</main>
 
 	<script>
-		const strings = [
-			{ name: "e", pitch: 4, thickness: "2px" },
-			{ name: "B", pitch: 11, thickness: "2.5px" },
-			{ name: "G", pitch: 7, thickness: "3px" },
-			{ name: "D", pitch: 2, thickness: "3.5px" },
-			{ name: "A", pitch: 9, thickness: "4px" },
-			{ name: "E", pitch: 4, thickness: "4.5px" }
-		];
+		// Strings are built for the current instrument (see setStringCount). Index 0 is the top row (highest string).
+		let strings = [];
 		const keys = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 		const noteNames = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-		// Notes go from the high string (top row) to the low string (bottom row).
-		const tuningGroups = {
-			standard: "Standard",
-			drop: "Drop tunings",
-			open: "Open tunings",
-			other: "Other tunings"
-		};
-		const tunings = {
+		// Instruments and their tunings. Notes go from the top row (highest string) to the bottom row (lowest string).
+		// "prefix" is added before the tuning name in the title; guitar (6 strings) has none.
+		const instruments = {
+			"guitar-6": {
+				label: "Guitar (6 strings)",
+				prefix: "",
+				maxFrets: 24,
+				groups: { standard: "Standard", drop: "Drop", open: "Open", other: "Other" },
+				tunings: {
 			"e-standard": { label: "E standard", group: "standard", notes: ["E", "B", "G", "D", "A", "E"] },
 			"d-sharp-standard": { label: "Eb standard (half step down)", group: "standard", notes: ["D#", "A#", "F#", "C#", "G#", "D#"] },
 			"d-standard": { label: "D standard", group: "standard", notes: ["D", "A", "F", "C", "G", "D"] },
@@ -980,13 +982,140 @@
 			"double-drop-d": { label: "Double drop D", group: "other", notes: ["D", "B", "G", "D", "A", "D"] },
 			"all-fourths": { label: "All fourths", group: "other", notes: ["F", "C", "G", "D", "A", "E"] },
 			"new-standard": { label: "New standard (CGDAEG)", group: "other", notes: ["G", "E", "A", "D", "G", "C"] }
+				}
+			},
+			"guitar-7": {
+				label: "Guitar (7 strings)",
+				prefix: "7-string",
+				maxFrets: 24,
+				tunings: {
+					"g7-standard": { label: "B standard", notes: ["E", "B", "G", "D", "A", "E", "B"] },
+					"g7-drop-a": { label: "Drop A", notes: ["E", "B", "G", "D", "A", "E", "A"] },
+					"g7-a-standard": { label: "A standard", notes: ["D", "A", "F", "C", "G", "D", "A"] },
+					"g7-russian": { label: "Russian (open G)", notes: ["D", "B", "G", "D", "B", "G", "D"] }
+				}
+			},
+			"guitar-8": {
+				label: "Guitar (8 strings)",
+				prefix: "8-string",
+				maxFrets: 24,
+				tunings: {
+					"g8-standard": { label: "F# standard", notes: ["E", "B", "G", "D", "A", "E", "B", "F#"] },
+					"g8-drop-e": { label: "Drop E", notes: ["E", "B", "G", "D", "A", "E", "B", "E"] },
+					"g8-f-standard": { label: "F standard (half step down)", notes: ["D#", "A#", "F#", "C#", "G#", "D#", "A#", "F"] }
+				}
+			},
+			"portuguese-guitar": {
+				label: "Portuguese guitar",
+				prefix: "Portuguese guitar",
+				maxFrets: 22,
+				tunings: {
+					"pt-lisboa": { label: "Lisboa", notes: ["B", "A", "E", "B", "A", "D"] },
+					"pt-coimbra": { label: "Coimbra", notes: ["A", "G", "D", "A", "G", "C"] }
+				}
+			},
+			"bass-4": {
+				label: "Bass (4 strings)",
+				prefix: "Bass",
+				maxFrets: 24,
+				tunings: {
+					"b4-e-standard": { label: "E standard", notes: ["G", "D", "A", "E"] },
+					"b4-drop-d": { label: "Drop D", notes: ["G", "D", "A", "D"] },
+					"b4-d-standard": { label: "D standard", notes: ["F", "C", "G", "D"] },
+					"b4-bead": { label: "BEAD", notes: ["D", "A", "E", "B"] }
+				}
+			},
+			"bass-5": {
+				label: "Bass (5 strings)",
+				prefix: "5-string bass",
+				maxFrets: 24,
+				tunings: {
+					"b5-standard": { label: "Standard (BEADG)", notes: ["G", "D", "A", "E", "B"] },
+					"b5-high-c": { label: "High C (EADGC)", notes: ["C", "G", "D", "A", "E"] }
+				}
+			},
+			"bass-6": {
+				label: "Bass (6 strings)",
+				prefix: "6-string bass",
+				maxFrets: 24,
+				tunings: {
+					"b6-standard": { label: "Standard (BEADGC)", notes: ["C", "G", "D", "A", "E", "B"] }
+				}
+			},
+			cavaquinho: {
+				label: "Cavaquinho",
+				prefix: "Cavaquinho",
+				maxFrets: 17,
+				tunings: {
+					"cav-natural": { label: "Natural (Ré-Sol-Si-Ré)", notes: ["D", "B", "G", "D"] },
+					"cav-coimbra": { label: "Coimbra (Ré-Sol-Si-Mi)", notes: ["E", "B", "G", "D"] },
+					"cav-sol-sol": { label: "Sol-Sol-Si-Ré", notes: ["D", "B", "G", "G"] },
+					"cav-maia": { label: "Maia / Barcelos (Sol-Dó-Mi-Lá)", notes: ["A", "E", "C", "G"] },
+					"cav-la-la": { label: "Lá-Lá-Dó#-Mi", notes: ["E", "C#", "A", "A"] }
+				}
+			},
+			ukulele: {
+				label: "Ukulele",
+				prefix: "Ukulele",
+				maxFrets: 18,
+				tunings: {
+					"uke-standard": { label: "Standard (GCEA)", notes: ["A", "E", "C", "G"] },
+					"uke-d": { label: "D tuning (ADF#B)", notes: ["B", "F#", "D", "A"] },
+					"uke-baritone": { label: "Baritone (DGBE)", notes: ["E", "B", "G", "D"] }
+				}
+			},
+			mandolin: {
+				label: "Mandolin / bandolim",
+				prefix: "Mandolin",
+				maxFrets: 20,
+				tunings: {
+					"mando-standard": { label: "Standard (GDAE)", notes: ["E", "A", "D", "G"] },
+					"mandola": { label: "Mandola (CGDA)", notes: ["A", "D", "G", "C"] }
+				}
+			},
+			violin: {
+				label: "Violin family",
+				prefix: "",
+				maxFrets: 24,
+				tunings: {
+					"violin": { label: "Violin (GDAE)", notes: ["E", "A", "D", "G"] },
+					"viola-cello": { label: "Viola / cello (CGDA)", notes: ["A", "D", "G", "C"] }
+				}
+			},
+			balalaika: {
+				label: "Balalaika",
+				prefix: "Balalaika",
+				maxFrets: 19,
+				tunings: {
+					"bal-prima": { label: "Prima (EEA)", notes: ["A", "E", "E"] }
+				}
+			},
+			"cigar-box": {
+				label: "Cigar box guitar",
+				prefix: "Cigar box",
+				maxFrets: 20,
+				tunings: {
+					"cbg-open-g": { label: "Open G (GDG)", notes: ["G", "D", "G"] },
+					"cbg-open-d": { label: "Open D (DAD)", notes: ["D", "A", "D"] }
+				}
+			}
 		};
+		// Flat lookup: tuning id -> { label, notes, group?, instrument }.
+		const tunings = {};
+		Object.entries(instruments).forEach(([instrumentId, instrument]) => {
+			Object.entries(instrument.tunings).forEach(([id, tuning]) => { tunings[id] = { ...tuning, instrument: instrumentId }; });
+		});
+		// Tuning loaded when the number of strings is picked in the "Strings" dropdown.
+		const defaultTuningByStringCount = { 3: "cbg-open-g", 4: "b4-e-standard", 5: "b5-standard", 6: "e-standard", 7: "g7-standard", 8: "g8-standard" };
 		// The open-string notes from low to high, e.g. "D A D G B E".
 		function tuningNotesLowToHigh() {
 			return strings.map(string => string.note).reverse().join(" ");
 		}
 		function tuningDisplayName() {
-			return selectedTuning === "custom" ? `Custom: ${tuningNotesLowToHigh()}` : tunings[selectedTuning].label;
+			if (selectedTuning === "custom") return `Custom: ${tuningNotesLowToHigh()}`;
+			const tuning = tunings[selectedTuning];
+			const prefix = instruments[tuning.instrument].prefix;
+			return prefix ? `${prefix} ${tuning.label}` : tuning.label;
 		}
 		const scaleFamilies = {
 			pentatonic: {
@@ -1153,6 +1282,7 @@
 		const openStrings = document.querySelector("#open-strings");
 		const neckScroll = document.querySelector(".neck-scroll");
 		const stringLabels = document.querySelector("#string-labels");
+		const stringCountSelect = document.querySelector("#string-count");
 		const markers = document.querySelector("#position-markers");
 		const keySelect = document.querySelector("#key-select");
 		const tuningMenu = document.querySelector("#tuning-menu");
@@ -1179,9 +1309,9 @@
 		const fretRangeFill = document.querySelector("#fret-range-fill");
 		const fretRangeValue = document.querySelector("#fret-range-value");
 		let fretCount = 24;
-		// TOTAL_FRETS: length of the neck. maxFret: biggest interval that fits on screen (24 or 12).
+		// totalFrets: frets on the current instrument (from its maxFrets). maxFret: biggest interval that fits on screen (24 or 12).
 		// fretRange: what the user chose to show.
-		const TOTAL_FRETS = 24;
+		let totalFrets = 24;
 		let maxFret = 24;
 		let fretRange = { start: 0, end: 24 };
 		let compactMode = null;
@@ -1191,6 +1321,7 @@
 		let openMenuFamily = "pentatonic";
 		let openPentatonicGroup = "common";
 		let selectedTuning = "e-standard";
+		let openTuningInstrument = "guitar-6";
 		let openTuningGroup = "standard";
 		let noteStates = new Map();
 		// Red is reserved for the root. Stack for the other notes: yellow, pink, green, orange, purple, grey, brown.
@@ -1225,14 +1356,14 @@
 				compactMode = useCompactMode;
 				maxFret = nextMaxFret;
 				if (firstSync) {
-					// Default: 0-24 if it fits, otherwise 0-12.
-					fretRange = { start: 0, end: maxFret };
+					// Default: the whole neck if it fits, otherwise 0-12.
+					fretRange = defaultFretRange();
 				} else if (maxFret < previousMaxFret) {
 					// Getting smaller: keep the interval if it fits, otherwise back to 0-12.
-					if (fretRange.end - fretRange.start > maxFret) fretRange = { start: 0, end: maxFret };
-				} else if (maxFret > previousMaxFret && fretRange.start === 0 && fretRange.end === previousMaxFret) {
-					// Getting bigger: 0-12 grows to 0-24, any other interval is kept.
-					fretRange = { start: 0, end: maxFret };
+					if (fretRange.end - fretRange.start > maxFret) fretRange = defaultFretRange();
+				} else if (maxFret > previousMaxFret && fretRange.start === 0 && fretRange.end === Math.min(previousMaxFret, totalFrets)) {
+					// Getting bigger: 0-12 grows to the whole neck, any other interval is kept.
+					fretRange = defaultFretRange();
 				}
 				buildFretboard();
 				renderFretRange();
@@ -1253,21 +1384,41 @@
 			window.addEventListener("resize", syncResponsiveControls);
 		}
 
+		// Whole neck if it fits on screen, otherwise 0-12 (never past the instrument's last fret).
+		function defaultFretRange() {
+			return { start: 0, end: Math.min(maxFret, totalFrets) };
+		}
+
+		// Switch to an instrument with a different number of frets.
+		function setTotalFrets(count) {
+			if (count === totalFrets) return;
+			const wasDefault = fretRange.start === 0 && fretRange.end === Math.min(maxFret, totalFrets);
+			totalFrets = count;
+			if (wasDefault) {
+				fretRange = defaultFretRange();
+			} else if (fretRange.end > totalFrets) {
+				// Cut the range at the new last fret.
+				fretRange = { start: Math.min(fretRange.start, totalFrets - 1), end: totalFrets };
+			}
+			buildFretboard();
+			renderFretRange();
+		}
+
 		function renderFretRange() {
-			[fretRangeStart, fretRangeEnd].forEach(input => { input.max = TOTAL_FRETS; });
+			[fretRangeStart, fretRangeEnd].forEach(input => { input.max = totalFrets; });
 			fretRangeStart.value = fretRange.start;
 			fretRangeEnd.value = fretRange.end;
-			fretRangeFill.style.left = `${(fretRange.start / TOTAL_FRETS) * 100}%`;
-			fretRangeFill.style.width = `${((fretRange.end - fretRange.start) / TOTAL_FRETS) * 100}%`;
+			fretRangeFill.style.left = `${(fretRange.start / totalFrets) * 100}%`;
+			fretRangeFill.style.width = `${((fretRange.end - fretRange.start) / totalFrets) * 100}%`;
 			fretRangeValue.textContent = `${fretRange.start}–${fretRange.end}`;
 			// Keep the start thumb grabbable when both thumbs sit at the far right.
-			fretRangeStart.style.zIndex = fretRange.start >= TOTAL_FRETS - 1 ? 2 : 1;
+			fretRangeStart.style.zIndex = fretRange.start >= totalFrets - 1 ? 2 : 1;
 		}
 
 		// movedThumb: "start" or "end". When the interval is too big for the screen,
 		// the thumb being dragged is blocked so the span never exceeds maxFret.
 		function setFretRange(start, end, movedThumb) {
-			end = Math.min(Math.max(end, 1), TOTAL_FRETS);
+			end = Math.min(Math.max(end, 1), totalFrets);
 			start = Math.min(Math.max(start, 0), end - 1);
 			if (end - start > maxFret) {
 				if (movedThumb === "start") start = end - maxFret;
@@ -1291,7 +1442,7 @@
 			fretboard.style.gridTemplateColumns = fretColumns;
 			markers.style.gridTemplateColumns = fretColumns;
 			// Fluid width whenever 24 frets don't fit (compact) or few frets are shown.
-			const fluid = maxFret < TOTAL_FRETS || fretCount <= 12;
+			const fluid = maxFret < 24 || fretCount <= 12;
 			neckLayout.style.width = fluid ? "100%" : "";
 			neckLayout.style.minWidth = fluid ? "0" : "1306px";
 			fretboard.classList.toggle("no-nut", !showOpen);
@@ -1317,9 +1468,14 @@
 					if (fret === 12 || fret === 24) marker.classList.add("double");
 					markers.append(marker);
 
-					// Inlay dots on the wood: single dots sit between the G and D strings,
-					// double dots between B/G and D/A. They sit under the strings and notes.
-					const inlayRows = fret === 12 || fret === 24 ? [2 / 6, 4 / 6] : [3 / 6];
+					// Inlay dots on the wood, between strings, under the strings and notes.
+					// Single dots sit in the middle gap; double dots in two symmetric gaps
+					// (on 6 strings: between G/D, and between B/G and D/A).
+					const count = strings.length;
+					const sideGap = Math.max(1, Math.floor(count / 2) - 1);
+					const inlayRows = fret === 12 || fret === 24
+						? [sideGap / count, (count - sideGap) / count]
+						: [Math.floor(count / 2) / count];
 					inlayRows.forEach(row => {
 						const inlay = document.createElement("span");
 						inlay.className = "inlay";
@@ -1335,7 +1491,7 @@
 				openCell.className = "open-cell";
 				openCell.dataset.stringIndex = stringIndex;
 				openCell.style.gridRow = stringIndex + 1;
-				openCell.setAttribute("aria-label", `${string.name} open string`);
+				openCell.setAttribute("aria-label", `String ${stringIndex + 1} open`);
 				openStrings.append(openCell);
 				if (showOpen) notePositions.push(openCell);
 
@@ -1373,6 +1529,29 @@
 			setFretRange(fretRange.start, Number(fretRangeEnd.value), "end");
 		});
 
+		// Rebuild the neck for a new number of strings. Returns false if nothing changed.
+		function setStringCount(count) {
+			if (strings.length === count) return false;
+			strings = Array.from({ length: count }, (_, index) => ({
+				note: "E",
+				pitch: 4,
+				// Thin high strings at the top, thicker low strings at the bottom.
+				thickness: `${(1.6 + (3.2 * index) / Math.max(count - 1, 1)).toFixed(2)}px`
+			}));
+			// Rows follow the string count; more strings make the neck a bit taller.
+			document.documentElement.style.setProperty("--string-count", count);
+			document.documentElement.style.setProperty("--string-scale", Math.max(count, 4.5) / 6);
+			stringCountSelect.value = count;
+			buildStringSelects();
+			buildFretboard();
+			return true;
+		}
+
+		stringCountSelect.addEventListener("change", () => {
+			selectedTuning = defaultTuningByStringCount[stringCountSelect.value];
+			updateTuning();
+		});
+
 		// One dropdown per string to pick its open note.
 		function buildStringSelects() {
 			stringLabels.replaceChildren();
@@ -1391,16 +1570,24 @@
 			const select = event.target.closest(".string-note-select");
 			if (!select) return;
 			strings[Number(select.dataset.stringIndex)].note = select.value;
-			// A known tuning if the notes match one, otherwise custom.
+			// A known tuning if the notes match one (current instrument first), otherwise custom.
 			const notes = strings.map(string => string.note).join();
-			selectedTuning = Object.keys(tunings).find(id => tunings[id].notes.join() === notes) || "custom";
+			const currentInstrument = openTuningInstrument;
+			const ids = Object.keys(tunings).sort((a, b) =>
+				(tunings[b].instrument === currentInstrument) - (tunings[a].instrument === currentInstrument));
+			selectedTuning = ids.find(id => tunings[id].notes.join() === notes) || "custom";
 			applyTuning(false);
 		});
 
 		// Load the notes of the selected tuning into the strings, then redraw.
 		function updateTuning(resetNoteStates = true) {
 			const tuning = tunings[selectedTuning];
-			if (tuning) strings.forEach((string, index) => { string.note = tuning.notes[index]; });
+			if (tuning) {
+				// A tuning with a different number of strings resets the neck to that number.
+				setStringCount(tuning.notes.length);
+				setTotalFrets(instruments[tuning.instrument].maxFrets);
+				strings.forEach((string, index) => { string.note = tuning.notes[index]; });
+			}
 			applyTuning(resetNoteStates);
 		}
 
@@ -1410,7 +1597,10 @@
 				stringLabels.children[index].value = string.note;
 			});
 			selectedTuningLabel.textContent = tuningDisplayName();
-			if (tunings[selectedTuning]) openTuningGroup = tunings[selectedTuning].group;
+			if (tunings[selectedTuning]) {
+				openTuningInstrument = tunings[selectedTuning].instrument;
+				if (tunings[selectedTuning].group) openTuningGroup = tunings[selectedTuning].group;
+			}
 			populateTunings();
 			notePositions.forEach(cell => {
 				const string = strings[Number(cell.dataset.stringIndex)];
@@ -1422,19 +1612,38 @@
 		}
 
 		function populateTunings() {
+			// Left column: instruments.
 			tuningFamilyList.replaceChildren();
-			Object.entries(tuningGroups).forEach(([groupKey, label]) => {
+			Object.entries(instruments).forEach(([instrumentId, instrument]) => {
 				const button = document.createElement("button");
 				button.type = "button";
 				button.className = "scale-family-button";
-				button.dataset.tuningGroup = groupKey;
-				button.setAttribute("aria-expanded", String(groupKey === openTuningGroup));
-				button.textContent = label;
+				button.dataset.tuningInstrument = instrumentId;
+				button.setAttribute("aria-expanded", String(instrumentId === openTuningInstrument));
+				button.textContent = instrument.label;
 				tuningFamilyList.append(button);
 			});
 
+			// Right column: subgroup buttons (if the instrument has them), then its tunings.
 			tuningSubmenu.replaceChildren();
-			Object.entries(tunings).filter(([, tuning]) => tuning.group === openTuningGroup).forEach(([id, tuning]) => {
+			const instrument = instruments[openTuningInstrument];
+			if (instrument.groups) {
+				const groupNav = document.createElement("div");
+				groupNav.className = "pentatonic-groups";
+				Object.entries(instrument.groups).forEach(([groupKey, label]) => {
+					const button = document.createElement("button");
+					button.type = "button";
+					button.className = "pentatonic-group-button";
+					button.dataset.tuningSubgroup = groupKey;
+					button.setAttribute("aria-pressed", String(groupKey === openTuningGroup));
+					button.textContent = label;
+					groupNav.append(button);
+				});
+				tuningSubmenu.append(groupNav);
+			}
+			Object.entries(tunings).filter(([, tuning]) =>
+				tuning.instrument === openTuningInstrument && (!instrument.groups || tuning.group === openTuningGroup)
+			).forEach(([id, tuning]) => {
 				const button = document.createElement("button");
 				button.type = "button";
 				button.className = "scale-option has-description";
@@ -1534,6 +1743,8 @@
 					scaleTitleMain.textContent = titleWithoutTuning;
 					scaleTitleTuning.textContent = `(${tuningTitle})`;
 					mobileScaleTitle.textContent = titleWithoutTuning;
+					// Scale dropdown shows the selected scale's name (no family or subgroup).
+					document.querySelector("#scale-menu-summary").textContent = definition.name;
 					document.title = `${titleWithoutTuning} (${tuningTitle}) | Guitar fretboard`;
 					fretboard.setAttribute("aria-label", `${key} ${definition.name} notes on a ${fretCount}-fret guitar neck`);
 					scaleNotes.setAttribute("aria-label", `Notes in ${key} ${definition.name}`);
@@ -1614,9 +1825,20 @@
 			populateScales();
 		});
 		tuningFamilyList.addEventListener("click", event => {
-			const button = event.target.closest("[data-tuning-group]");
+			const button = event.target.closest("[data-tuning-instrument]");
 			if (!button) return;
-			openTuningGroup = button.dataset.tuningGroup;
+			openTuningInstrument = button.dataset.tuningInstrument;
+			const groups = instruments[openTuningInstrument].groups;
+			if (groups) {
+				const current = tunings[selectedTuning];
+				openTuningGroup = current && current.instrument === openTuningInstrument ? current.group : Object.keys(groups)[0];
+			}
+			populateTunings();
+		});
+		tuningSubmenu.addEventListener("click", event => {
+			const groupButton = event.target.closest("[data-tuning-subgroup]");
+			if (!groupButton) return;
+			openTuningGroup = groupButton.dataset.tuningSubgroup;
 			populateTunings();
 		});
 		tuningSubmenu.addEventListener("click", event => {
@@ -1675,7 +1897,7 @@
 			themeToggle.innerHTML = `<span aria-hidden="true">${isNight ? "☀" : "☾"}</span> ${isNight ? "Day mode" : "Night mode"}`;
 		});
 		populateScales();
-		buildStringSelects();
+		setStringCount(6);
 		populateTunings();
 		buildFretboard();
 		renderFretRange();

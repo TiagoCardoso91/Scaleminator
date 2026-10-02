@@ -1,6 +1,6 @@
 # Scaleminator
 
-An interactive guitar fretboard that shows where every note of a scale falls on the neck. Pick a root, a scale and a tuning, then highlight the notes you want to focus on.
+An interactive fretboard for guitar, bass, cavaquinho and other string instruments. It shows where every note of a scale falls on the neck. Pick a root, a scale and a tuning, then highlight the notes you want to focus on.
 
 It's a single HTML file with no build step and no dependencies: open `scales.html` in a browser and play.
 
@@ -14,14 +14,21 @@ It's a single HTML file with no build step and no dependencies: open `scales.htm
   - Hexatonic, symmetric, synthetic & Messiaen
   - European & Mediterranean, Indian & Middle Eastern
 - **Every root key**, from A to G#.
-- **21 tunings**, with E standard as the default:
-  - Standard: E, Eb, D, C#, C, B and A
-  - Drop: Drop D, C#, C, B and A
-  - Open: Open G, D, E, C and A
-  - Other: DADGAD, double drop D, all fourths and new standard
+- **3 to 8 strings:** pick the number of strings, or pick a tuning and the neck adjusts to its number of strings.
+- **Tunings for many instruments**, with guitar E standard as the default:
+  - Guitar (6 strings), 21 tunings in four groups:
+    - Standard: E, Eb, D, C#, C, B and A
+    - Drop: Drop D, C#, C, B and A
+    - Open: Open G, D, E, C and A
+    - Other: DADGAD, double drop D, all fourths and new standard
+  - Guitar (7 and 8 strings)
+  - Portuguese guitar (Lisboa and Coimbra)
+  - Bass (4, 5 and 6 strings)
+  - Cavaquinho, ukulele, mandolin/bandolim
+  - Violin family, balalaika and cigar box guitar
 - **Custom tunings:** each string's letter is a dropdown, so you can change the open note of any string. If the result matches a known tuning, it takes that tuning's name.
-- **24-fret neck** with open strings, fret numbers, and inlay dots both on the wood and below it.
-- **Fret range picker:** show any part of the neck, from 0–24 down to a single fret.
+- **A neck as long as the instrument's:** up to 24 frets on guitar and bass, 22 on Portuguese guitar, 20 on mandolin and cigar box, 19 on balalaika, 18 on ukulele and 17 on cavaquinho. It shows open strings, fret numbers, and inlay dots both on the wood and below it.
+- **Fret range picker:** show any part of the neck, from the whole neck down to a single fret.
 - **Three states for each scale note.** Click a note to cycle through them:
   - **Focused:** highlighted in colour. The root is always red. Other notes take colours from a stack (yellow, pink, green, orange, purple, grey, brown) in the order you focus them. Unfocusing a note frees its colour.
   - **Showing:** a plain dark note.
