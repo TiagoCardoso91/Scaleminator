@@ -384,16 +384,16 @@
 
 		.scale-note-button {
 			display: flex;
-			min-height: 40px;
+			min-height: 48px;
 			align-items: center;
-			gap: 8px;
-			padding: 6px 10px 6px 7px;
+			gap: 10px;
+			padding: 8px 14px 8px 9px;
 			border: 1px solid var(--border);
 			border-radius: 3px;
 			background: var(--surface-soft);
 			color: #59635b;
 			font: inherit;
-			font-size: 13px;
+			font-size: 15px;
 			cursor: pointer;
 		}
 
@@ -402,14 +402,14 @@
 
 		.scale-notes strong {
 			display: grid;
-			width: 24px;
+			width: 30px;
 			aspect-ratio: 1;
 			place-items: center;
 			border-radius: 50%;
 			background: #313a32;
 			color: #fff9e8;
 			font-family: "DynaPuff", sans-serif;
-			font-size: 11px;
+			font-size: 13px;
 		}
 
 		.scale-note-button[data-state="focused"] { border-color: var(--focus-color); background: color-mix(in srgb, var(--focus-color) 13%, white); }
@@ -788,7 +788,7 @@
 			.scale-option { min-height: 44px; padding: 10px 8px; }
 			.pentatonic-group-button { min-height: 42px; }
 			.scale-notes { gap: 8px; margin-bottom: 12px; }
-			.scale-note-button { min-height: 44px; }
+			.scale-note-button { min-height: 50px; }
 			/* Keep compact mode fluid: 12 frets fit the available viewport. */
 			.neck-layout { min-width: 0; grid-template-rows: 24px calc(210px * var(--string-scale, 1)) 24px; --inlay-size: 11px; }
 			.note { width: min(30px, calc(100% - 2px)); }
@@ -808,8 +808,8 @@
 			.fret-range { gap: 8px; font-size: 11px; }
 			.fret-range-slider { width: 150px; height: 24px; }
 			.scale-note-entry { gap: 1px; }
-			.scale-note-button { min-height: 30px; gap: 4px; padding: 3px 6px; font-size: 11px; }
-			.scale-notes strong { width: 19px; font-size: 9px; }
+			.scale-note-button { min-height: 36px; gap: 5px; padding: 4px 8px; font-size: 13px; }
+			.scale-notes strong { width: 23px; font-size: 10px; }
 			.blue-note-tag { padding-left: 3px; font-size: 8px; }
 			.neck-scroll { overflow-x: hidden; padding-bottom: 2px; }
 			.neck-layout { width: 100%; min-width: 0; grid-template-columns: 30px 30px minmax(0, 1fr); grid-template-rows: 17px calc(180px * var(--string-scale, 1)) 17px; column-gap: 4px; }
@@ -895,6 +895,13 @@
 					<option>A</option><option>A#</option><option>B</option><option>C</option>
 					<option>C#</option><option>D</option><option>D#</option><option selected>E</option>
 					<option>F</option><option>F#</option><option>G</option><option>G#</option>
+				</select>
+			</div>
+			<div class="control-group">
+				<label for="mode-select">Show</label>
+				<select id="mode-select">
+					<option value="notes" selected>Notes</option>
+					<option value="chords">Chords</option>
 				</select>
 			</div>
 			<div class="control-group">
@@ -1276,6 +1283,48 @@
 				}
 			}
 		};
+		// Chord scales: the 7-note families harmonised by stacking thirds on each degree.
+		const chordFamilyKeys = ["diatonic", "harmonic-minor", "melodic-minor", "harmonic-major", "double-harmonic"];
+		const chordTypes = { triads: "Triads", sevenths: "7th chords" };
+		const triadSuffixes = { "4,7": "", "3,7": "m", "3,6": "°", "4,8": "+", "2,7": "sus2", "5,7": "sus4", "4,6": "(♭5)", "3,8": "m(♯5)", "2,6": "sus2(♭5)", "5,8": "sus4(♯5)" };
+		const seventhSuffixes = {
+			"4,7,11": "maj7", "4,7,10": "7", "3,7,10": "m7", "3,7,11": "m(maj7)", "3,6,10": "m7♭5", "3,6,9": "°7",
+			"3,6,11": "°(maj7)", "4,8,11": "+maj7", "4,8,10": "+7", "4,6,10": "7♭5", "4,6,11": "maj7♭5", "3,8,10": "m7♯5",
+			"2,7,10": "7sus2", "5,7,10": "7sus4", "2,7,11": "maj7sus2", "5,7,11": "maj7sus4", "4,7,9": "6", "3,7,9": "m6"
+		};
+		const chordToneLabels = ["1", "♭2", "2", "♭3", "3", "4", "♭5", "5", "♯5", "6", "♭7", "7"];
+		const romanNumerals = ["I", "II", "III", "IV", "V", "VI", "VII"];
+		// One chord per scale degree: root, name, roman numeral and its tones (offsets from the key root).
+		function buildScaleChords(definition, rootPitch, type) {
+			const size = type === "sevenths" ? 4 : 3;
+			const count = definition.intervals.length;
+			return definition.intervals.map((_, degreeIndex) => {
+				const offsets = [];
+				for (let step = 0; step < size; step += 1) {
+					const index = degreeIndex + step * 2;
+					offsets.push(definition.intervals[index % count] + 12 * Math.floor(index / count));
+				}
+				const relative = offsets.map(offset => offset - offsets[0]);
+				const labels = relative.map((semitones, slot) => slot === 3 && semitones === 9 ? "♭♭7" : chordToneLabels[semitones % 12]);
+				const key = relative.slice(1).join();
+				const suffixes = size === 4 ? seventhSuffixes : triadSuffixes;
+				const suffix = key in suffixes ? suffixes[key] : `(${labels.slice(1).join(" ")})`;
+				const rootNote = noteNames[(rootPitch + offsets[0]) % 12];
+				const accidental = definition.degrees[degreeIndex].replace(/[0-9]/g, "");
+				const numeral = relative[1] < 4 ? romanNumerals[degreeIndex].toLowerCase() : romanNumerals[degreeIndex];
+				const numeralMark = relative[1] === 3 && relative[2] === 6 ? (size === 4 && relative[3] === 10 ? "ø" : "°") : relative[1] === 4 && relative[2] === 8 ? "+" : "";
+				return {
+					name: `${rootNote}${suffix}`,
+					roman: `${accidental}${numeral}${numeralMark}`,
+					tones: relative.map((semitones, slot) => ({
+						pitch: (rootPitch + offsets[0] + semitones) % 12,
+						note: noteNames[(rootPitch + offsets[0] + semitones) % 12],
+						degree: labels[slot],
+						root: slot === 0
+					}))
+				};
+			});
+		}
 		const fretNumbers = document.querySelector("#fret-numbers");
 		const fretboard = document.querySelector("#fretboard");
 		const neckLayout = document.querySelector(".neck-layout");
@@ -1320,13 +1369,21 @@
 		let selectedScale = "minor";
 		let openMenuFamily = "pentatonic";
 		let openPentatonicGroup = "common";
+		// "notes" = scale notes (original mode); "chords" = chords of a chord scale, one shown at a time.
+		let mode = "notes";
+		let chordFamily = "diatonic";
+		let chordScale = "ionian";
+		let chordType = "triads";
+		let selectedChord = 0;
+		const modeSelect = document.querySelector("#mode-select");
+		const scaleLabel = document.querySelector("#scale-label");
 		let selectedTuning = "e-standard";
 		let openTuningInstrument = "guitar-6";
 		let openTuningGroup = "standard";
 		let noteStates = new Map();
-		// Red is reserved for the root. Stack for the other notes: yellow, pink, green, orange, purple, grey, brown.
+		// Red is reserved for the root. Stack for the other notes: yellow, green, pink, orange, purple, grey, brown.
 		const rootFocusColor = "#e93333";
-		const focusColors = ["#f7d417", "#e94fae", "#57c96a", "#ff861f", "#b57be8", "#a1a1a1", "#c8925d"];
+		const focusColors = ["#f7d417", "#57c96a", "#e94fae", "#ff861f", "#b57be8", "#a1a1a1", "#c8925d"];
 		// pitch -> colour taken from the stack when that note was focused.
 		let focusColorByPitch = new Map();
 		// Take the first free colour in stack order; a released colour goes back in its original place.
@@ -1659,7 +1716,49 @@
 			});
 		}
 
+		function populateChordScales() {
+			scaleFamilyList.replaceChildren();
+			chordFamilyKeys.forEach(familyKey => {
+				const button = document.createElement("button");
+				button.type = "button";
+				button.className = "scale-family-button";
+				button.dataset.family = familyKey;
+				button.setAttribute("aria-expanded", String(familyKey === openMenuFamily));
+				button.textContent = scaleFamilies[familyKey].label;
+				scaleFamilyList.append(button);
+			});
+			scaleSubmenu.replaceChildren();
+			const typeNav = document.createElement("div");
+			typeNav.className = "pentatonic-groups";
+			Object.entries(chordTypes).forEach(([type, label]) => {
+				const button = document.createElement("button");
+				button.type = "button";
+				button.className = "pentatonic-group-button";
+				button.dataset.chordType = type;
+				button.setAttribute("aria-pressed", String(type === chordType));
+				button.textContent = label;
+				typeNav.append(button);
+			});
+			scaleSubmenu.append(typeNav);
+			const rootPitch = keys.indexOf(keySelect.value);
+			Object.entries(scaleFamilies[openMenuFamily].scales).forEach(([value, definition]) => {
+				const button = document.createElement("button");
+				button.type = "button";
+				button.className = "scale-option has-description";
+				button.dataset.scale = value;
+				button.setAttribute("aria-pressed", String(chordFamily === openMenuFamily && chordScale === value));
+				const name = document.createElement("span");
+				name.textContent = definition.name;
+				const chords = document.createElement("span");
+				chords.className = "scale-option-description";
+				chords.textContent = buildScaleChords(definition, rootPitch, chordType).map(chord => chord.name).join("  ");
+				button.append(name, chords);
+				scaleSubmenu.append(button);
+			});
+		}
+
 		function populateScales() {
+			if (mode === "chords") return populateChordScales();
 			scaleFamilyList.replaceChildren();
 			const family = scaleFamilies[openMenuFamily];
 			Object.entries(scaleFamilies).forEach(([familyKey, familyDefinition]) => {
@@ -1709,7 +1808,64 @@
 			});
 		}
 
+		function updateChords() {
+			const key = keySelect.value;
+			const definition = scaleFamilies[chordFamily].scales[chordScale];
+			const chords = buildScaleChords(definition, keys.indexOf(key), chordType);
+			selectedChord = Math.min(selectedChord, chords.length - 1);
+			const activeChord = chords[selectedChord];
+
+			const titleWithoutTuning = `${key} ${definition.name} ${chordTypes[chordType].toLowerCase()}`;
+			const tuningTitle = tuningDisplayName();
+			scaleTitleMain.textContent = titleWithoutTuning;
+			scaleTitleTuning.textContent = `(${tuningTitle})`;
+			mobileScaleTitle.textContent = titleWithoutTuning;
+			document.querySelector("#scale-menu-summary").textContent = definition.name;
+			document.title = `${titleWithoutTuning} (${tuningTitle}) | Guitar fretboard`;
+			fretboard.setAttribute("aria-label", `${activeChord.name} chord notes on a ${fretCount}-fret guitar neck`);
+			scaleNotes.setAttribute("aria-label", `Chords in ${key} ${definition.name}`);
+			// Keep the chord names in the open menu in sync with the key.
+			populateScales();
+
+			scaleNotes.replaceChildren();
+			chords.forEach((chord, index) => {
+				const active = index === selectedChord;
+				const entry = document.createElement("li");
+				entry.className = "scale-note-entry";
+				const button = document.createElement("button");
+				button.type = "button";
+				button.className = "scale-note-button";
+				button.dataset.chordIndex = index;
+				button.dataset.state = active ? "focused" : "showing";
+				button.style.setProperty("--focus-color", rootFocusColor);
+				button.style.setProperty("--focus-ink", focusedNoteText);
+				button.setAttribute("aria-pressed", String(active));
+				button.setAttribute("aria-label", `${chord.roman} ${chord.name}: ${chord.tones.map(tone => tone.note).join(" ")}`);
+				button.title = `${chord.name}: ${chord.tones.map(tone => tone.note).join(" ")}`;
+				button.innerHTML = `<strong>${chord.roman}</strong> ${chord.name}`;
+				entry.append(button);
+				scaleNotes.append(entry);
+			});
+
+			// Root of the chord in red, the other chord tones in the colour stack order.
+			const toneColors = new Map(activeChord.tones.map((tone, index) => [tone.pitch, tone.root ? rootFocusColor : focusColors[index - 1]]));
+			const chordTones = new Map(activeChord.tones.map(tone => [tone.pitch, tone]));
+			notePositions.forEach(cell => {
+				cell.querySelector(".note")?.remove();
+				const tone = chordTones.get(Number(cell.dataset.pitch));
+				if (!tone) return;
+				const note = document.createElement("span");
+				note.className = `note focused${tone.root ? " root" : ""}`;
+				note.style.setProperty("--focus-color", toneColors.get(tone.pitch));
+				note.style.setProperty("--focus-ink", focusedNoteText);
+				note.setAttribute("aria-label", `${tone.note}, chord tone ${tone.degree}`);
+				note.innerHTML = `<strong>${tone.note}</strong><small>${tone.degree}</small>`;
+				cell.append(note);
+			});
+		}
+
 		function updateScale(resetNoteStates = true) {
+					if (mode === "chords") return updateChords();
 					const key = keySelect.value;
 					const family = scaleFamilies[selectedFamily];
 					const definition = family.scales[selectedScale];
@@ -1812,11 +1968,17 @@
 			const button = event.target.closest("[data-family]");
 			if (!button) return;
 			openMenuFamily = button.dataset.family;
-			if (openMenuFamily === "pentatonic") {
+			if (mode === "notes" && openMenuFamily === "pentatonic") {
 				openPentatonicGroup = selectedFamily === "pentatonic" ?
 					scaleFamilies.pentatonic.scales[selectedScale].group : "common";
 			}
 			populateScales();
+		});
+		scaleSubmenu.addEventListener("click", event => {
+			const typeButton = event.target.closest("[data-chord-type]");
+			if (!typeButton) return;
+			chordType = typeButton.dataset.chordType;
+			updateScale();
 		});
 		scaleSubmenu.addEventListener("click", event => {
 			const groupButton = event.target.closest("[data-pentatonic-group]");
@@ -1851,8 +2013,14 @@
 		scaleSubmenu.addEventListener("click", event => {
 			const button = event.target.closest("[data-scale]");
 			if (!button) return;
-			selectedFamily = openMenuFamily;
-			selectedScale = button.dataset.scale;
+			if (mode === "chords") {
+				chordFamily = openMenuFamily;
+				chordScale = button.dataset.scale;
+				selectedChord = 0;
+			} else {
+				selectedFamily = openMenuFamily;
+				selectedScale = button.dataset.scale;
+			}
 			updateScale();
 			scaleMenu.open = false;
 		});
@@ -1875,6 +2043,13 @@
 		});
 
 		scaleNotes.addEventListener("click", event => {
+			// Chords mode: only one chord active at a time.
+			const chordButton = event.target.closest("[data-chord-index]");
+			if (chordButton) {
+				selectedChord = Number(chordButton.dataset.chordIndex);
+				updateChords();
+				return;
+			}
 			const button = event.target.closest("[data-pitch]");
 			if (!button) return;
 			const pitch = Number(button.dataset.pitch);
@@ -1889,6 +2064,14 @@
 			updateScale(false);
 		});
 		keySelect.addEventListener("change", updateScale);
+		modeSelect.addEventListener("change", () => {
+			mode = modeSelect.value;
+			openMenuFamily = mode === "chords" ? chordFamily : selectedFamily;
+			if (mode === "notes" && openMenuFamily === "pentatonic") openPentatonicGroup = scaleFamilies.pentatonic.scales[selectedScale].group;
+			scaleLabel.textContent = mode === "chords" ? "Chord scale" : "Scale";
+			populateScales();
+			updateScale();
+		});
 		themeToggle.addEventListener("click", () => {
 			const isNight = document.body.dataset.theme !== "night";
 			document.body.dataset.theme = isNight ? "night" : "day";
