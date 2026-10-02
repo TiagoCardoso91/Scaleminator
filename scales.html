@@ -459,7 +459,7 @@
 		.neck-layout {
 			display: grid;
 			min-width: var(--neck-min-width);
-			grid-template-columns: 40px 48px 1fr;
+			grid-template-columns: 48px 48px 1fr;
 			grid-template-rows: var(--neck-row-template);
 			column-gap: 8px;
 		}
@@ -507,6 +507,33 @@
 			font-size: var(--label-font-size);
 			font-weight: 700;
 		}
+
+		/* String letters are dropdowns: a rounded box, no arrow, letter aligned left. */
+		.string-note-select {
+			display: block;
+			width: 100%;
+			min-width: 0;
+			height: min(30px, 90%);
+			padding: 0 2px 0 5px;
+			border: 1px solid var(--border);
+			border-left: 3px solid var(--pink);
+			border-radius: 8px;
+			background: var(--surface);
+			box-shadow: 0 1px 2px rgba(44,35,24,.12);
+			color: var(--ink);
+			font: inherit;
+			font-size: .85em;
+			line-height: 1;
+			text-align: left;
+			text-align-last: left;
+			cursor: pointer;
+			-webkit-appearance: none;
+			appearance: none;
+		}
+		.string-note-select:hover { border-color: var(--pink); }
+		.string-note-select:focus-visible { outline: 2px solid #286d7d; outline-offset: 1px; }
+		.string-note-select option { background: var(--surface); color: var(--ink); }
+		body[data-theme="night"] .string-labels { color: #d8dcd2; }
 
 		.open-strings {
 			grid-column: 2;
@@ -693,10 +720,12 @@
 			.mobile-controls-drawer[open] .mobile-controls-panel { transform: none; visibility: visible; }
 			.neck-scroll { order: 1; overflow-x: hidden; padding-bottom: 12px; }
 			.notes-row { order: 2; gap: 10px 16px; margin-bottom: 12px; }
+			/* Narrow label column: thinner padding so the letter has room. */
+			.string-note-select { padding: 0 1px 0 3px; border-left-width: 2px; border-radius: 6px; font-size: 1em; }
 			.fret-range-slider input[type="range"]::-webkit-slider-thumb { width: 22px; height: 22px; margin-top: -9px; }
 			.fret-range-slider input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; }
 			.fret-range-track { right: 11px; left: 11px; }
-			.neck-layout { width: 100%; min-width: 0; grid-template-columns: 23px 28px minmax(0, 1fr); grid-template-rows: 22px 210px 20px; column-gap: 4px; }
+			.neck-layout { width: 100%; min-width: 0; grid-template-columns: 30px 28px minmax(0, 1fr); grid-template-rows: 22px 210px 20px; column-gap: 4px; }
 			.fret-numbers,
 			.fretboard,
 			.position-markers { grid-template-columns: repeat(12, minmax(0, 1fr)); }
@@ -783,7 +812,7 @@
 			.scale-notes strong { width: 19px; font-size: 9px; }
 			.blue-note-tag { padding-left: 3px; font-size: 8px; }
 			.neck-scroll { overflow-x: hidden; padding-bottom: 2px; }
-			.neck-layout { width: 100%; min-width: 0; grid-template-columns: 24px 30px minmax(0, 1fr); grid-template-rows: 17px 180px 17px; column-gap: 4px; }
+			.neck-layout { width: 100%; min-width: 0; grid-template-columns: 30px 30px minmax(0, 1fr); grid-template-rows: 17px 180px 17px; column-gap: 4px; }
 			.neck-layout { --fret-number-size: 12px; --inlay-size: 9px; }
 			.string-labels { font-size: 12px; }
 			.open-cell { width: 30px; }
@@ -795,7 +824,7 @@
 		}
 
 		@media (max-width: 700px) and (orientation: landscape), (max-height: 420px), (pointer: coarse) and (orientation: landscape) {
-			.neck-layout { grid-template-columns: 21px 25px minmax(0, 1fr); grid-template-rows: 15px 150px 15px; column-gap: 3px; --fret-number-size: 11px; --inlay-size: 8px; }
+			.neck-layout { grid-template-columns: 28px 25px minmax(0, 1fr); grid-template-rows: 15px 150px 15px; column-gap: 3px; --fret-number-size: 11px; --inlay-size: 8px; }
 			.open-cell { width: 25px; }
 			.note { width: min(23px, calc(100% - 2px)); border-width: 2px; }
 			.note strong { font-size: 8px; }
@@ -902,9 +931,7 @@
 			<div class="neck-layout">
 				<div class="open-fret-number" id="open-fret-number" aria-hidden="true">0</div>
 				<div class="fret-numbers" id="fret-numbers" aria-hidden="true"></div>
-				<div class="string-labels" id="string-labels" aria-hidden="true">
-					<span>e</span><span>B</span><span>G</span><span>D</span><span>A</span><span>E</span>
-				</div>
+				<div class="string-labels" id="string-labels" aria-label="Open string notes"></div>
 				<div class="open-strings" id="open-strings" aria-label="Open-string notes"></div>
 				<div class="fretboard" id="fretboard" role="img" aria-label="E minor pentatonic notes on a 24-fret guitar neck"></div>
 				<div class="position-markers" id="position-markers" aria-hidden="true"></div>
@@ -924,17 +951,43 @@
 		];
 		const keys = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 		const noteNames = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-		const tunings = {
-			A: ["A", "E", "C", "G", "D", "A"],
-			"Drop A": ["B", "F#", "D", "A", "E", "A"],
-			B: ["B", "F#", "D", "A", "E", "B"],
-			"Drop B": ["C#", "G#", "E", "B", "F#", "B"],
-			C: ["C", "G", "D#", "A#", "F", "C"],
-			"Drop C": ["D", "A", "F", "C", "G", "C"],
-			D: ["D", "A", "F", "C", "G", "D"],
-			"Drop D": ["E", "B", "G", "D", "A", "D"],
-			E: ["E", "B", "G", "D", "A", "E"]
+		// Notes go from the high string (top row) to the low string (bottom row).
+		const tuningGroups = {
+			standard: "Standard",
+			drop: "Drop tunings",
+			open: "Open tunings",
+			other: "Other tunings"
 		};
+		const tunings = {
+			"e-standard": { label: "E standard", group: "standard", notes: ["E", "B", "G", "D", "A", "E"] },
+			"d-sharp-standard": { label: "Eb standard (half step down)", group: "standard", notes: ["D#", "A#", "F#", "C#", "G#", "D#"] },
+			"d-standard": { label: "D standard", group: "standard", notes: ["D", "A", "F", "C", "G", "D"] },
+			"c-sharp-standard": { label: "C# standard", group: "standard", notes: ["C#", "G#", "E", "B", "F#", "C#"] },
+			"c-standard": { label: "C standard", group: "standard", notes: ["C", "G", "D#", "A#", "F", "C"] },
+			"b-standard": { label: "B standard", group: "standard", notes: ["B", "F#", "D", "A", "E", "B"] },
+			"a-standard": { label: "A standard", group: "standard", notes: ["A", "E", "C", "G", "D", "A"] },
+			"drop-d": { label: "Drop D", group: "drop", notes: ["E", "B", "G", "D", "A", "D"] },
+			"drop-c-sharp": { label: "Drop C#", group: "drop", notes: ["D#", "A#", "F#", "C#", "G#", "C#"] },
+			"drop-c": { label: "Drop C", group: "drop", notes: ["D", "A", "F", "C", "G", "C"] },
+			"drop-b": { label: "Drop B", group: "drop", notes: ["C#", "G#", "E", "B", "F#", "B"] },
+			"drop-a": { label: "Drop A", group: "drop", notes: ["B", "F#", "D", "A", "E", "A"] },
+			"open-g": { label: "Open G", group: "open", notes: ["D", "B", "G", "D", "G", "D"] },
+			"open-d": { label: "Open D", group: "open", notes: ["D", "A", "F#", "D", "A", "D"] },
+			"open-e": { label: "Open E", group: "open", notes: ["E", "B", "G#", "E", "B", "E"] },
+			"open-c": { label: "Open C", group: "open", notes: ["E", "C", "G", "C", "G", "C"] },
+			"open-a": { label: "Open A", group: "open", notes: ["E", "C#", "A", "E", "A", "E"] },
+			dadgad: { label: "DADGAD", group: "other", notes: ["D", "A", "G", "D", "A", "D"] },
+			"double-drop-d": { label: "Double drop D", group: "other", notes: ["D", "B", "G", "D", "A", "D"] },
+			"all-fourths": { label: "All fourths", group: "other", notes: ["F", "C", "G", "D", "A", "E"] },
+			"new-standard": { label: "New standard (CGDAEG)", group: "other", notes: ["G", "E", "A", "D", "G", "C"] }
+		};
+		// The open-string notes from low to high, e.g. "D A D G B E".
+		function tuningNotesLowToHigh() {
+			return strings.map(string => string.note).reverse().join(" ");
+		}
+		function tuningDisplayName() {
+			return selectedTuning === "custom" ? `Custom: ${tuningNotesLowToHigh()}` : tunings[selectedTuning].label;
+		}
 		const scaleFamilies = {
 			pentatonic: {
 				label: "Pentatonic",
@@ -1137,8 +1190,8 @@
 		let selectedScale = "minor";
 		let openMenuFamily = "pentatonic";
 		let openPentatonicGroup = "common";
-		let selectedTuning = "E";
-		let openTuningGroup = "standards";
+		let selectedTuning = "e-standard";
+		let openTuningGroup = "standard";
 		let noteStates = new Map();
 		// Red is reserved for the root. Stack for the other notes: yellow, pink, green, orange, purple, grey, brown.
 		const rootFocusColor = "#e93333";
@@ -1320,15 +1373,45 @@
 			setFretRange(fretRange.start, Number(fretRangeEnd.value), "end");
 		});
 
-		function updateTuning(resetNoteStates = true) {
-			const tuningName = selectedTuning;
-			const tuningNotes = tunings[tuningName];
+		// One dropdown per string to pick its open note.
+		function buildStringSelects() {
+			stringLabels.replaceChildren();
 			strings.forEach((string, index) => {
-				string.note = tuningNotes[index];
-				string.pitch = noteNames.indexOf(string.note);
-				stringLabels.children[index].textContent = string.note;
+				const select = document.createElement("select");
+				select.className = "string-note-select";
+				select.dataset.stringIndex = index;
+				select.setAttribute("aria-label", `Open note of string ${index + 1}`);
+				// Listed from A to G#.
+				[...noteNames.slice(9), ...noteNames.slice(0, 9)].forEach(note => select.add(new Option(note, note)));
+				stringLabels.append(select);
 			});
-			selectedTuningLabel.textContent = `${tuningName} ${tuningName.startsWith("Drop") ? "drop" : "standard"}`;
+		}
+
+		stringLabels.addEventListener("change", event => {
+			const select = event.target.closest(".string-note-select");
+			if (!select) return;
+			strings[Number(select.dataset.stringIndex)].note = select.value;
+			// A known tuning if the notes match one, otherwise custom.
+			const notes = strings.map(string => string.note).join();
+			selectedTuning = Object.keys(tunings).find(id => tunings[id].notes.join() === notes) || "custom";
+			applyTuning(false);
+		});
+
+		// Load the notes of the selected tuning into the strings, then redraw.
+		function updateTuning(resetNoteStates = true) {
+			const tuning = tunings[selectedTuning];
+			if (tuning) strings.forEach((string, index) => { string.note = tuning.notes[index]; });
+			applyTuning(resetNoteStates);
+		}
+
+		function applyTuning(resetNoteStates) {
+			strings.forEach((string, index) => {
+				string.pitch = noteNames.indexOf(string.note);
+				stringLabels.children[index].value = string.note;
+			});
+			selectedTuningLabel.textContent = tuningDisplayName();
+			if (tunings[selectedTuning]) openTuningGroup = tunings[selectedTuning].group;
+			populateTunings();
 			notePositions.forEach(cell => {
 				const string = strings[Number(cell.dataset.stringIndex)];
 				const fret = Number(cell.dataset.fret || 0);
@@ -1339,29 +1422,30 @@
 		}
 
 		function populateTunings() {
-			const groups = {
-				standards: { label: "Standards", tunings: ["A", "B", "C", "D", "E"] },
-				drops: { label: "Drop tunings", tunings: ["Drop A", "Drop B", "Drop C", "Drop D"] }
-			};
 			tuningFamilyList.replaceChildren();
-			Object.entries(groups).forEach(([groupKey, group]) => {
+			Object.entries(tuningGroups).forEach(([groupKey, label]) => {
 				const button = document.createElement("button");
 				button.type = "button";
 				button.className = "scale-family-button";
 				button.dataset.tuningGroup = groupKey;
 				button.setAttribute("aria-expanded", String(groupKey === openTuningGroup));
-				button.textContent = group.label;
+				button.textContent = label;
 				tuningFamilyList.append(button);
 			});
 
 			tuningSubmenu.replaceChildren();
-			groups[openTuningGroup].tunings.forEach(tuning => {
+			Object.entries(tunings).filter(([, tuning]) => tuning.group === openTuningGroup).forEach(([id, tuning]) => {
 				const button = document.createElement("button");
 				button.type = "button";
-				button.className = "scale-option";
-				button.dataset.tuning = tuning;
-				button.setAttribute("aria-pressed", String(tuning === selectedTuning));
-				button.textContent = `${tuning} ${tuning.startsWith("Drop") ? "drop" : "standard"}`;
+				button.className = "scale-option has-description";
+				button.dataset.tuning = id;
+				button.setAttribute("aria-pressed", String(id === selectedTuning));
+				const name = document.createElement("span");
+				name.textContent = tuning.label;
+				const notes = document.createElement("span");
+				notes.className = "scale-option-description";
+				notes.textContent = [...tuning.notes].reverse().join(" ");
+				button.append(name, notes);
 				tuningSubmenu.append(button);
 			});
 		}
@@ -1446,7 +1530,7 @@
 					const scale = new Map(tones.map(tone => [tone.pitch, tone]));
 
 					const titleWithoutTuning = `${key} ${family.label} ${definition.name}`;
-					const tuningTitle = selectedTuning.startsWith("Drop") ? selectedTuning : `${selectedTuning} standard`;
+					const tuningTitle = tuningDisplayName();
 					scaleTitleMain.textContent = titleWithoutTuning;
 					scaleTitleTuning.textContent = `(${tuningTitle})`;
 					mobileScaleTitle.textContent = titleWithoutTuning;
@@ -1591,6 +1675,7 @@
 			themeToggle.innerHTML = `<span aria-hidden="true">${isNight ? "☀" : "☾"}</span> ${isNight ? "Day mode" : "Night mode"}`;
 		});
 		populateScales();
+		buildStringSelects();
 		populateTunings();
 		buildFretboard();
 		renderFretRange();

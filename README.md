@@ -14,7 +14,12 @@ It's a single HTML file with no build step and no dependencies: open `scales.htm
   - Hexatonic, symmetric, synthetic & Messiaen
   - European & Mediterranean, Indian & Middle Eastern
 - **Every root key**, from A to G#.
-- **Tunings:** A, B, C, D and E standard, plus Drop A, B, C and D.
+- **21 tunings**, with E standard as the default:
+  - Standard: E, Eb, D, C#, C, B and A
+  - Drop: Drop D, C#, C, B and A
+  - Open: Open G, D, E, C and A
+  - Other: DADGAD, double drop D, all fourths and new standard
+- **Custom tunings:** each string's letter is a dropdown, so you can change the open note of any string. If the result matches a known tuning, it takes that tuning's name.
 - **24-fret neck** with open strings, fret numbers, and inlay dots both on the wood and below it.
 - **Fret range picker:** show any part of the neck, from 0–24 down to a single fret.
 - **Three states for each scale note.** Click a note to cycle through them:
