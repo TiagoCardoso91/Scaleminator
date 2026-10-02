@@ -1,51 +1,131 @@
-# Scaleminator
+# 🎸 Scaleminator
 
-An interactive fretboard for guitar, bass, cavaquinho and other string instruments. It shows where every note of a scale falls on the neck. Pick a root, a scale and a tuning, then highlight the notes you want to focus on.
+**An interactive fretboard for guitar, bass, cavaquinho and other string instruments.**
+Pick a root, a scale and a tuning, and see every note on the neck. Or switch to chords and walk through the harmony of a scale one chord at a time.
 
-It's a single HTML file with no build step and no dependencies: open `scales.html` in a browser and play.
+> 📄 One HTML file. No build step, no install, no dependencies. Open `scales.html` and play.
 
-## Features
+![Scaleminator showing E minor pentatonic on a 24-fret guitar neck](docs/screenshots/hero.png)
 
-- **97 scales, each with unique intervals.** No duplicates under different names. They're grouped into small families so the menu stays easy to browse:
-  - Pentatonic (Common, Japanese, Indian, Other)
-  - Blues & bebop
-  - Diatonic modes, harmonic minor modes, melodic minor modes
-  - Harmonic major modes, double harmonic modes
-  - Hexatonic, symmetric, synthetic & Messiaen
-  - European & Mediterranean, Indian & Middle Eastern
-- **Every root key**, from A to G#.
-- **3 to 8 strings:** pick the number of strings, or pick a tuning and the neck adjusts to its number of strings.
-- **Tunings for many instruments**, with guitar E standard as the default:
-  - Guitar (6 strings), 21 tunings in four groups:
-    - Standard: E, Eb, D, C#, C, B and A
-    - Drop: Drop D, C#, C, B and A
-    - Open: Open G, D, E, C and A
-    - Other: DADGAD, double drop D, all fourths and new standard
-  - Guitar (7 and 8 strings)
-  - Portuguese guitar (Lisboa and Coimbra)
-  - Bass (4, 5 and 6 strings)
-  - Cavaquinho, ukulele, mandolin/bandolim
-  - Violin family, balalaika and cigar box guitar
-- **Custom tunings:** each string's letter is a dropdown, so you can change the open note of any string. If the result matches a known tuning, it takes that tuning's name.
-- **A neck as long as the instrument's:** up to 24 frets on guitar and bass, 22 on Portuguese guitar, 20 on mandolin and cigar box, 19 on balalaika, 18 on ukulele and 17 on cavaquinho. It shows open strings, fret numbers, and inlay dots both on the wood and below it.
-- **Fret range picker:** show any part of the neck, from the whole neck down to a single fret.
-- **Three states for each scale note.** Click a note to cycle through them:
-  - **Focused:** highlighted in colour. The root is always red. Other notes take colours from a stack (yellow, pink, green, orange, purple, grey, brown) in the order you focus them. Unfocusing a note frees its colour.
-  - **Showing:** a plain dark note.
-  - **Hidden:** the note is removed from the neck.
-- **Blue notes:** the optional ♭5 (minor pentatonic) and ♭3 (major pentatonic) can be switched on and show in blue.
-- **Night mode.**
-- **Responsive layout:**
-  - On large screens the full 24-fret neck is shown.
-  - On smaller screens and phones, a compact mode shows up to 12 frets at a time without horizontal scrolling. The controls move into a side drawer.
+---
 
-## Usage
+## ✨ Features at a glance
 
-1. Clone or download the repository.
+| | |
+|---|---|
+| 🎼 **97 scales** | Every one has its own set of intervals, with no duplicates under different names |
+| 🎹 **Chord mode** | Triads and 7th chords for 35 chord scales |
+| 🪕 **13 instruments** | 3 to 8 strings, with tunings for each one |
+| 🎨 **Colour-coded notes** | Focus, show or hide each note |
+| 📏 **Fret range** | Show the whole neck or just a few frets |
+| 🌙 **Night mode** | Easy on the eyes on stage or late at night |
+| 📱 **Responsive** | Works on desktop, tablet and phone |
+
+---
+
+## 🎛️ The controls
+
+![Control bar](docs/screenshots/controls.png)
+
+1. **Strings:** 3 to 8. The neck redraws itself to match.
+2. **Tuning:** grouped by instrument. Each string's letter on the left of the neck is also a dropdown, so you can make a custom tuning.
+3. **Root key:** any key from A to G#.
+4. **Show:** switch between **Notes** (scale notes) and **Chords** (the chords of a scale).
+5. **Scale / Chord scale:** a menu grouped into families.
+
+---
+
+## 🎼 Notes mode
+
+Each note of the scale is a button. **Click a note to cycle it through three states:**
+
+- 🔴 **Focused:** highlighted in colour. The root is always **red**. The other notes take colours in the order you focus them: 🟡 yellow → 🟢 green → 🩷 pink → 🟠 orange → 🟣 purple → ⚪ grey → 🟤 brown.
+- ⚫ **Showing:** a plain dark note.
+- 🫥 **Hidden:** the note is removed from the neck.
+
+🔵 **Blue notes:** the optional ♭5 (minor pentatonic) and ♭3 (major pentatonic) can be switched on, and they show in blue.
+
+Each note on the neck shows its **name** and its **scale degree** (1, ♭3, 5…).
+
+<details>
+<summary><b>📚 All scale families</b></summary>
+
+- Pentatonic (Common, Japanese, Indian, Other)
+- Blues & bebop
+- Diatonic modes · Harmonic minor modes · Melodic minor modes
+- Harmonic major modes · Double harmonic modes
+- Hexatonic · Symmetric · Synthetic & Messiaen
+- European & Mediterranean · Indian & Middle Eastern
+
+</details>
+
+---
+
+## 🎹 Chords mode
+
+Set **Show → Chords** and the buttons become the **chords of the scale**, labelled with Roman numerals (I, ii, iii, IV…).
+
+- 👆 **One chord at a time:** click a chord to show it. The active button turns red.
+- 🎯 **Only the chord tones** appear on the neck: the chord's root in 🔴 red, the 3rd in 🟡 yellow, the 5th in 🟢 green and the 7th in 🩷 pink.
+- 🔢 Each note is labelled with its **interval in the chord** (1, ♭3, 5, ♭7).
+
+![Chords mode: D major (IV) in A major](docs/screenshots/chords.png)
+
+The **Chord scale** menu has a **Triads / 7th chords** toggle. Under each mode you can see the chords it gives in your key before you pick it.
+
+Chord scale families: diatonic modes, harmonic minor, melodic minor, harmonic major and double harmonic.
+
+<table>
+<tr>
+<td width="50%"><img src="docs/screenshots/chord-menu.png" alt="Chord scale menu with 7th chords"></td>
+<td width="50%"><img src="docs/screenshots/tuning-menu.png" alt="Tuning menu showing drop tunings"></td>
+</tr>
+<tr>
+<td align="center"><sub>🎹 Chord scale menu, with chord previews</sub></td>
+<td align="center"><sub>🎸 Tuning menu, grouped by instrument</sub></td>
+</tr>
+</table>
+
+---
+
+## 🪕 Instruments & tunings
+
+| Instrument | Frets | Tunings |
+|---|:---:|---|
+| 🎸 Guitar (6 strings) | 24 | **Standard:** E, Eb, D, C#, C, B, A · **Drop:** D, C#, C, B, A · **Open:** G, D, E, C, A · **Other:** DADGAD, double drop D, all fourths, new standard |
+| 🎸 Guitar (7 / 8 strings) | 24 | B standard, Drop A, A standard, Russian · F# standard, Drop E, F standard |
+| 🇵🇹 Portuguese guitar | 22 | Lisboa, Coimbra |
+| 🎸 Bass (4 / 5 / 6 strings) | 24 | E standard, Drop D, D standard, BEAD, high C… |
+| 🪕 Cavaquinho | 17 | Natural, Coimbra, Sol-Sol-Si-Ré, Maia / Barcelos, Lá-Lá-Dó#-Mi |
+| 🌺 Ukulele | 18 | Standard (GCEA), D tuning, Baritone |
+| 🎻 Mandolin · Violin family | 20 · 24 | GDAE, Mandola / Viola / Cello (CGDA) |
+| 🔺 Balalaika · 📦 Cigar box | 19 · 20 | Prima (EEA) · Open G, Open D |
+
+✏️ **Custom tunings:** change any string's open note. If the result matches a known tuning, it takes that tuning's name.
+
+---
+
+## 🌙 Night mode
+
+![Night mode, A major 7th chords](docs/screenshots/night.png)
+
+---
+
+## 📱 On your phone
+
+On smaller screens, a compact layout shows up to 12 frets at a time, with no sideways scrolling. The controls move into a side drawer (☰).
+
+<p align="center"><img src="docs/screenshots/mobile.png" alt="Compact phone layout and controls drawer" width="560"></p>
+
+---
+
+## 🚀 Usage
+
+1. Clone or download this repository.
 2. Open `scales.html` in any modern browser.
 
-No server or installation needed. Fonts are loaded from Google Fonts. Without a connection the page still works, using fallback fonts.
+That's it. 🎉 Fonts load from Google Fonts. Offline, the page still works with fallback fonts.
 
-## Built with
+## 🛠️ Built with
 
-Plain HTML, CSS and JavaScript.
+Plain **HTML**, **CSS** and **JavaScript**. No frameworks.
