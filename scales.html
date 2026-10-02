@@ -1,0 +1,1602 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>E minor pentatonic | Guitar fretboard</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400;500;600;700&family=Nunito+Sans:wght@400;600;700;800&family=Ribeye+Marrow&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			color-scheme: light;
+			--ink: #202721;
+			--muted: #68736b;
+			--paper: #d7d7d7;
+			--surface: #fffdf5;
+			--surface-soft: rgba(255,255,255,.5);
+			--border: rgba(32,39,33,.22);
+			--wood: #a96b42;
+			--wood-light: #ba8055;
+			--wood-dark: #76472f;
+			--gold: #f0cb70;
+			--line: rgba(51, 31, 22, .78);
+			--pink: #d65c91;
+			--neck-min-width: 1306px;
+			--neck-row-template: 30px 258px 30px;
+			--note-size: 39px;
+			--note-font-size: 13px;
+			--note-small-size: 9px;
+			--label-font-size: 17px;
+		}
+
+		body[data-theme="night"] {
+			color-scheme: dark;
+			--ink: #f0eadf;
+			--muted: #b4b8ae;
+			--paper: #202725;
+			--surface: #303936;
+			--surface-soft: rgba(48,57,54,.85);
+			--border: rgba(232,235,220,.2);
+			--wood: #68452f;
+			--wood-light: #7d583f;
+			--wood-dark: #3f3028;
+		}
+
+		body[data-theme="night"] {
+			background:
+				radial-gradient(ellipse at 8% 4%, rgba(104,116,105,.16), transparent 40%),
+				repeating-linear-gradient(0deg, transparent 0 39px, rgba(220,230,215,.025) 40px),
+				var(--paper);
+		}
+
+		* { box-sizing: border-box; }
+
+		body {
+			display: flex;
+			min-height: 100vh;
+			min-height: 100svh;
+			flex-direction: column;
+			margin: 0;
+			min-width: 320px;
+			background:
+				radial-gradient(ellipse at 8% 4%, rgba(255,255,255,.8), transparent 40%),
+				repeating-linear-gradient(0deg, transparent 0 39px, rgba(58,67,53,.035) 40px),
+				var(--paper);
+			color: var(--ink);
+			font-family: "Nunito Sans", "Segoe UI", sans-serif;
+			transition: background-color .2s ease, color .2s ease;
+		}
+
+		main {
+			flex: 1;
+			width: min(100%, 2000px);
+			margin: 0 auto;
+			padding: 48px clamp(18px, 4vw, 58px) 40px;
+		}
+		
+		@media screen and (min-width: 1800px) and (min-height: 721px) {
+			:root:not([data-view="compact"]) {
+				--neck-min-width: 100%;
+				--neck-row-template: 40px 380px 40px;
+				--note-size: 54px;
+				--note-font-size: 18px;
+				--note-small-size: 11px;
+				--label-font-size: 24px;
+				--fret-number-size: 20px;
+				--inlay-size: 20px;
+			}
+		}
+
+		body[data-view="compact"] {
+			--neck-min-width: 100%;
+			--neck-row-template: 24px 180px 24px;
+			--note-size: 26px;
+			--note-font-size: 10px;
+			--note-small-size: 0px;
+			--label-font-size: 13px;
+		}
+		body[data-view="compact"] .note small { display: none; }
+
+		.mobile-controls-drawer,
+		.mobile-topbar { display: none; }
+
+		.eyebrow {
+			margin: 0 0 12px;
+			color: #a45e37;
+			font-size: 12px;
+			font-weight: 800;
+			letter-spacing: .12em;
+			text-transform: uppercase;
+		}
+
+		h1 {
+			margin: 0;
+			font-family: "Ribeye Marrow", Georgia, serif;
+			font-size: 56px;
+			font-weight: 400;
+			line-height: 1.05;
+		}
+
+		.page-heading { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 18px; }
+		.page-heading h1 { display: flex; min-width: 0; flex-wrap: wrap; align-items: baseline; column-gap: .28em; row-gap: 4px; }
+		.title-main { min-width: 0; }
+		.title-tuning { flex: 0 0 auto; white-space: nowrap; font-family: inherit; font-size: .5em; font-weight: 400; }
+		.page-tools { display: flex; flex: 0 0 auto; justify-content: flex-end; }
+		#theme-toggle {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			padding: 8px 11px;
+			border: 1px solid var(--border);
+			border-radius: 3px;
+			background: var(--surface);
+			color: var(--ink);
+			font: inherit;
+			font-weight: 800;
+			cursor: pointer;
+		}
+		#theme-toggle:hover { border-color: var(--pink); }
+
+		.key-control {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			gap: 12px;
+			margin: 0 0 20px;
+		}
+
+		.key-control label {
+			color: var(--muted);
+			font-size: 13px;
+			font-weight: 700;
+		}
+
+		.key-control select {
+			min-width: 92px;
+			padding: 8px 30px 8px 11px;
+			border: 1px solid rgba(32,39,33,.25);
+			border-radius: 3px;
+			background: var(--surface);
+			color: var(--ink);
+			font: inherit;
+			font-weight: 700;
+		}
+
+		.scale-menu {
+			position: relative;
+		}
+
+		.scale-menu > summary {
+			display: flex;
+			min-width: 190px;
+			align-items: center;
+			justify-content: space-between;
+			gap: 18px;
+			padding: 8px 11px;
+			border: 1px solid var(--border);
+			border-left: 4px solid var(--pink);
+			border-radius: 3px;
+			background: var(--surface);
+			color: var(--ink);
+			font-size: 14px;
+			font-weight: 700;
+			list-style: none;
+			cursor: pointer;
+		}
+
+		.scale-menu > summary::-webkit-details-marker { display: none; }
+		.scale-menu > summary::after { content: "▾"; color: var(--muted); font-size: 12px; }
+
+		.scale-menu-panel {
+			position: absolute;
+			z-index: 10;
+			top: calc(100% + 6px);
+			left: 0;
+			display: grid;
+			width: min(430px, calc(100vw - 36px));
+			grid-template-columns: minmax(145px, .8fr) minmax(180px, 1.2fr);
+			height: min(70vh, 560px);
+			min-height: 220px;
+			grid-template-rows: minmax(0, 1fr);
+			overflow: hidden;
+			border: 1px solid rgba(32,39,33,.22);
+			border-radius: 3px;
+			background: var(--surface);
+			box-shadow: 0 12px 28px rgba(44,35,24,.2);
+		}
+
+		.scale-family-list,
+		.scale-submenu {
+			display: grid;
+			align-content: start;
+			gap: 3px;
+			min-width: 0;
+			min-height: 0;
+			padding: 7px;
+			overflow-y: auto;
+			overscroll-behavior: contain;
+			-webkit-overflow-scrolling: touch;
+		}
+
+		.scale-submenu { grid-auto-rows: max-content; }
+		.pentatonic-groups { display: flex; flex-wrap: wrap; gap: 4px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+		.pentatonic-group-button { min-height: 36px; padding: 6px 8px; border: 1px solid var(--border); border-radius: 3px; background: transparent; color: var(--ink); font: inherit; font-size: 12px; cursor: pointer; }
+		.pentatonic-group-button[aria-pressed="true"],
+		.pentatonic-group-button:hover { background: #e9e5d9; }
+		body[data-theme="night"] .pentatonic-group-button[aria-pressed="true"],
+		body[data-theme="night"] .pentatonic-group-button:hover { background: #47514b; }
+
+		.scale-family-list { border-right: 1px solid rgba(32,39,33,.13); }
+		body[data-theme="night"] .scale-family-list { border-color: var(--border); }
+
+		.scale-family-button,
+		.scale-option {
+			width: 100%;
+			min-height: 40px;
+			padding: 9px 8px;
+			border: 0;
+			border-radius: 2px;
+			background: transparent;
+			color: var(--ink);
+			font: inherit;
+			font-size: 13px;
+			text-align: left;
+			cursor: pointer;
+		}
+
+		.scale-option.has-description {
+			display: grid;
+			align-content: center;
+			gap: 2px;
+		}
+
+		.scale-option-description {
+			color: var(--muted);
+			font-size: 11px;
+			font-weight: 400;
+			line-height: 1.25;
+		}
+
+		.scale-family-button::after { float: right; content: "›"; color: var(--muted); }
+		.scale-family-button[aria-expanded="true"],
+		.scale-family-button:hover,
+		.scale-option:hover,
+		.scale-option[aria-pressed="true"] { background: #e9e5d9; }
+		body[data-theme="night"] .scale-family-button[aria-expanded="true"],
+		body[data-theme="night"] .scale-family-button:hover,
+		body[data-theme="night"] .scale-option:hover,
+		body[data-theme="night"] .scale-option[aria-pressed="true"] { background: #47514b; }
+
+		.scale-menu button:focus-visible,
+		.scale-menu > summary:focus-visible {
+			outline: 2px solid #286d7d;
+			outline-offset: 1px;
+		}
+
+		.control-group {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.intro {
+			max-width: 620px;
+			margin: 14px 0 30px;
+			color: var(--muted);
+			font-size: 16px;
+			line-height: 1.6;
+		}
+
+		.scale-notes {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 9px;
+			margin: 0 0 26px;
+			padding: 0;
+			list-style: none;
+		}
+
+		/* Note buttons and the fret range picker share one row. */
+		.notes-row {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			gap: 12px 24px;
+			margin: 0 0 26px;
+		}
+		.notes-row .scale-notes { margin: 0; }
+
+		.fret-range {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			margin-left: auto;
+			color: var(--muted);
+			font-size: 13px;
+			font-weight: 700;
+			white-space: nowrap;
+		}
+		.fret-range output {
+			display: inline-block;
+			min-width: 3.6em;
+			color: var(--ink);
+			font-family: "DynaPuff", sans-serif;
+		}
+		.fret-range-slider {
+			position: relative;
+			width: 200px;
+			height: 28px;
+		}
+		.fret-range-track {
+			position: absolute;
+			top: 50%;
+			right: 9px;
+			left: 9px;
+			height: 4px;
+			border-radius: 2px;
+			background: var(--border);
+			transform: translateY(-50%);
+		}
+		.fret-range-fill {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			border-radius: 2px;
+			background: var(--pink);
+		}
+		.fret-range-slider input[type="range"] {
+			position: absolute;
+			z-index: 1;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			background: none;
+			pointer-events: none;
+			-webkit-appearance: none;
+			appearance: none;
+		}
+		.fret-range-slider input[type="range"]::-webkit-slider-runnable-track { height: 4px; background: transparent; }
+		.fret-range-slider input[type="range"]::-moz-range-track { background: transparent; }
+		.fret-range-slider input[type="range"]::-webkit-slider-thumb {
+			width: 18px;
+			height: 18px;
+			margin-top: -7px;
+			border: 2px solid var(--pink);
+			border-radius: 50%;
+			background: var(--surface);
+			cursor: pointer;
+			pointer-events: auto;
+			-webkit-appearance: none;
+		}
+		.fret-range-slider input[type="range"]::-moz-range-thumb {
+			width: 14px;
+			height: 14px;
+			border: 2px solid var(--pink);
+			border-radius: 50%;
+			background: var(--surface);
+			cursor: pointer;
+			pointer-events: auto;
+		}
+		.fret-range-slider input[type="range"]:focus-visible::-webkit-slider-thumb { outline: 2px solid #286d7d; outline-offset: 2px; }
+		.fret-range-slider input[type="range"]:focus-visible::-moz-range-thumb { outline: 2px solid #286d7d; outline-offset: 2px; }
+
+		.scale-note-button {
+			display: flex;
+			min-height: 40px;
+			align-items: center;
+			gap: 8px;
+			padding: 6px 10px 6px 7px;
+			border: 1px solid var(--border);
+			border-radius: 3px;
+			background: var(--surface-soft);
+			color: #59635b;
+			font: inherit;
+			font-size: 13px;
+			cursor: pointer;
+		}
+
+		.scale-note-button:hover { border-color: rgba(32,39,33,.4); }
+		.scale-note-button:focus-visible { outline: 2px solid #286d7d; outline-offset: 2px; }
+
+		.scale-notes strong {
+			display: grid;
+			width: 24px;
+			aspect-ratio: 1;
+			place-items: center;
+			border-radius: 50%;
+			background: #313a32;
+			color: #fff9e8;
+			font-family: "DynaPuff", sans-serif;
+			font-size: 11px;
+		}
+
+		.scale-note-button[data-state="focused"] { border-color: var(--focus-color); background: color-mix(in srgb, var(--focus-color) 13%, white); }
+		.scale-note-button[data-state="focused"] strong { background: var(--focus-color); color: var(--focus-ink); }
+		.scale-note-button[data-state="invisible"] { opacity: .55; }
+		body[data-theme="night"] .scale-note-button[data-state="focused"] {
+			border-color: color-mix(in srgb, var(--focus-color) 78%, white);
+			background: color-mix(in srgb, var(--focus-color) 24%, #202725);
+			color: #f5f1e8;
+		}
+		body[data-theme="night"] .scale-note-button[data-state="focused"] strong { background: var(--focus-color); color: var(--focus-ink); }
+		body[data-theme="night"] .scale-note-button[data-state="showing"] { border-color: #7b8981; background: #303936; color: #e8eee8; }
+		body[data-theme="night"] .scale-note-button[data-state="showing"] strong { background: #424d47; color: #f2f3ea; }
+		body[data-theme="night"] .scale-note-button[data-state="invisible"] { border: 1px dashed #66716c; background: #242b28; color: #8b9890; opacity: 1; }
+		body[data-theme="night"] .scale-note-button[data-state="invisible"] strong { background: #343d38; color: #a8b0aa; }
+		.scale-note-button[data-blue="true"] {
+			min-width: 112px;
+			border-color: #0b4d68;
+			background: #176d91;
+			color: #fff;
+		}
+		.scale-note-entry { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; }
+		.blue-note-tag {
+			padding-left: 4px;
+			color: #075777;
+			font-size: 10px;
+			font-weight: 900;
+			letter-spacing: .07em;
+		}
+		.scale-note-button[data-blue="true"] strong { background: #313a32; }
+		.scale-note-button[data-blue="true"][data-state="focused"] { border-color: #0b4d68; background: #125775; }
+		.scale-note-button[data-blue="true"][data-state="focused"] strong { background: var(--focus-color); }
+		.scale-note-button[data-blue="true"][data-state="invisible"] strong { background: #78868b; }
+		body[data-theme="night"] .scale-note-button[data-blue="true"][data-state="invisible"] { border-color: #667b82; background: #25353a; color: #b8c8cb; }
+		body[data-theme="night"] .scale-note-button[data-blue="true"][data-state="invisible"] strong { background: #46575c; color: #d5e0e2; }
+		body[data-theme="night"] .blue-note-tag { color: #73c8ed; }
+		body[data-theme="night"] .scale-note-button[data-blue="true"] { background: #125775; color: #fff; }
+
+		.neck-scroll {
+			overflow-x: auto;
+			padding: 0 0 12px;
+			scrollbar-color: #a98869 #e2ded2;
+			-webkit-overflow-scrolling: touch;
+			touch-action: pan-x pan-y;
+		}
+
+		.neck-layout {
+			display: grid;
+			min-width: var(--neck-min-width);
+			grid-template-columns: 40px 48px 1fr;
+			grid-template-rows: var(--neck-row-template);
+			column-gap: 8px;
+		}
+
+		.fret-numbers {
+			grid-column: 3;
+			display: grid;
+			grid-template-columns: repeat(24, minmax(0, 1fr));
+			align-items: center;
+			color: #69736a;
+			font-family: "DynaPuff", sans-serif;
+			font-size: var(--fret-number-size, 16px);
+			font-weight: 700;
+			line-height: 1;
+			text-align: center;
+		}
+
+		/* Fret 0, above the open-string notes. */
+		.open-fret-number {
+			grid-column: 2;
+			grid-row: 1;
+			align-self: center;
+			color: #a45e37;
+			font-family: "DynaPuff", sans-serif;
+			font-size: var(--fret-number-size, 16px);
+			font-weight: 700;
+			line-height: 1;
+			text-align: center;
+		}
+		body[data-theme="night"] .fret-numbers { color: #b4b8ae; }
+		body[data-theme="night"] .open-fret-number { color: #e0915f; }
+
+		/* String labels, open strings and fretboard share the same vertical box
+		   (5px = fretboard 4px padding + 1px border) and the same fixed rows,
+		   so every string row lines up across the three columns. */
+		.string-labels {
+			grid-column: 1;
+			grid-row: 2;
+			display: grid;
+			grid-template-rows: repeat(6, minmax(0, 1fr));
+			padding: 5px 0;
+			align-items: center;
+			color: #59635b;
+			font-family: Georgia, "Times New Roman", serif;
+			font-size: var(--label-font-size);
+			font-weight: 700;
+		}
+
+		.open-strings {
+			grid-column: 2;
+			grid-row: 2;
+			display: grid;
+			grid-template-rows: repeat(6, minmax(0, 1fr));
+			padding: 5px 0;
+			place-items: center;
+		}
+
+		.open-cell {
+			display: grid;
+			width: 48px;
+			place-items: center;
+		}
+
+		.fretboard {
+			grid-column: 3;
+			grid-row: 2;
+			display: grid;
+			grid-template-columns: repeat(24, minmax(0, 1fr));
+			grid-template-rows: repeat(6, minmax(0, 1fr));
+			overflow: visible;
+			border: 1px solid var(--wood-dark);
+			border-left: 5px solid #332b25;
+			border-radius: 2px 5px 5px 2px;
+			background:
+				repeating-linear-gradient(2deg, transparent 0 28px, rgba(79,38,20,.11) 29px, transparent 31px 54px),
+				linear-gradient(100deg, var(--wood-light), var(--wood) 100%);
+			box-shadow: 0 13px 24px rgba(66,48,33,.17), inset 0 1px rgba(255,255,255,.42);
+			position: relative;			
+			padding: 4px 0; 
+		}
+
+		/* When the range doesn't start at fret 0 there is no nut on the left. */
+		.fretboard.no-nut { border-left: 1px solid var(--wood-dark); }
+		/* ...and the fretboard takes over the open-string column. */
+		.neck-layout.no-open .open-strings,
+		.neck-layout.no-open .open-fret-number { display: none; }
+		.neck-layout.no-open .fretboard,
+		.neck-layout.no-open .fret-numbers,
+		.neck-layout.no-open .position-markers { grid-column: 2 / 4; }
+
+		.fretboard::before {
+			position: absolute;
+			z-index: 0;
+			inset: 0;
+			background: radial-gradient(ellipse at 50% 50%, transparent 58%, rgba(72,38,24,.1));
+			content: "";
+			pointer-events: none;
+		}
+
+		.fret-cell {
+			position: relative;
+			z-index: 2;
+			display: grid;
+			min-height: 0;
+			place-items: center;
+		}
+
+		.fret-wire {
+			position: absolute;
+			z-index: 1;
+			top: 0;
+			bottom: 0;
+			left: var(--left);
+			width: 2px;
+			background: var(--line);
+			transform: translateX(-50%);
+			pointer-events: none;
+		}
+
+		.fret-wire.double { width: 4px; }
+
+		.inlay {
+			position: absolute;
+			z-index: 0;
+			width: var(--inlay-size, 15px);
+			aspect-ratio: 1;
+			border-radius: 50%;
+			background: radial-gradient(circle at 35% 30%, #fffaf0, #e6dcc6 55%, #c9bca2);
+			box-shadow: inset 0 0 0 1px rgba(80,55,35,.25), 0 1px 1px rgba(255,255,255,.25);
+			transform: translate(-50%, -50%);
+			pointer-events: none;
+		}
+		body[data-theme="night"] .inlay { opacity: .7; }
+
+		.string-line {
+			position: absolute;
+			z-index: 0;
+			right: 0;
+			left: 0;
+			top: 50%;
+			height: var(--thickness);
+			background: linear-gradient(180deg, #fff9dc, #66645a 48%, #f3e7c7);
+			box-shadow: 0 1px 2px rgba(28,25,20,.5);
+			transform: translateY(-50%);
+			pointer-events: none;
+		}
+
+		.note {
+			position: relative;
+			z-index: 2;
+			display: grid;
+			width: var(--note-size);
+			aspect-ratio: 1;
+			align-content: center;
+			justify-items: center;
+			border: 2px solid #d7d7d7;
+			border-radius: 50%;
+			background: #313a32;
+			color: #d7d7d7;
+			box-shadow: 0 2px 5px rgba(57,35,23,.32);
+			line-height: 1;
+			margin: 0 auto; 
+		}
+
+		.note strong { font-family: "DynaPuff", sans-serif; font-size: var(--note-font-size); }
+		.note small { margin-top: 3px; color: var(--gold); font-size: var(--note-small-size); font-weight: 800; }
+		.note.focused { border-color: #171411; background: var(--focus-color); }
+		.note.focused strong,
+		.note.focused small { color: var(--focus-ink); }
+		.note.invisible { visibility: hidden; }
+
+		.position-markers {
+			grid-column: 3;
+			grid-row: 3;
+			display: grid;
+			grid-template-columns: repeat(24, minmax(0, 1fr));
+			align-items: center;
+			justify-items: center;
+		}
+
+		.position-markers span {
+			width: 8px;
+			aspect-ratio: 1;
+			border-radius: 50%;
+			background: #b5aa94;
+		}
+
+		.position-markers span.double {
+			width: 22px;
+			height: 8px;
+			border-radius: 8px;
+			background: radial-gradient(circle, #b5aa94 3px, transparent 4px) left center / 11px 8px repeat-x;
+		}
+
+		@media (max-width: 900px), (max-height: 720px), (pointer: coarse) {
+			main { display: flex; flex-direction: column; padding: 18px 16px 24px; }
+			#page-heading,
+			#page-tools-slot,
+			#key-control-slot,
+			.eyebrow,
+			h1,
+			.intro { display: none; }
+			.mobile-topbar { display: flex; order: 0; align-items: center; gap: 10px; min-height: 46px; margin-bottom: 8px; }
+			.mobile-topbar h2 { min-width: 0; margin: 0; font-family: "Ribeye Marrow", Georgia, serif; font-size: 20px; font-weight: 400; line-height: 1.15; }
+			.mobile-controls-drawer { display: block; flex: 0 0 auto; }
+			.mobile-controls-drawer > summary {
+				position: relative;
+				z-index: 62;
+				display: grid;
+				width: 44px;
+				min-height: 44px;
+				place-items: center;
+				border: 1px solid var(--border);
+				border-radius: 4px;
+				background: var(--surface);
+				color: var(--ink);
+				font-size: 20px;
+				list-style: none;
+				cursor: pointer;
+			}
+			.mobile-controls-drawer > summary::-webkit-details-marker { display: none; }
+			.mobile-controls-backdrop { display: none; }
+			.mobile-controls-drawer[open] .mobile-controls-backdrop {
+				position: fixed;
+				z-index: 60;
+				inset: 0;
+				display: block;
+				border: 0;
+				background: rgba(16,20,18,.44);
+			}
+			.mobile-controls-drawer[open] .mobile-controls-panel { transform: none; visibility: visible; }
+			.neck-scroll { order: 1; overflow-x: hidden; padding-bottom: 12px; }
+			.notes-row { order: 2; gap: 10px 16px; margin-bottom: 12px; }
+			.fret-range-slider input[type="range"]::-webkit-slider-thumb { width: 22px; height: 22px; margin-top: -9px; }
+			.fret-range-slider input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; }
+			.fret-range-track { right: 11px; left: 11px; }
+			.neck-layout { width: 100%; min-width: 0; grid-template-columns: 23px 28px minmax(0, 1fr); grid-template-rows: 22px 210px 20px; column-gap: 4px; }
+			.fret-numbers,
+			.fretboard,
+			.position-markers { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+			.open-cell { width: 28px; }
+			.note {
+				width: min(30px, calc(100% - 2px));
+				min-width: 0;
+				aspect-ratio: 1 / 1;
+				border-width: 2px;
+				flex: none;
+			}
+			.note strong { font-size: clamp(8px, 2.8vw, 11px); }
+			.note small { font-size: clamp(6px, 1.9vw, 8px); }
+			.mobile-controls-panel {
+				position: fixed;
+				z-index: 61;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				--drawer-w: min(340px, 88vw);
+				width: var(--drawer-w);
+				padding: 24px 16px;
+				overflow-y: auto;
+				background: var(--paper);
+				box-shadow: 12px 0 32px rgba(0,0,0,.24);
+				transform: translateX(-105%);
+				visibility: hidden;
+				transition: transform .2s ease, visibility .2s ease;
+				-webkit-overflow-scrolling: touch;
+			}
+			.mobile-controls-panel .page-tools { margin: 0 0 16px; }
+			.mobile-controls-panel .key-control { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 0; }
+			.mobile-controls-panel .control-group { justify-content: space-between; gap: 8px; }
+			.mobile-controls-panel .scale-menu > summary { min-width: 176px; max-width: 62vw; }
+			.mobile-controls-panel .scale-menu[open] .scale-menu-panel {
+				position: fixed;
+				z-index: 9999;
+				top: 0;
+				left: var(--drawer-w);
+				width: min(560px, calc(100vw - var(--drawer-w)));
+				height: 100vh;
+				height: 100dvh;
+				min-height: 0;
+				max-height: none;
+				grid-template-columns: minmax(130px, .8fr) minmax(0, 1.2fr);
+				transform: none;
+				border: 0;
+				border-left: 1px solid var(--border);
+				border-radius: 0;
+				box-shadow: 12px 0 32px rgba(0,0,0,.28);
+			}
+			.mobile-controls-panel .scale-family-list,
+			.mobile-controls-panel .scale-submenu { 
+				overflow-x: hidden; 
+				overflow-y: auto; /* Garante scroll vertical interno caso haja muitas escalas */
+			}
+			.mobile-controls-panel .scale-family-button,
+			.mobile-controls-panel .scale-option { overflow-wrap: anywhere; }
+			.scale-family-button,
+			.scale-option { min-height: 44px; padding: 10px 8px; }
+			.pentatonic-group-button { min-height: 42px; }
+			.scale-notes { gap: 8px; margin-bottom: 12px; }
+			.scale-note-button { min-height: 44px; }
+			/* Keep compact mode fluid: 12 frets fit the available viewport. */
+			.neck-layout { min-width: 0; grid-template-rows: 24px 210px 24px; --inlay-size: 11px; }
+			.note { width: min(30px, calc(100% - 2px)); }
+		}
+
+		@media (max-width: 700px) {
+			.mobile-controls-panel .scale-menu[open] .scale-menu-panel {
+				left: 56px;
+				width: calc(100vw - 56px);
+			}
+		}
+
+		@media (max-width: 900px) and (orientation: landscape), (max-height: 520px), (pointer: coarse) and (orientation: landscape) {
+			main { padding: 8px 10px 10px; }
+			.scale-notes { gap: 4px; margin-bottom: 6px; }
+			.notes-row { gap: 4px 12px; margin-bottom: 6px; }
+			.fret-range { gap: 8px; font-size: 11px; }
+			.fret-range-slider { width: 150px; height: 24px; }
+			.scale-note-entry { gap: 1px; }
+			.scale-note-button { min-height: 30px; gap: 4px; padding: 3px 6px; font-size: 11px; }
+			.scale-notes strong { width: 19px; font-size: 9px; }
+			.blue-note-tag { padding-left: 3px; font-size: 8px; }
+			.neck-scroll { overflow-x: hidden; padding-bottom: 2px; }
+			.neck-layout { width: 100%; min-width: 0; grid-template-columns: 24px 30px minmax(0, 1fr); grid-template-rows: 17px 180px 17px; column-gap: 4px; }
+			.neck-layout { --fret-number-size: 12px; --inlay-size: 9px; }
+			.string-labels { font-size: 12px; }
+			.open-cell { width: 30px; }
+			.note { width: min(28px, calc(100% - 2px)); border-width: 2px; }
+			.note strong { font-size: clamp(8px, 2.5vw, 10px); }
+			.note small { margin-top: 1px; font-size: clamp(6px, 1.8vw, 8px); }
+			.position-markers span { width: 5px; }
+			.position-markers span.double { width: 12px; height: 6px; background-size: 6px 6px; }
+		}
+
+		@media (max-width: 700px) and (orientation: landscape), (max-height: 420px), (pointer: coarse) and (orientation: landscape) {
+			.neck-layout { grid-template-columns: 21px 25px minmax(0, 1fr); grid-template-rows: 15px 150px 15px; column-gap: 3px; --fret-number-size: 11px; --inlay-size: 8px; }
+			.open-cell { width: 25px; }
+			.note { width: min(23px, calc(100% - 2px)); border-width: 2px; }
+			.note strong { font-size: 8px; }
+			.note small { font-size: 6px; }
+			.string-labels { font-size: 10px; }
+		}
+		
+		@media (max-width: 650px) {
+			.neck-layout {
+				/* Reduz ligeiramente a altura total para não esmagar em ecrãs baixos */
+				grid-template-rows: 20px 170px 20px !important; 
+			}
+			
+			.note {
+				/* Reduz ligeiramente o círculo de 30px para 25px para dar folga */
+				width: 25px !important;
+				border-width: 1px !important; /* Linha mais fina para o círculo pequeno */
+			}
+
+			.note strong {
+				font-size: 10px !important; /* Ajusta o texto principal da nota */
+			}
+
+			.note small {
+				font-size: 7px !important; /* Ajusta o texto do intervalo */
+				margin-top: 1px !important;
+			}
+
+			.string-labels {
+				font-size: 13px !important; /* Encolhe ligeiramente as letras e, B, G... */
+			}
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<div class="page-heading" id="page-heading">
+			<h1 id="scale-title"><span id="scale-title-main" class="title-main">E Pentatonic Minor</span><span id="scale-title-tuning" class="title-tuning">(E standard)</span></h1>
+			<div id="page-tools-slot">
+				<div class="page-tools" id="page-tools">
+					<button id="theme-toggle" type="button" aria-pressed="false" aria-label="Enable night mode"><span aria-hidden="true">☾</span> Night mode</button>
+				</div>
+			</div>
+		</div>
+
+		<div id="key-control-slot">
+		<div class="key-control" id="key-control">
+			<div class="control-group">
+				<span id="tuning-caption">Tuning</span>
+				<details class="scale-menu tuning-menu" id="tuning-menu">
+					<summary id="tuning-menu-summary"><span id="selected-tuning-label">E standard</span></summary>
+					<div class="scale-menu-panel" id="tuning-menu-panel">
+						<div class="scale-family-list" id="tuning-family-list"></div>
+						<div class="scale-submenu" id="tuning-submenu"></div>
+					</div>
+				</details>
+			</div>
+			<div class="control-group">
+				<label for="key-select">Root key</label>
+				<select id="key-select">
+					<option>A</option><option>A#</option><option>B</option><option>C</option>
+					<option>C#</option><option>D</option><option>D#</option><option selected>E</option>
+					<option>F</option><option>F#</option><option>G</option><option>G#</option>
+				</select>
+			</div>
+			<div class="control-group">
+				<span id="scale-label">Scale</span>
+				<details class="scale-menu" id="scale-menu">
+					<summary id="scale-menu-summary">Choose scale</summary>
+					<div class="scale-menu-panel" id="scale-menu-panel">
+						<div class="scale-family-list" id="scale-family-list"></div>
+						<div class="scale-submenu" id="scale-submenu"></div>
+					</div>
+				</details>
+			</div>
+		</div>
+		</div>
+
+		<div class="mobile-topbar">
+			<details class="mobile-controls-drawer" id="mobile-controls-drawer">
+				<summary aria-label="Open controls"><span aria-hidden="true">☰</span></summary>
+				<button class="mobile-controls-backdrop" id="mobile-controls-backdrop" type="button" aria-label="Close controls"></button>
+				<div class="mobile-controls-panel" id="mobile-controls-panel">
+					<div id="mobile-controls-content"></div>
+				</div>
+			</details>
+			<h2 id="mobile-scale-title">E Pentatonic Minor</h2>
+		</div>
+
+		<div class="notes-row">
+			<ul class="scale-notes" id="scale-notes" aria-label="Notes in E minor pentatonic">
+			</ul>
+			<div class="fret-range" id="fret-range">
+				<span>Frets <output id="fret-range-value" for="fret-range-start fret-range-end">0–24</output></span>
+				<div class="fret-range-slider">
+					<div class="fret-range-track"><div class="fret-range-fill" id="fret-range-fill"></div></div>
+					<input type="range" id="fret-range-start" min="0" max="24" step="1" value="0" aria-label="First fret">
+					<input type="range" id="fret-range-end" min="0" max="24" step="1" value="24" aria-label="Last fret">
+				</div>
+			</div>
+		</div>
+
+		<section class="neck-scroll" aria-label="Guitar fretboard, frets one through twenty-four, with open strings at the left">
+			<div class="neck-layout">
+				<div class="open-fret-number" id="open-fret-number" aria-hidden="true">0</div>
+				<div class="fret-numbers" id="fret-numbers" aria-hidden="true"></div>
+				<div class="string-labels" id="string-labels" aria-hidden="true">
+					<span>e</span><span>B</span><span>G</span><span>D</span><span>A</span><span>E</span>
+				</div>
+				<div class="open-strings" id="open-strings" aria-label="Open-string notes"></div>
+				<div class="fretboard" id="fretboard" role="img" aria-label="E minor pentatonic notes on a 24-fret guitar neck"></div>
+				<div class="position-markers" id="position-markers" aria-hidden="true"></div>
+			</div>
+		</section>
+
+	</main>
+
+	<script>
+		const strings = [
+			{ name: "e", pitch: 4, thickness: "2px" },
+			{ name: "B", pitch: 11, thickness: "2.5px" },
+			{ name: "G", pitch: 7, thickness: "3px" },
+			{ name: "D", pitch: 2, thickness: "3.5px" },
+			{ name: "A", pitch: 9, thickness: "4px" },
+			{ name: "E", pitch: 4, thickness: "4.5px" }
+		];
+		const keys = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+		const noteNames = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+		const tunings = {
+			A: ["A", "E", "C", "G", "D", "A"],
+			"Drop A": ["B", "F#", "D", "A", "E", "A"],
+			B: ["B", "F#", "D", "A", "E", "B"],
+			"Drop B": ["C#", "G#", "E", "B", "F#", "B"],
+			C: ["C", "G", "D#", "A#", "F", "C"],
+			"Drop C": ["D", "A", "F", "C", "G", "C"],
+			D: ["D", "A", "F", "C", "G", "D"],
+			"Drop D": ["E", "B", "G", "D", "A", "D"],
+			E: ["E", "B", "G", "D", "A", "E"]
+		};
+		const scaleFamilies = {
+			pentatonic: {
+				label: "Pentatonic",
+				scales: {
+					minor: { name: "Minor", group: "common", intervals: [0, 3, 5, 7, 10], degrees: ["1", "♭3", "4", "5", "♭7"] },
+					major: { name: "Major", group: "common", intervals: [0, 2, 4, 7, 9], degrees: ["1", "2", "3", "5", "6"] },
+					suspended: { name: "Suspended (Egyptian)", group: "common", intervals: [0, 2, 5, 7, 10], degrees: ["1", "2", "4", "5", "♭7"] },
+					dominant: { name: "Dominant", group: "common", intervals: [0, 2, 4, 7, 10], degrees: ["1", "2", "3", "5", "♭7"] },
+					"minor-six": { name: "Minor 6", group: "common", intervals: [0, 3, 5, 7, 9], degrees: ["1", "♭3", "4", "5", "6"] },
+					"major-flat-six": { name: "Major b6", group: "common", intervals: [0, 2, 4, 7, 8], degrees: ["1", "2", "3", "5", "♭6"] },
+					hirajoshi: { name: "Hirajoshi (Japanese)", description: "Traditional scale associated with koto music", group: "japanese", intervals: [0, 2, 3, 7, 8], degrees: ["1", "2", "♭3", "5", "♭6"] },
+					kumoi: { name: "Kumoi (Japanese)", description: "Minor third with a natural sixth", group: "japanese", intervals: [0, 2, 3, 7, 9], degrees: ["1", "2", "♭3", "5", "6"] },
+					in: { name: "In (Japanese)", description: "Traditional scale with a flat second", group: "japanese", intervals: [0, 1, 5, 7, 10], degrees: ["1", "♭2", "4", "5", "♭7"] },
+					yo: { name: "Yo (Japanese)", description: "Folk scale with no third", group: "japanese", intervals: [0, 2, 5, 7, 9], degrees: ["1", "2", "4", "5", "6"] },
+					iwato: { name: "Iwato (Japanese)", description: "Flat second and flat fifth give it a tense sound", group: "japanese", intervals: [0, 1, 5, 6, 10], degrees: ["1", "♭2", "4", "♭5", "♭7"] },
+					miyako: { name: "Miyako-bushi (Japanese)", description: "Traditional Japanese folk scale", group: "japanese", intervals: [0, 1, 5, 7, 8], degrees: ["1", "♭2", "4", "5", "♭6"] },
+					hamsadhwani: { name: "Hamsadhwani (raga)", description: "Bright Carnatic raga with a major seventh", group: "indian", intervals: [0, 2, 4, 7, 11], degrees: ["1", "2", "3", "5", "7"] },
+					chandrakauns: { name: "Chandrakauns (raga)", description: "Minor-sounding raga with a major seventh", group: "indian", intervals: [0, 3, 5, 8, 11], degrees: ["1", "♭3", "4", "♭6", "7"] },
+					hindol: { name: "Hindol (raga)", description: "Lydian-flavoured raga without a fifth", group: "indian", intervals: [0, 4, 6, 9, 11], degrees: ["1", "3", "♯4", "6", "7"] },
+					abhogi: { name: "Abhogi (raga)", description: "Minor third and major sixth, no fifth", group: "indian", intervals: [0, 2, 3, 5, 9], degrees: ["1", "2", "♭3", "4", "6"] },
+					kalavati: { name: "Kalavati (raga)", description: "Dominant-sounding raga with no second or fourth", group: "indian", intervals: [0, 4, 7, 9, 10], degrees: ["1", "3", "5", "6", "♭7"] },
+					jue: { name: "Malkauns (raga) / Jue", description: "Same notes as the Chinese Jue (Man Gong) mode", group: "indian", intervals: [0, 3, 5, 8, 10], degrees: ["1", "♭3", "4", "♯5", "♭7"] },
+					"whole-tone": { name: "Whole-tone pentatonic", group: "other", intervals: [0, 2, 4, 6, 8], degrees: ["1", "2", "3", "♯4", "♯5"] },
+					pelog: { name: "Pelog (Balinese)", description: "Western approximation of the gamelan pelog selisir", group: "other", intervals: [0, 1, 3, 7, 8], degrees: ["1", "♭2", "♭3", "5", "♭6"] },
+					okinawan: { name: "Okinawan (Ryukyu)", description: "Major third and major seventh, no second or sixth", group: "other", intervals: [0, 4, 5, 7, 11], degrees: ["1", "3", "4", "5", "7"] },
+					lydianPentatonic: { name: "Lydian pentatonic", description: "Major triad with ♯4 and 7", group: "other", intervals: [0, 4, 6, 7, 11], degrees: ["1", "3", "♯4", "5", "7"] },
+					locrianPentatonic: { name: "Locrian pentatonic", description: "Minor pentatonic with a flat fifth", group: "other", intervals: [0, 3, 5, 6, 10], degrees: ["1", "♭3", "4", "♭5", "♭7"] }
+				}
+			},
+			"blues-bebop": {
+				label: "Blues & bebop",
+				scales: {
+					minorBlues: { name: "Minor blues", intervals: [0, 3, 5, 6, 7, 10], degrees: ["1", "♭3", "4", "♭5", "5", "♭7"], blueInterval: 6 },
+					majorBlues: { name: "Major blues", intervals: [0, 2, 3, 4, 7, 9], degrees: ["1", "2", "♭3", "3", "5", "6"], blueInterval: 3 },
+					dominantBebop: { name: "Dominant bebop", intervals: [0, 2, 4, 5, 7, 9, 10, 11], degrees: ["1", "2", "3", "4", "5", "6", "♭7", "7"] },
+					majorBebop: { name: "Major bebop", intervals: [0, 2, 4, 5, 7, 8, 9, 11], degrees: ["1", "2", "3", "4", "5", "♭6", "6", "7"] },
+					dorianBebop: { name: "Dorian bebop", intervals: [0, 2, 3, 4, 5, 7, 9, 10], degrees: ["1", "2", "♭3", "3", "4", "5", "6", "♭7"] },
+					melodicMinorBebop: { name: "Melodic minor bebop", intervals: [0, 2, 3, 5, 7, 8, 9, 11], degrees: ["1", "2", "♭3", "4", "5", "♯5", "6", "7"] },
+					harmonicMinorBebop: { name: "Harmonic minor bebop", intervals: [0, 2, 3, 5, 7, 8, 10, 11], degrees: ["1", "2", "♭3", "4", "5", "♭6", "♭7", "7"] }
+				}
+			},
+			diatonic: {
+				label: "Diatonic modes",
+				scales: {
+					ionian: { name: "Ionian (major)", intervals: [0, 2, 4, 5, 7, 9, 11], degrees: ["1", "2", "3", "4", "5", "6", "7"] },
+					dorian: { name: "Dorian", intervals: [0, 2, 3, 5, 7, 9, 10], degrees: ["1", "2", "♭3", "4", "5", "6", "♭7"] },
+					phrygian: { name: "Phrygian", intervals: [0, 1, 3, 5, 7, 8, 10], degrees: ["1", "♭2", "♭3", "4", "5", "♭6", "♭7"] },
+					lydian: { name: "Lydian", intervals: [0, 2, 4, 6, 7, 9, 11], degrees: ["1", "2", "3", "♯4", "5", "6", "7"] },
+					mixolydian: { name: "Mixolydian", intervals: [0, 2, 4, 5, 7, 9, 10], degrees: ["1", "2", "3", "4", "5", "6", "♭7"] },
+					aeolian: { name: "Aeolian (natural minor)", intervals: [0, 2, 3, 5, 7, 8, 10], degrees: ["1", "2", "♭3", "4", "5", "♭6", "♭7"] },
+					locrian: { name: "Locrian", intervals: [0, 1, 3, 5, 6, 8, 10], degrees: ["1", "♭2", "♭3", "4", "♭5", "♭6", "♭7"] }
+				}
+			},
+			"harmonic-minor": {
+				label: "Harmonic minor modes",
+				scales: {
+					harmonicMinor: { name: "Harmonic minor", intervals: [0, 2, 3, 5, 7, 8, 11], degrees: ["1", "2", "♭3", "4", "5", "♭6", "7"] },
+					locrianNaturalSix: { name: "Locrian natural 6", intervals: [0, 1, 3, 5, 6, 9, 10], degrees: ["1", "♭2", "♭3", "4", "♭5", "6", "♭7"] },
+					ionianSharpFive: { name: "Ionian #5", intervals: [0, 2, 4, 5, 8, 9, 11], degrees: ["1", "2", "3", "4", "♯5", "6", "7"] },
+					dorianSharpFour: { name: "Dorian #4", intervals: [0, 2, 3, 6, 7, 9, 10], degrees: ["1", "2", "♭3", "♯4", "5", "6", "♭7"] },
+					phrygianDominant: { name: "Phrygian dominant", intervals: [0, 1, 4, 5, 7, 8, 10], degrees: ["1", "♭2", "3", "4", "5", "♭6", "♭7"] },
+					lydianSharpTwo: { name: "Lydian #2", intervals: [0, 3, 4, 6, 7, 9, 11], degrees: ["1", "♯2", "3", "♯4", "5", "6", "7"] },
+					ultraLocrian: { name: "Ultra Locrian", intervals: [0, 1, 3, 4, 6, 8, 9], degrees: ["1", "♭2", "♭3", "♭4", "♭5", "♭6", "♭♭7"] }
+				}
+			},
+			"melodic-minor": {
+				label: "Melodic minor modes",
+				scales: {
+					melodicMinor: { name: "Melodic minor", intervals: [0, 2, 3, 5, 7, 9, 11], degrees: ["1", "2", "♭3", "4", "5", "6", "7"] },
+					dorianFlatTwo: { name: "Dorian b2", intervals: [0, 1, 3, 5, 7, 9, 10], degrees: ["1", "♭2", "♭3", "4", "5", "6", "♭7"] },
+					lydianAugmented: { name: "Lydian augmented", intervals: [0, 2, 4, 6, 8, 9, 11], degrees: ["1", "2", "3", "♯4", "♯5", "6", "7"] },
+					lydianDominant: { name: "Lydian dominant", intervals: [0, 2, 4, 6, 7, 9, 10], degrees: ["1", "2", "3", "♯4", "5", "6", "♭7"] },
+					mixolydianFlatSix: { name: "Mixolydian b6", intervals: [0, 2, 4, 5, 7, 8, 10], degrees: ["1", "2", "3", "4", "5", "♭6", "♭7"] },
+					locrianNaturalTwo: { name: "Locrian natural 2", intervals: [0, 2, 3, 5, 6, 8, 10], degrees: ["1", "2", "♭3", "4", "♭5", "♭6", "♭7"] },
+					altered: { name: "Altered (Super Locrian)", intervals: [0, 1, 3, 4, 6, 8, 10], degrees: ["1", "♭2", "♭3", "♭4", "♭5", "♭6", "♭7"] }
+				}
+			},
+			"harmonic-major": {
+				label: "Harmonic major modes",
+				scales: {
+					harmonicMajor: { name: "Harmonic major", description: "Major scale with a lowered sixth", intervals: [0, 2, 4, 5, 7, 8, 11], degrees: ["1", "2", "3", "4", "5", "♭6", "7"] },
+					dorianFlatFive: { name: "Dorian b5", intervals: [0, 2, 3, 5, 6, 9, 10], degrees: ["1", "2", "♭3", "4", "♭5", "6", "♭7"] },
+					phrygianFlatFour: { name: "Phrygian b4", intervals: [0, 1, 3, 4, 7, 8, 10], degrees: ["1", "♭2", "♭3", "♭4", "5", "♭6", "♭7"] },
+					lydianFlatThree: { name: "Lydian b3 (Lydian diminished)", intervals: [0, 2, 3, 6, 7, 9, 11], degrees: ["1", "2", "♭3", "♯4", "5", "6", "7"] },
+					mixolydianFlatTwo: { name: "Mixolydian b2", intervals: [0, 1, 4, 5, 7, 9, 10], degrees: ["1", "♭2", "3", "4", "5", "6", "♭7"] },
+					lydianAugmentedSharpTwo: { name: "Lydian augmented #2", intervals: [0, 3, 4, 6, 8, 9, 11], degrees: ["1", "♯2", "3", "♯4", "♯5", "6", "7"] },
+					locrianDoubleFlatSeven: { name: "Locrian bb7", intervals: [0, 1, 3, 5, 6, 8, 9], degrees: ["1", "♭2", "♭3", "4", "♭5", "♭6", "♭♭7"] }
+				}
+			},
+			"double-harmonic": {
+				label: "Double harmonic modes",
+				scales: {
+					doubleHarmonic: { name: "Double harmonic", description: "Also known as Byzantine; has two augmented-second leaps", intervals: [0, 1, 4, 5, 7, 8, 11], degrees: ["1", "♭2", "3", "4", "5", "♭6", "7"] },
+					lydianSharpTwoSharpSix: { name: "Lydian #2 #6", intervals: [0, 3, 4, 6, 7, 10, 11], degrees: ["1", "♯2", "3", "♯4", "5", "♯6", "7"] },
+					ultraphrygian: { name: "Ultraphrygian", intervals: [0, 1, 3, 4, 7, 8, 9], degrees: ["1", "♭2", "♭3", "♭4", "5", "♭6", "♭♭7"] },
+					hungarianMinor: { name: "Hungarian minor", description: "Harmonic minor with a raised fourth; also called Gypsy minor", intervals: [0, 2, 3, 6, 7, 8, 11], degrees: ["1", "2", "♭3", "♯4", "5", "♭6", "7"] },
+					oriental: { name: "Oriental", intervals: [0, 1, 4, 5, 6, 9, 10], degrees: ["1", "♭2", "3", "4", "♭5", "6", "♭7"] },
+					ionianSharpTwoSharpFive: { name: "Ionian #2 #5", intervals: [0, 3, 4, 5, 8, 9, 11], degrees: ["1", "♯2", "3", "4", "♯5", "6", "7"] },
+					locrianDoubleFlatThreeSeven: { name: "Locrian bb3 bb7", intervals: [0, 1, 2, 5, 6, 8, 9], degrees: ["1", "♭2", "♭♭3", "4", "♭5", "♭6", "♭♭7"] }
+				}
+			},
+			hexatonic: {
+				label: "Hexatonic scales",
+				scales: {
+					majorHexatonic: { name: "Major hexatonic", description: "Major scale without the seventh", intervals: [0, 2, 4, 5, 7, 9], degrees: ["1", "2", "3", "4", "5", "6"] },
+					minorHexatonic: { name: "Minor hexatonic", description: "Dorian/Aeolian without the sixth", intervals: [0, 2, 3, 5, 7, 10], degrees: ["1", "2", "♭3", "4", "5", "♭7"] },
+					scriabinPrometheus: { name: "Scriabin's Prometheus", description: "Six-note synthetic scale associated with Scriabin's Prometheus chord", intervals: [0, 2, 4, 6, 9, 10], degrees: ["1", "2", "3", "♯4", "6", "♭7"] },
+					prometheusNeapolitan: { name: "Prometheus Neapolitan", description: "Prometheus scale with a flat second", intervals: [0, 1, 4, 6, 9, 10], degrees: ["1", "♭2", "3", "♯4", "6", "♭7"] },
+					scaleOfHarmonics: { name: "Scale of harmonics", description: "Notes close to the natural overtone series", intervals: [0, 3, 4, 5, 7, 9], degrees: ["1", "♭3", "3", "4", "5", "6"] },
+					istrian: { name: "Istrian", description: "Western approximation of the Istrian folk scale", intervals: [0, 1, 3, 4, 6, 7], degrees: ["1", "♭2", "♭3", "♭4", "♭5", "5"] }
+				}
+			},
+			european: {
+				label: "European & Mediterranean",
+				scales: {
+					neapolitanMajor: { name: "Neapolitan major", description: "Flat second with a major upper tetrachord", intervals: [0, 1, 3, 5, 7, 9, 11], degrees: ["1", "♭2", "♭3", "4", "5", "6", "7"] },
+					neapolitanMinor: { name: "Neapolitan minor", description: "Flat second with the upper tones of harmonic minor", intervals: [0, 1, 3, 5, 7, 8, 11], degrees: ["1", "♭2", "♭3", "4", "5", "♭6", "7"] },
+					hungarianMajor: { name: "Hungarian major", description: "Dominant sound with ♯2 and ♯4", intervals: [0, 3, 4, 6, 7, 9, 10], degrees: ["1", "♯2", "3", "♯4", "5", "6", "♭7"] },
+					romanianMajor: { name: "Romanian major", description: "Lydian dominant with a flat second", intervals: [0, 1, 4, 6, 7, 9, 10], degrees: ["1", "♭2", "3", "♯4", "5", "6", "♭7"] },
+					gypsy: { name: "Gypsy (♭7)", description: "Hungarian minor with a flat seventh", intervals: [0, 2, 3, 6, 7, 8, 10], degrees: ["1", "2", "♭3", "♯4", "5", "♭6", "♭7"] },
+					spanishEightTone: { name: "Spanish 8-tone", description: "Phrygian with both minor and major third", intervals: [0, 1, 3, 4, 5, 6, 8, 10], degrees: ["1", "♭2", "♭3", "3", "4", "♭5", "♭6", "♭7"] }
+				}
+			},
+			eastern: {
+				label: "Indian & Middle Eastern",
+				scales: {
+					todi: { name: "Todi (thaat)", description: "Hindustani parent scale with ♭2, ♭3, ♯4 and ♭6", intervals: [0, 1, 3, 6, 7, 8, 11], degrees: ["1", "♭2", "♭3", "♯4", "5", "♭6", "7"] },
+					purvi: { name: "Purvi (thaat)", description: "Hindustani parent scale with ♭2, ♯4 and ♭6", intervals: [0, 1, 4, 6, 7, 8, 11], degrees: ["1", "♭2", "3", "♯4", "5", "♭6", "7"] },
+					marwa: { name: "Marwa (thaat)", description: "Hindustani parent scale with ♭2 and ♯4", intervals: [0, 1, 4, 6, 7, 9, 11], degrees: ["1", "♭2", "3", "♯4", "5", "6", "7"] },
+					persian: { name: "Persian", description: "Contains a flat second and flat fifth", intervals: [0, 1, 4, 5, 6, 8, 11], degrees: ["1", "♭2", "3", "4", "♭5", "♭6", "7"] },
+					majorLocrian: { name: "Major Locrian (Arabian)", description: "Major lower half, Locrian upper half", intervals: [0, 2, 4, 5, 6, 8, 10], degrees: ["1", "2", "3", "4", "♭5", "♭6", "♭7"] }
+				}
+			},
+			symmetric: {
+				label: "Symmetric scales",
+				scales: {
+					wholeTone: { name: "Whole tone", intervals: [0, 2, 4, 6, 8, 10], degrees: ["1", "2", "3", "♯4", "♯5", "♭7"] },
+					halfWholeDiminished: { name: "Half-whole diminished", intervals: [0, 1, 3, 4, 6, 7, 9, 10], degrees: ["1", "♭2", "♭3", "3", "♯4", "5", "6", "♭7"] },
+					wholeHalfDiminished: { name: "Whole-half diminished", intervals: [0, 2, 3, 5, 6, 8, 9, 11], degrees: ["1", "2", "♭3", "4", "♭5", "♭6", "6", "7"] },
+					augmented: { name: "Augmented", intervals: [0, 3, 4, 7, 8, 11], degrees: ["1", "♭3", "3", "5", "♭6", "7"] },
+					sixToneSymmetrical: { name: "Six-tone symmetrical", intervals: [0, 1, 4, 5, 8, 9], degrees: ["1", "♭2", "3", "4", "♯5", "6"] },
+					tritone: { name: "Tritone", intervals: [0, 1, 4, 6, 7, 10], degrees: ["1", "♭2", "3", "♭5", "5", "♭7"] },
+					twoSemitoneTritone: { name: "Two-semitone tritone", intervals: [0, 1, 2, 6, 7, 8], degrees: ["1", "♭2", "2", "♯4", "5", "♭6"] }
+				}
+			},
+			synthetic: {
+				label: "Synthetic & Messiaen",
+				scales: {
+					enigmatic: { name: "Enigmatic", description: "Verdi-associated scale with several consecutive altered steps", intervals: [0, 1, 4, 6, 8, 10, 11], degrees: ["1", "♭2", "3", "♯4", "♯5", "♯6", "7"] },
+					enigmaticMinor: { name: "Enigmatic minor", description: "Minor counterpart of the enigmatic scale", intervals: [0, 1, 3, 6, 7, 10, 11], degrees: ["1", "♭2", "♭3", "♯4", "5", "♯6", "7"] },
+					lydianMinor: { name: "Lydian minor", description: "Lydian lower half with ♭6 and ♭7", intervals: [0, 2, 4, 6, 7, 8, 10], degrees: ["1", "2", "3", "♯4", "5", "♭6", "♭7"] },
+					leadingWholeTone: { name: "Leading whole tone", description: "Whole-tone scale plus a leading tone", intervals: [0, 2, 4, 6, 8, 10, 11], degrees: ["1", "2", "3", "♯4", "♯5", "♯6", "7"] },
+					messiaenThree: { name: "Messiaen mode 3", intervals: [0, 2, 3, 4, 6, 7, 8, 10, 11], degrees: ["1", "2", "♭3", "3", "♯4", "5", "♯5", "♭7", "7"] },
+					messiaenFour: { name: "Messiaen mode 4", intervals: [0, 1, 2, 5, 6, 7, 8, 11], degrees: ["1", "♭2", "2", "4", "♭5", "5", "♭6", "7"] },
+					messiaenFive: { name: "Messiaen mode 5", intervals: [0, 1, 5, 6, 7, 11], degrees: ["1", "♭2", "4", "♭5", "5", "7"] },
+					messiaenSix: { name: "Messiaen mode 6", intervals: [0, 2, 4, 5, 6, 8, 10, 11], degrees: ["1", "2", "3", "4", "♭5", "♭6", "♭7", "7"] }
+				}
+			}
+		};
+		const fretNumbers = document.querySelector("#fret-numbers");
+		const fretboard = document.querySelector("#fretboard");
+		const neckLayout = document.querySelector(".neck-layout");
+		const openStrings = document.querySelector("#open-strings");
+		const neckScroll = document.querySelector(".neck-scroll");
+		const stringLabels = document.querySelector("#string-labels");
+		const markers = document.querySelector("#position-markers");
+		const keySelect = document.querySelector("#key-select");
+		const tuningMenu = document.querySelector("#tuning-menu");
+		const tuningFamilyList = document.querySelector("#tuning-family-list");
+		const tuningSubmenu = document.querySelector("#tuning-submenu");
+		const selectedTuningLabel = document.querySelector("#selected-tuning-label");
+		const scaleMenu = document.querySelector("#scale-menu");
+		const scaleMenuPanel = document.querySelector("#scale-menu-panel");
+		const scaleFamilyList = document.querySelector("#scale-family-list");
+		const scaleSubmenu = document.querySelector("#scale-submenu");
+		const themeToggle = document.querySelector("#theme-toggle");
+		const pageTools = document.querySelector("#page-tools");
+		const pageToolsSlot = document.querySelector("#page-tools-slot");
+		const keyControl = document.querySelector("#key-control");
+		const keyControlSlot = document.querySelector("#key-control-slot");
+		const mobileControlsDrawer = document.querySelector("#mobile-controls-drawer");
+		const mobileControlsContent = document.querySelector("#mobile-controls-content");
+		const mobileScaleTitle = document.querySelector("#mobile-scale-title");
+		const responsiveViewport = typeof window !== "undefined" && window.matchMedia ? window.matchMedia("(max-width: 900px), (max-height: 720px), (pointer: coarse)") : null;
+		const scaleTitleMain = document.querySelector("#scale-title-main");
+		const scaleTitleTuning = document.querySelector("#scale-title-tuning");
+		const fretRangeStart = document.querySelector("#fret-range-start");
+		const fretRangeEnd = document.querySelector("#fret-range-end");
+		const fretRangeFill = document.querySelector("#fret-range-fill");
+		const fretRangeValue = document.querySelector("#fret-range-value");
+		let fretCount = 24;
+		// TOTAL_FRETS: length of the neck. maxFret: biggest interval that fits on screen (24 or 12).
+		// fretRange: what the user chose to show.
+		const TOTAL_FRETS = 24;
+		let maxFret = 24;
+		let fretRange = { start: 0, end: 24 };
+		let compactMode = null;
+		let responsiveControlsReady = false;
+		let selectedFamily = "pentatonic";
+		let selectedScale = "minor";
+		let openMenuFamily = "pentatonic";
+		let openPentatonicGroup = "common";
+		let selectedTuning = "E";
+		let openTuningGroup = "standards";
+		let noteStates = new Map();
+		// Red is reserved for the root. Stack for the other notes: yellow, pink, green, orange, purple, grey, brown.
+		const rootFocusColor = "#e93333";
+		const focusColors = ["#f7d417", "#e94fae", "#57c96a", "#ff861f", "#b57be8", "#a1a1a1", "#c8925d"];
+		// pitch -> colour taken from the stack when that note was focused.
+		let focusColorByPitch = new Map();
+		// Take the first free colour in stack order; a released colour goes back in its original place.
+		function takeFocusColor(pitch) {
+			const used = new Set(focusColorByPitch.values());
+			focusColorByPitch.set(pitch, focusColors.find(color => !used.has(color)) || focusColors[focusColors.length - 1]);
+		}
+		function releaseFocusColor(pitch) {
+			focusColorByPitch.delete(pitch);
+		}
+		const focusedNoteText = "#111111";
+		function getToneFocusColor(tone) {
+			if (tone.blue) return "#54b9e8";
+			if (tone.root) return rootFocusColor;
+			return focusColorByPitch.get(tone.pitch) || focusColors[0];
+		}
+		const scaleTitle = document.querySelector("#scale-title");
+		const scaleNotes = document.querySelector("#scale-notes");
+		const notePositions = [];
+		function syncResponsiveControls() {
+			const useCompactMode = Boolean(responsiveViewport?.matches);
+			const availableWidth = neckScroll.clientWidth || window.innerWidth || 0;
+			const nextMaxFret = useCompactMode || availableWidth < 1306 ? 12 : 24;
+			if (compactMode !== useCompactMode || maxFret !== nextMaxFret) {
+				const firstSync = compactMode === null;
+				const previousMaxFret = maxFret;
+				compactMode = useCompactMode;
+				maxFret = nextMaxFret;
+				if (firstSync) {
+					// Default: 0-24 if it fits, otherwise 0-12.
+					fretRange = { start: 0, end: maxFret };
+				} else if (maxFret < previousMaxFret) {
+					// Getting smaller: keep the interval if it fits, otherwise back to 0-12.
+					if (fretRange.end - fretRange.start > maxFret) fretRange = { start: 0, end: maxFret };
+				} else if (maxFret > previousMaxFret && fretRange.start === 0 && fretRange.end === previousMaxFret) {
+					// Getting bigger: 0-12 grows to 0-24, any other interval is kept.
+					fretRange = { start: 0, end: maxFret };
+				}
+				buildFretboard();
+				renderFretRange();
+				if (responsiveControlsReady) updateTuning(false);
+			}
+			if (useCompactMode) {
+				mobileControlsContent.append(pageTools, keyControl);
+			} else {
+				pageToolsSlot.append(pageTools);
+				keyControlSlot.append(keyControl);
+				mobileControlsDrawer.open = false;
+			}
+		}
+
+		if (responsiveViewport) {
+			if (responsiveViewport.addEventListener) responsiveViewport.addEventListener("change", syncResponsiveControls);
+			else responsiveViewport.addListener(syncResponsiveControls);
+			window.addEventListener("resize", syncResponsiveControls);
+		}
+
+		function renderFretRange() {
+			[fretRangeStart, fretRangeEnd].forEach(input => { input.max = TOTAL_FRETS; });
+			fretRangeStart.value = fretRange.start;
+			fretRangeEnd.value = fretRange.end;
+			fretRangeFill.style.left = `${(fretRange.start / TOTAL_FRETS) * 100}%`;
+			fretRangeFill.style.width = `${((fretRange.end - fretRange.start) / TOTAL_FRETS) * 100}%`;
+			fretRangeValue.textContent = `${fretRange.start}–${fretRange.end}`;
+			// Keep the start thumb grabbable when both thumbs sit at the far right.
+			fretRangeStart.style.zIndex = fretRange.start >= TOTAL_FRETS - 1 ? 2 : 1;
+		}
+
+		// movedThumb: "start" or "end". When the interval is too big for the screen,
+		// the thumb being dragged is blocked so the span never exceeds maxFret.
+		function setFretRange(start, end, movedThumb) {
+			end = Math.min(Math.max(end, 1), TOTAL_FRETS);
+			start = Math.min(Math.max(start, 0), end - 1);
+			if (end - start > maxFret) {
+				if (movedThumb === "start") start = end - maxFret;
+				else end = start + maxFret;
+			}
+			if (start !== fretRange.start || end !== fretRange.end) {
+				fretRange = { start, end };
+				buildFretboard();
+				updateTuning(false);
+			}
+			renderFretRange();
+		}
+
+		function buildFretboard() {
+			const showOpen = fretRange.start === 0;
+			const firstFret = Math.max(fretRange.start, 1);
+			const lastFret = fretRange.end;
+			fretCount = lastFret - firstFret + 1;
+			const fretColumns = `repeat(${fretCount}, minmax(0, 1fr))`;
+			fretNumbers.style.gridTemplateColumns = fretColumns;
+			fretboard.style.gridTemplateColumns = fretColumns;
+			markers.style.gridTemplateColumns = fretColumns;
+			// Fluid width whenever 24 frets don't fit (compact) or few frets are shown.
+			const fluid = maxFret < TOTAL_FRETS || fretCount <= 12;
+			neckLayout.style.width = fluid ? "100%" : "";
+			neckLayout.style.minWidth = fluid ? "0" : "1306px";
+			fretboard.classList.toggle("no-nut", !showOpen);
+			neckLayout.classList.toggle("no-open", !showOpen);
+			openStrings.style.visibility = showOpen ? "" : "hidden";
+			document.querySelector("#open-fret-number").style.visibility = showOpen ? "" : "hidden";
+			fretNumbers.replaceChildren();
+			markers.replaceChildren();
+			fretboard.replaceChildren();
+			openStrings.replaceChildren();
+			notePositions.length = 0;
+			neckScroll.setAttribute("aria-label", `Guitar fretboard, frets ${firstFret} through ${lastFret}${showOpen ? ", with open strings at the left" : ""}`);
+
+			for (let fret = firstFret; fret <= lastFret; fret += 1) {
+				const column = fret - firstFret + 1;
+				const number = document.createElement("span");
+				number.textContent = fret;
+				fretNumbers.append(number);
+
+				if ([3, 5, 7, 9, 12, 15, 17, 19, 21, 24].includes(fret)) {
+					const marker = document.createElement("span");
+					marker.style.gridColumn = column;
+					if (fret === 12 || fret === 24) marker.classList.add("double");
+					markers.append(marker);
+
+					// Inlay dots on the wood: single dots sit between the G and D strings,
+					// double dots between B/G and D/A. They sit under the strings and notes.
+					const inlayRows = fret === 12 || fret === 24 ? [2 / 6, 4 / 6] : [3 / 6];
+					inlayRows.forEach(row => {
+						const inlay = document.createElement("span");
+						inlay.className = "inlay";
+						inlay.style.left = `${((column - 0.5) / fretCount) * 100}%`;
+						inlay.style.top = `calc(4px + (100% - 8px) * ${row})`;
+						fretboard.append(inlay);
+					});
+				}
+			}
+
+			strings.forEach((string, stringIndex) => {
+				const openCell = document.createElement("div");
+				openCell.className = "open-cell";
+				openCell.dataset.stringIndex = stringIndex;
+				openCell.style.gridRow = stringIndex + 1;
+				openCell.setAttribute("aria-label", `${string.name} open string`);
+				openStrings.append(openCell);
+				if (showOpen) notePositions.push(openCell);
+
+				for (let fret = firstFret; fret <= lastFret; fret += 1) {
+					const cell = document.createElement("div");
+					cell.className = "fret-cell";
+					cell.dataset.stringIndex = stringIndex;
+					cell.dataset.fret = fret;
+					cell.style.gridColumn = fret - firstFret + 1;
+					cell.style.gridRow = stringIndex + 1;
+					fretboard.append(cell);
+					notePositions.push(cell);
+				}
+
+				const line = document.createElement("span");
+				line.className = "string-line";
+				line.style.setProperty("--thickness", string.thickness);
+				// Centre each string on its grid row (rows start after the 4px vertical padding).
+				line.style.top = `calc(4px + (100% - 8px) * ${(stringIndex + 0.5) / strings.length})`;
+				fretboard.append(line);
+			});
+
+			for (let fret = firstFret; fret < lastFret; fret += 1) {
+				const wire = document.createElement("span");
+				wire.className = `fret-wire${fret === 12 ? " double" : ""}`;
+				wire.style.setProperty("--left", `${((fret - firstFret + 1) / fretCount) * 100}%`);
+				fretboard.append(wire);
+			}
+		}
+
+		fretRangeStart.addEventListener("input", () => {
+			setFretRange(Number(fretRangeStart.value), fretRange.end, "start");
+		});
+		fretRangeEnd.addEventListener("input", () => {
+			setFretRange(fretRange.start, Number(fretRangeEnd.value), "end");
+		});
+
+		function updateTuning(resetNoteStates = true) {
+			const tuningName = selectedTuning;
+			const tuningNotes = tunings[tuningName];
+			strings.forEach((string, index) => {
+				string.note = tuningNotes[index];
+				string.pitch = noteNames.indexOf(string.note);
+				stringLabels.children[index].textContent = string.note;
+			});
+			selectedTuningLabel.textContent = `${tuningName} ${tuningName.startsWith("Drop") ? "drop" : "standard"}`;
+			notePositions.forEach(cell => {
+				const string = strings[Number(cell.dataset.stringIndex)];
+				const fret = Number(cell.dataset.fret || 0);
+				cell.dataset.pitch = (string.pitch + fret) % 12;
+				if (cell.classList) cell.classList.toggle("open-cell", !cell.dataset.fret);
+			});
+			updateScale(resetNoteStates);
+		}
+
+		function populateTunings() {
+			const groups = {
+				standards: { label: "Standards", tunings: ["A", "B", "C", "D", "E"] },
+				drops: { label: "Drop tunings", tunings: ["Drop A", "Drop B", "Drop C", "Drop D"] }
+			};
+			tuningFamilyList.replaceChildren();
+			Object.entries(groups).forEach(([groupKey, group]) => {
+				const button = document.createElement("button");
+				button.type = "button";
+				button.className = "scale-family-button";
+				button.dataset.tuningGroup = groupKey;
+				button.setAttribute("aria-expanded", String(groupKey === openTuningGroup));
+				button.textContent = group.label;
+				tuningFamilyList.append(button);
+			});
+
+			tuningSubmenu.replaceChildren();
+			groups[openTuningGroup].tunings.forEach(tuning => {
+				const button = document.createElement("button");
+				button.type = "button";
+				button.className = "scale-option";
+				button.dataset.tuning = tuning;
+				button.setAttribute("aria-pressed", String(tuning === selectedTuning));
+				button.textContent = `${tuning} ${tuning.startsWith("Drop") ? "drop" : "standard"}`;
+				tuningSubmenu.append(button);
+			});
+		}
+
+		function populateScales() {
+			scaleFamilyList.replaceChildren();
+			const family = scaleFamilies[openMenuFamily];
+			Object.entries(scaleFamilies).forEach(([familyKey, familyDefinition]) => {
+				const button = document.createElement("button");
+				button.type = "button";
+				button.className = "scale-family-button";
+				button.dataset.family = familyKey;
+				button.setAttribute("aria-expanded", String(familyKey === openMenuFamily));
+				button.textContent = familyDefinition.label;
+				scaleFamilyList.append(button);
+			});
+			scaleSubmenu.replaceChildren();
+			let visibleScales = Object.entries(family.scales);
+			if (openMenuFamily === "pentatonic") {
+				const groupNav = document.createElement("div");
+				groupNav.className = "pentatonic-groups";
+				const groupLabels = { common: "Common", japanese: "Japanese", indian: "Indian", other: "Other" };
+				Object.entries(groupLabels).forEach(([group, label]) => {
+					const button = document.createElement("button");
+					button.type = "button";
+					button.className = "pentatonic-group-button";
+					button.dataset.pentatonicGroup = group;
+					button.setAttribute("aria-pressed", String(group === openPentatonicGroup));
+					button.textContent = label;
+					groupNav.append(button);
+				});
+				scaleSubmenu.append(groupNav);
+				visibleScales = visibleScales.filter(([, definition]) => definition.group === openPentatonicGroup);
+			}
+			visibleScales.forEach(([value, definition]) => {
+				const button = document.createElement("button");
+				button.type = "button";
+				button.className = `scale-option${definition.description ? " has-description" : ""}`;
+				button.dataset.scale = value;
+				button.setAttribute("aria-pressed", String(selectedFamily === openMenuFamily && selectedScale === value));
+				const name = document.createElement("span");
+				name.textContent = definition.name;
+				button.append(name);
+				if (definition.description) {
+					const description = document.createElement("span");
+					description.className = "scale-option-description";
+					description.textContent = definition.description;
+					button.append(description);
+					button.setAttribute("aria-label", `${definition.name}. ${definition.description}`);
+				}
+				scaleSubmenu.append(button);
+			});
+		}
+
+		function updateScale(resetNoteStates = true) {
+					const key = keySelect.value;
+					const family = scaleFamilies[selectedFamily];
+					const definition = family.scales[selectedScale];
+					const rootPitch = keys.indexOf(key);
+					const tones = definition.intervals.map((interval, index) => ({
+						pitch: (rootPitch + interval) % 12,
+						interval,
+						note: noteNames[(rootPitch + interval) % 12],
+						degree: definition.degrees[index],
+						root: index === 0,
+						blue: definition.blueInterval === interval
+					}));
+					const blueNoteAvailable = selectedFamily === "pentatonic" && ["minor", "major"].includes(selectedScale);
+					const blueInterval = selectedScale === "major" ? 3 : 6;
+					if (blueNoteAvailable) {
+						tones.push({
+							pitch: (rootPitch + blueInterval) % 12,
+							interval: blueInterval,
+							note: noteNames[(rootPitch + blueInterval) % 12],
+							degree: selectedScale === "major" ? "♭3" : "♭5",
+							root: false,
+							blue: true,
+							optional: true
+						});
+					}
+					tones.sort((first, second) => first.interval - second.interval);
+					const scale = new Map(tones.map(tone => [tone.pitch, tone]));
+
+					const titleWithoutTuning = `${key} ${family.label} ${definition.name}`;
+					const tuningTitle = selectedTuning.startsWith("Drop") ? selectedTuning : `${selectedTuning} standard`;
+					scaleTitleMain.textContent = titleWithoutTuning;
+					scaleTitleTuning.textContent = `(${tuningTitle})`;
+					mobileScaleTitle.textContent = titleWithoutTuning;
+					document.title = `${titleWithoutTuning} (${tuningTitle}) | Guitar fretboard`;
+					fretboard.setAttribute("aria-label", `${key} ${definition.name} notes on a ${fretCount}-fret guitar neck`);
+					scaleNotes.setAttribute("aria-label", `Notes in ${key} ${definition.name}`);
+
+					if (resetNoteStates) {
+						noteStates = new Map(tones.map(tone => [
+							tone.pitch,
+							tone.optional ? "invisible" : tone.root ? "focused" : "showing"
+						]));
+						focusColorByPitch = new Map();
+						tones.forEach(tone => {
+							if (noteStates.get(tone.pitch) === "focused" && !tone.blue && !tone.root) takeFocusColor(tone.pitch);
+						});
+					}
+
+					scaleNotes.replaceChildren();
+					tones.forEach(tone => {
+						const state = noteStates.get(tone.pitch) || "showing";
+						const entry = document.createElement("li");
+						entry.className = "scale-note-entry";
+						const button = document.createElement("button");
+						button.type = "button";
+						button.className = "scale-note-button";
+						button.dataset.pitch = tone.pitch;
+						button.dataset.state = state;
+						button.dataset.blue = String(tone.blue);
+						button.dataset.root = String(tone.root);
+						button.dataset.degree = tone.degree;
+						const focusColor = getToneFocusColor(tone);
+						button.style.setProperty("--focus-color", focusColor);
+						button.style.setProperty("--focus-ink", focusedNoteText);
+						button.setAttribute("aria-pressed", String(state === "focused"));
+						button.setAttribute("aria-label", `${tone.degree} ${tone.note}, ${state}. Activate to change state.`);
+						button.title = `${tone.degree} ${tone.note}: ${state}`;
+						button.innerHTML = `<strong>${tone.degree}</strong> ${tone.note}`;
+						if (tone.blue) {
+							const tag = document.createElement("span");
+							tag.className = "blue-note-tag";
+							tag.textContent = "BLUE NOTE";
+							entry.append(button, tag);
+						} else {
+							entry.append(button);
+						}
+						scaleNotes.append(entry);
+					});
+
+					notePositions.forEach(cell => {
+						cell.querySelector(".note")?.remove();
+						const tone = scale.get(Number(cell.dataset.pitch));
+						if (!tone) return;
+						const state = noteStates.get(tone.pitch) || "showing";
+						if (state === "invisible") return;
+
+						const note = document.createElement("span");
+						note.className = `note ${state}${tone.root ? " root" : ""}${tone.blue ? " blue" : ""}`;
+						const focusColor = getToneFocusColor(tone);
+						note.style.setProperty("--focus-color", focusColor);
+						note.style.setProperty("--focus-ink", focusedNoteText);
+						note.setAttribute("aria-label", `${tone.note}, scale degree ${tone.degree}`);
+						note.innerHTML = `<strong>${tone.note}</strong><small>${tone.degree}</small>`;
+						cell.append(note);
+					});
+				}
+		scaleFamilyList.addEventListener("click", event => {
+			const button = event.target.closest("[data-family]");
+			if (!button) return;
+			openMenuFamily = button.dataset.family;
+			if (openMenuFamily === "pentatonic") {
+				openPentatonicGroup = selectedFamily === "pentatonic" ?
+					scaleFamilies.pentatonic.scales[selectedScale].group : "common";
+			}
+			populateScales();
+		});
+		scaleSubmenu.addEventListener("click", event => {
+			const groupButton = event.target.closest("[data-pentatonic-group]");
+			if (!groupButton) return;
+			openPentatonicGroup = groupButton.dataset.pentatonicGroup;
+			populateScales();
+		});
+		tuningFamilyList.addEventListener("click", event => {
+			const button = event.target.closest("[data-tuning-group]");
+			if (!button) return;
+			openTuningGroup = button.dataset.tuningGroup;
+			populateTunings();
+		});
+		tuningSubmenu.addEventListener("click", event => {
+			const button = event.target.closest("[data-tuning]");
+			if (!button) return;
+			selectedTuning = button.dataset.tuning;
+			updateTuning();
+			tuningMenu.open = false;
+		});
+		scaleSubmenu.addEventListener("click", event => {
+			const button = event.target.closest("[data-scale]");
+			if (!button) return;
+			selectedFamily = openMenuFamily;
+			selectedScale = button.dataset.scale;
+			updateScale();
+			scaleMenu.open = false;
+		});
+		// Close either dropdown when tapping anywhere outside its details element.
+		document.addEventListener("pointerdown", event => {
+			if (!tuningMenu.contains(event.target)) tuningMenu.open = false;
+			if (!scaleMenu.contains(event.target)) scaleMenu.open = false;
+		});
+		document.querySelector("#mobile-controls-backdrop").addEventListener("click", () => {
+			tuningMenu.open = false;
+			scaleMenu.open = false;
+			mobileControlsDrawer.open = false;
+		});
+		// Escape closes open menus and the mobile controls drawer.
+		document.addEventListener("keydown", event => {
+			if (event.key !== "Escape") return;
+			tuningMenu.open = false;
+			scaleMenu.open = false;
+			mobileControlsDrawer.open = false;
+		});
+
+		scaleNotes.addEventListener("click", event => {
+			const button = event.target.closest("[data-pitch]");
+			if (!button) return;
+			const pitch = Number(button.dataset.pitch);
+			const currentState = noteStates.get(pitch);
+			const nextState = { focused: "showing", showing: "invisible", invisible: "focused" }[currentState];
+			noteStates.set(pitch, nextState);
+			// The root (red) and blue notes keep their own colour and never use the colour stack.
+			if (button.dataset.blue !== "true" && button.dataset.root !== "true") {
+				if (currentState === "focused") releaseFocusColor(pitch);
+				if (nextState === "focused") takeFocusColor(pitch);
+			}
+			updateScale(false);
+		});
+		keySelect.addEventListener("change", updateScale);
+		themeToggle.addEventListener("click", () => {
+			const isNight = document.body.dataset.theme !== "night";
+			document.body.dataset.theme = isNight ? "night" : "day";
+			themeToggle.setAttribute("aria-pressed", String(isNight));
+			themeToggle.setAttribute("aria-label", `${isNight ? "Disable" : "Enable"} night mode`);
+			themeToggle.innerHTML = `<span aria-hidden="true">${isNight ? "☀" : "☾"}</span> ${isNight ? "Day mode" : "Night mode"}`;
+		});
+		populateScales();
+		populateTunings();
+		buildFretboard();
+		renderFretRange();
+		syncResponsiveControls();
+		updateTuning();
+		responsiveControlsReady = true;
+	</script>
+</body>
+</html>
