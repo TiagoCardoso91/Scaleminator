@@ -3,7 +3,7 @@
 **An interactive fretboard for guitar, bass, cavaquinho and other string instruments.**
 Pick a root, a scale and a tuning, and see every note on the neck. Or switch to chords and walk through the harmony of a scale one chord at a time.
 
-> 📄 One HTML file. No build step, no install, no dependencies. Open `scales.html` and play.
+> 📄 One HTML file. No build step, no install, no dependencies. Open `scaleminatorWithFonts.html` and play, even offline.
 
 ![Scaleminator showing E minor pentatonic on a 24-fret guitar neck](docs/screenshots/hero.png)
 
@@ -20,6 +20,7 @@ Pick a root, a scale and a tuning, and see every note on the neck. Or switch to 
 | 📏 **Fret range** | Show the whole neck or just a few frets |
 | 🌙 **Night mode** | Easy on the eyes on stage or late at night |
 | 📱 **Responsive** | Works on desktop, tablet and phone |
+| ✈️ **Works offline** | The fonts are built into the page |
 
 ---
 
@@ -122,10 +123,17 @@ On smaller screens, a compact layout shows up to 12 frets at a time, with no sid
 ## 🚀 Usage
 
 1. Clone or download this repository.
-2. Open `scales.html` in any modern browser.
+2. Open one of the two pages in any modern browser. That's it. 🎉
 
-That's it. 🎉 Fonts load from Google Fonts. Offline, the page still works with fallback fonts.
+| File | Fonts | Size | Use it when… |
+|---|---|:---:|---|
+| ✈️ `scaleminatorWithFonts.html` | Built into the page | ~300 KB | You want it to look right anywhere, **even offline**. Recommended. |
+| 🌐 `scaleminator.html` | Loaded from Google Fonts | ~90 KB | You're online and want the lightest file, or you want to edit the code. Offline, it falls back to system fonts. |
+
+Both pages work the same way. The only difference is where the fonts come from.
 
 ## 🛠️ Built with
 
 Plain **HTML**, **CSS** and **JavaScript**. No frameworks.
+
+🔤 Fonts: [DynaPuff](https://fonts.google.com/specimen/DynaPuff), [Nunito Sans](https://fonts.google.com/specimen/Nunito+Sans) and [Ribeye Marrow](https://fonts.google.com/specimen/Ribeye+Marrow), all under the SIL Open Font License 1.1 (see [`FONT-LICENSES.txt`](FONT-LICENSES.txt)).
