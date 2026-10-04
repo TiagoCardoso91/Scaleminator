@@ -1,9 +1,6 @@
 <h1>
   <img src="docs/logo.png" alt="" height="72">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/title-dark.svg">
-    <img src="docs/title-light.svg" alt="Scaleminator" height="72">
-  </picture>
+  <img src="docs/title-light.svg" alt="Scaleminator" height="72">
 </h1>
 
 **An interactive fretboard for guitar, bass, cavaquinho and other string instruments.**
