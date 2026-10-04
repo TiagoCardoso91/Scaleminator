@@ -74,7 +74,7 @@ Set **Show → Chords** and the buttons become the **chords of the scale**, labe
 
 ![Chords mode: D major (IV) in A major](docs/screenshots/chords.png)
 
-The **Chord scale** menu has a **Triads / 7th chords** toggle. Under each mode you can see the chords it gives in your key before you pick it.
+The **Chord scale** menu has a **Triads / 7th chords** toggle.
 
 Chord scale families: diatonic modes, harmonic minor, melodic minor, harmonic major and double harmonic.
 
@@ -84,7 +84,7 @@ Chord scale families: diatonic modes, harmonic minor, melodic minor, harmonic ma
 <td width="50%"><img src="docs/screenshots/tuning-menu.png" alt="Tuning menu showing drop tunings"></td>
 </tr>
 <tr>
-<td align="center"><sub>🎹 Chord scale menu, with chord previews</sub></td>
+<td align="center"><sub>🎹 Chord scale menu, with the Triads / 7th chords toggle</sub></td>
 <td align="center"><sub>🎸 Tuning menu, grouped by instrument</sub></td>
 </tr>
 </table>
@@ -99,10 +99,10 @@ Chord scale families: diatonic modes, harmonic minor, melodic minor, harmonic ma
 | 🎸 Guitar (7 / 8 strings) | 24 | B standard, Drop A, A standard, Russian · F# standard, Drop E, F standard |
 | 🇵🇹 Portuguese guitar | 22 | Lisboa, Coimbra |
 | 🎸 Bass (4 / 5 / 6 strings) | 24 | E standard, Drop D, D standard, BEAD, high C… |
-| 🪕 Cavaquinho | 17 | Natural, Coimbra, Sol-Sol-Si-Ré, Maia / Barcelos, Lá-Lá-Dó#-Mi |
-| 🌺 Ukulele | 18 | Standard (GCEA), D tuning, Baritone |
-| 🎻 Mandolin · Violin family | 20 · 24 | GDAE, Mandola / Viola / Cello (CGDA) |
-| 🔺 Balalaika · 📦 Cigar box | 19 · 20 | Prima (EEA) · Open G, Open D |
+| 🪕 Cavaquinho | 17 | Natural, Coimbra, Open G, Maia / Barcelos, Open A |
+| 🌺 Ukulele | 18 | Standard, D tuning, Baritone |
+| 🎻 Mandolin · Violin family | 20 · 24 | Standard, Mandola · Violin, Viola / cello |
+| 🔺 Balalaika · 📦 Cigar box | 19 · 20 | Prima · Open G, Open D |
 
 ✏️ **Custom tunings:** change any string's open note. If the result matches a known tuning, it takes that tuning's name.
 

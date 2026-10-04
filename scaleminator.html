@@ -131,7 +131,7 @@
 		.mobile-topbar .app-logo { width: 32px; height: 32px; }
 		.page-heading h1 { display: flex; min-width: 0; flex-wrap: wrap; align-items: baseline; column-gap: .28em; row-gap: 4px; }
 		.title-main { min-width: 0; }
-		.title-tuning { flex: 0 0 auto; white-space: nowrap; font-family: inherit; font-size: .5em; font-weight: 400; }
+		.title-tuning { flex: 0 0 100%; font-family: inherit; font-size: .5em; font-weight: 400; }
 		.page-tools { display: flex; flex: 0 0 auto; justify-content: flex-end; }
 		.page-tools { gap: 8px; }
 		#theme-toggle,
@@ -899,7 +899,7 @@
 		<div class="page-heading" id="page-heading">
 			<div class="page-title">
 				<span class="app-logo" aria-hidden="true"></span>
-				<h1 id="scale-title"><span id="scale-title-main" class="title-main">E Pentatonic Minor</span><span id="scale-title-tuning" class="title-tuning">(E standard)</span></h1>
+				<h1 id="scale-title"><span id="scale-title-main" class="title-main">E Pentatonic Minor</span><span id="scale-title-tuning" class="title-tuning">E standard</span></h1>
 			</div>
 			<div id="page-tools-slot">
 				<div class="page-tools" id="page-tools">
@@ -1028,7 +1028,7 @@
 			dadgad: { label: "DADGAD", group: "other", notes: ["D", "A", "G", "D", "A", "D"] },
 			"double-drop-d": { label: "Double drop D", group: "other", notes: ["D", "B", "G", "D", "A", "D"] },
 			"all-fourths": { label: "All fourths", group: "other", notes: ["F", "C", "G", "D", "A", "E"] },
-			"new-standard": { label: "New standard (CGDAEG)", group: "other", notes: ["G", "E", "A", "D", "G", "C"] }
+			"new-standard": { label: "New standard", group: "other", notes: ["G", "E", "A", "D", "G", "C"] }
 				}
 			},
 			"guitar-7": {
@@ -1077,8 +1077,8 @@
 				prefix: "5-string bass",
 				maxFrets: 24,
 				tunings: {
-					"b5-standard": { label: "Standard (BEADG)", notes: ["G", "D", "A", "E", "B"] },
-					"b5-high-c": { label: "High C (EADGC)", notes: ["C", "G", "D", "A", "E"] }
+					"b5-standard": { label: "Standard", notes: ["G", "D", "A", "E", "B"] },
+					"b5-high-c": { label: "High C", notes: ["C", "G", "D", "A", "E"] }
 				}
 			},
 			"bass-6": {
@@ -1086,7 +1086,7 @@
 				prefix: "6-string bass",
 				maxFrets: 24,
 				tunings: {
-					"b6-standard": { label: "Standard (BEADGC)", notes: ["C", "G", "D", "A", "E", "B"] }
+					"b6-standard": { label: "Standard", notes: ["C", "G", "D", "A", "E", "B"] }
 				}
 			},
 			cavaquinho: {
@@ -1094,11 +1094,11 @@
 				prefix: "Cavaquinho",
 				maxFrets: 17,
 				tunings: {
-					"cav-natural": { label: "Natural (Ré-Sol-Si-Ré)", notes: ["D", "B", "G", "D"] },
-					"cav-coimbra": { label: "Coimbra (Ré-Sol-Si-Mi)", notes: ["E", "B", "G", "D"] },
-					"cav-sol-sol": { label: "Sol-Sol-Si-Ré", notes: ["D", "B", "G", "G"] },
-					"cav-maia": { label: "Maia / Barcelos (Sol-Dó-Mi-Lá)", notes: ["A", "E", "C", "G"] },
-					"cav-la-la": { label: "Lá-Lá-Dó#-Mi", notes: ["E", "C#", "A", "A"] }
+					"cav-natural": { label: "Natural", notes: ["D", "B", "G", "D"] },
+					"cav-coimbra": { label: "Coimbra", notes: ["E", "B", "G", "D"] },
+					"cav-sol-sol": { label: "Open G", notes: ["D", "B", "G", "G"] },
+					"cav-maia": { label: "Maia / Barcelos", notes: ["A", "E", "C", "G"] },
+					"cav-la-la": { label: "Open A", notes: ["E", "C#", "A", "A"] }
 				}
 			},
 			ukulele: {
@@ -1106,9 +1106,9 @@
 				prefix: "Ukulele",
 				maxFrets: 18,
 				tunings: {
-					"uke-standard": { label: "Standard (GCEA)", notes: ["A", "E", "C", "G"] },
-					"uke-d": { label: "D tuning (ADF#B)", notes: ["B", "F#", "D", "A"] },
-					"uke-baritone": { label: "Baritone (DGBE)", notes: ["E", "B", "G", "D"] }
+					"uke-standard": { label: "Standard", notes: ["A", "E", "C", "G"] },
+					"uke-d": { label: "D tuning", notes: ["B", "F#", "D", "A"] },
+					"uke-baritone": { label: "Baritone", notes: ["E", "B", "G", "D"] }
 				}
 			},
 			mandolin: {
@@ -1116,8 +1116,8 @@
 				prefix: "Mandolin",
 				maxFrets: 20,
 				tunings: {
-					"mando-standard": { label: "Standard (GDAE)", notes: ["E", "A", "D", "G"] },
-					"mandola": { label: "Mandola (CGDA)", notes: ["A", "D", "G", "C"] }
+					"mando-standard": { label: "Standard", notes: ["E", "A", "D", "G"] },
+					"mandola": { label: "Mandola", notes: ["A", "D", "G", "C"] }
 				}
 			},
 			violin: {
@@ -1125,8 +1125,8 @@
 				prefix: "",
 				maxFrets: 24,
 				tunings: {
-					"violin": { label: "Violin (GDAE)", notes: ["E", "A", "D", "G"] },
-					"viola-cello": { label: "Viola / cello (CGDA)", notes: ["A", "D", "G", "C"] }
+					"violin": { label: "Violin", notes: ["E", "A", "D", "G"] },
+					"viola-cello": { label: "Viola / cello", notes: ["A", "D", "G", "C"] }
 				}
 			},
 			balalaika: {
@@ -1134,7 +1134,7 @@
 				prefix: "Balalaika",
 				maxFrets: 19,
 				tunings: {
-					"bal-prima": { label: "Prima (EEA)", notes: ["A", "E", "E"] }
+					"bal-prima": { label: "Prima", notes: ["A", "E", "E"] }
 				}
 			},
 			"cigar-box": {
@@ -1142,8 +1142,8 @@
 				prefix: "Cigar box",
 				maxFrets: 20,
 				tunings: {
-					"cbg-open-g": { label: "Open G (GDG)", notes: ["G", "D", "G"] },
-					"cbg-open-d": { label: "Open D (DAD)", notes: ["D", "A", "D"] }
+					"cbg-open-g": { label: "Open G", notes: ["G", "D", "G"] },
+					"cbg-open-d": { label: "Open D", notes: ["D", "A", "D"] }
 				}
 			}
 		};
@@ -1155,11 +1155,15 @@
 		// Tuning loaded when the number of strings is picked in the "Strings" dropdown.
 		const defaultTuningByStringCount = { 3: "cbg-open-g", 4: "b4-e-standard", 5: "b5-standard", 6: "e-standard", 7: "g7-standard", 8: "g8-standard" };
 		// The open-string notes from low to high, e.g. "D A D G B E".
+		// The line under the title: the scale's other name, then the tuning (its notes are on the neck).
+		function titleDetails(definition) {
+			return [definition.aka, tuningDisplayName(false)].filter(Boolean).join(" · ");
+		}
 		function tuningNotesLowToHigh() {
 			return strings.map(string => string.note).reverse().join(" ");
 		}
-		function tuningDisplayName() {
-			if (selectedTuning === "custom") return `Custom: ${tuningNotesLowToHigh()}`;
+		function tuningDisplayName(withNotes = true) {
+			if (selectedTuning === "custom") return withNotes ? `Custom: ${tuningNotesLowToHigh()}` : "Custom tuning";
 			const tuning = tunings[selectedTuning];
 			const prefix = instruments[tuning.instrument].prefix;
 			return prefix ? `${prefix} ${tuning.label}` : tuning.label;
@@ -1170,25 +1174,25 @@
 				scales: {
 					minor: { name: "Minor", group: "common", intervals: [0, 3, 5, 7, 10], degrees: ["1", "♭3", "4", "5", "♭7"] },
 					major: { name: "Major", group: "common", intervals: [0, 2, 4, 7, 9], degrees: ["1", "2", "3", "5", "6"] },
-					suspended: { name: "Suspended (Egyptian)", group: "common", intervals: [0, 2, 5, 7, 10], degrees: ["1", "2", "4", "5", "♭7"] },
+					suspended: { name: "Suspended", aka: "Egyptian", group: "common", intervals: [0, 2, 5, 7, 10], degrees: ["1", "2", "4", "5", "♭7"] },
 					dominant: { name: "Dominant", group: "common", intervals: [0, 2, 4, 7, 10], degrees: ["1", "2", "3", "5", "♭7"] },
 					"minor-six": { name: "Minor 6", group: "common", intervals: [0, 3, 5, 7, 9], degrees: ["1", "♭3", "4", "5", "6"] },
-					"major-flat-six": { name: "Major b6", group: "common", intervals: [0, 2, 4, 7, 8], degrees: ["1", "2", "3", "5", "♭6"] },
-					hirajoshi: { name: "Hirajoshi (Japanese)", description: "Traditional scale associated with koto music", group: "japanese", intervals: [0, 2, 3, 7, 8], degrees: ["1", "2", "♭3", "5", "♭6"] },
-					kumoi: { name: "Kumoi (Japanese)", description: "Minor third with a natural sixth", group: "japanese", intervals: [0, 2, 3, 7, 9], degrees: ["1", "2", "♭3", "5", "6"] },
-					in: { name: "In (Japanese)", description: "Traditional scale with a flat second", group: "japanese", intervals: [0, 1, 5, 7, 10], degrees: ["1", "♭2", "4", "5", "♭7"] },
-					yo: { name: "Yo (Japanese)", description: "Folk scale with no third", group: "japanese", intervals: [0, 2, 5, 7, 9], degrees: ["1", "2", "4", "5", "6"] },
-					iwato: { name: "Iwato (Japanese)", description: "Flat second and flat fifth give it a tense sound", group: "japanese", intervals: [0, 1, 5, 6, 10], degrees: ["1", "♭2", "4", "♭5", "♭7"] },
-					miyako: { name: "Miyako-bushi (Japanese)", description: "Traditional Japanese folk scale", group: "japanese", intervals: [0, 1, 5, 7, 8], degrees: ["1", "♭2", "4", "5", "♭6"] },
-					hamsadhwani: { name: "Hamsadhwani (raga)", description: "Bright Carnatic raga with a major seventh", group: "indian", intervals: [0, 2, 4, 7, 11], degrees: ["1", "2", "3", "5", "7"] },
-					chandrakauns: { name: "Chandrakauns (raga)", description: "Minor-sounding raga with a major seventh", group: "indian", intervals: [0, 3, 5, 8, 11], degrees: ["1", "♭3", "4", "♭6", "7"] },
-					hindol: { name: "Hindol (raga)", description: "Lydian-flavoured raga without a fifth", group: "indian", intervals: [0, 4, 6, 9, 11], degrees: ["1", "3", "♯4", "6", "7"] },
-					abhogi: { name: "Abhogi (raga)", description: "Minor third and major sixth, no fifth", group: "indian", intervals: [0, 2, 3, 5, 9], degrees: ["1", "2", "♭3", "4", "6"] },
-					kalavati: { name: "Kalavati (raga)", description: "Dominant-sounding raga with no second or fourth", group: "indian", intervals: [0, 4, 7, 9, 10], degrees: ["1", "3", "5", "6", "♭7"] },
-					jue: { name: "Malkauns (raga) / Jue", description: "Same notes as the Chinese Jue (Man Gong) mode", group: "indian", intervals: [0, 3, 5, 8, 10], degrees: ["1", "♭3", "4", "♯5", "♭7"] },
+					"major-flat-six": { name: "Major ♭6", group: "common", intervals: [0, 2, 4, 7, 8], degrees: ["1", "2", "3", "5", "♭6"] },
+					hirajoshi: { name: "Hirajoshi", aka: "Japanese", description: "Traditional scale associated with koto music", group: "japanese", intervals: [0, 2, 3, 7, 8], degrees: ["1", "2", "♭3", "5", "♭6"] },
+					kumoi: { name: "Kumoi", aka: "Japanese", description: "Minor third with a natural sixth", group: "japanese", intervals: [0, 2, 3, 7, 9], degrees: ["1", "2", "♭3", "5", "6"] },
+					in: { name: "In", aka: "Japanese", description: "Traditional scale with a flat second", group: "japanese", intervals: [0, 1, 5, 7, 10], degrees: ["1", "♭2", "4", "5", "♭7"] },
+					yo: { name: "Yo", aka: "Japanese", description: "Folk scale with no third", group: "japanese", intervals: [0, 2, 5, 7, 9], degrees: ["1", "2", "4", "5", "6"] },
+					iwato: { name: "Iwato", aka: "Japanese", description: "Flat second and flat fifth give it a tense sound", group: "japanese", intervals: [0, 1, 5, 6, 10], degrees: ["1", "♭2", "4", "♭5", "♭7"] },
+					miyako: { name: "Miyako-bushi", aka: "Japanese", description: "Traditional Japanese folk scale", group: "japanese", intervals: [0, 1, 5, 7, 8], degrees: ["1", "♭2", "4", "5", "♭6"] },
+					hamsadhwani: { name: "Hamsadhwani", aka: "Raga", description: "Bright Carnatic raga with a major seventh", group: "indian", intervals: [0, 2, 4, 7, 11], degrees: ["1", "2", "3", "5", "7"] },
+					chandrakauns: { name: "Chandrakauns", aka: "Raga", description: "Minor-sounding raga with a major seventh", group: "indian", intervals: [0, 3, 5, 8, 11], degrees: ["1", "♭3", "4", "♭6", "7"] },
+					hindol: { name: "Hindol", aka: "Raga", description: "Lydian-flavoured raga without a fifth", group: "indian", intervals: [0, 4, 6, 9, 11], degrees: ["1", "3", "♯4", "6", "7"] },
+					abhogi: { name: "Abhogi", aka: "Raga", description: "Minor third and major sixth, no fifth", group: "indian", intervals: [0, 2, 3, 5, 9], degrees: ["1", "2", "♭3", "4", "6"] },
+					kalavati: { name: "Kalavati", aka: "Raga", description: "Dominant-sounding raga with no second or fourth", group: "indian", intervals: [0, 4, 7, 9, 10], degrees: ["1", "3", "5", "6", "♭7"] },
+					jue: { name: "Malkauns", aka: "Raga", description: "Same notes as the Chinese Jue (Man Gong) mode", group: "indian", intervals: [0, 3, 5, 8, 10], degrees: ["1", "♭3", "4", "♯5", "♭7"] },
 					"whole-tone": { name: "Whole-tone pentatonic", group: "other", intervals: [0, 2, 4, 6, 8], degrees: ["1", "2", "3", "♯4", "♯5"] },
-					pelog: { name: "Pelog (Balinese)", description: "Western approximation of the gamelan pelog selisir", group: "other", intervals: [0, 1, 3, 7, 8], degrees: ["1", "♭2", "♭3", "5", "♭6"] },
-					okinawan: { name: "Okinawan (Ryukyu)", description: "Major third and major seventh, no second or sixth", group: "other", intervals: [0, 4, 5, 7, 11], degrees: ["1", "3", "4", "5", "7"] },
+					pelog: { name: "Pelog", aka: "Balinese", description: "Western approximation of the gamelan pelog selisir", group: "other", intervals: [0, 1, 3, 7, 8], degrees: ["1", "♭2", "♭3", "5", "♭6"] },
+					okinawan: { name: "Okinawan", aka: "Ryukyu", description: "Major third and major seventh, no second or sixth", group: "other", intervals: [0, 4, 5, 7, 11], degrees: ["1", "3", "4", "5", "7"] },
 					lydianPentatonic: { name: "Lydian pentatonic", description: "Major triad with ♯4 and 7", group: "other", intervals: [0, 4, 6, 7, 11], degrees: ["1", "3", "♯4", "5", "7"] },
 					locrianPentatonic: { name: "Locrian pentatonic", description: "Minor pentatonic with a flat fifth", group: "other", intervals: [0, 3, 5, 6, 10], degrees: ["1", "♭3", "4", "♭5", "♭7"] }
 				}
@@ -1208,12 +1212,12 @@
 			diatonic: {
 				label: "Diatonic modes",
 				scales: {
-					ionian: { name: "Ionian (major)", intervals: [0, 2, 4, 5, 7, 9, 11], degrees: ["1", "2", "3", "4", "5", "6", "7"] },
+					ionian: { name: "Ionian", aka: "Major scale", intervals: [0, 2, 4, 5, 7, 9, 11], degrees: ["1", "2", "3", "4", "5", "6", "7"] },
 					dorian: { name: "Dorian", intervals: [0, 2, 3, 5, 7, 9, 10], degrees: ["1", "2", "♭3", "4", "5", "6", "♭7"] },
 					phrygian: { name: "Phrygian", intervals: [0, 1, 3, 5, 7, 8, 10], degrees: ["1", "♭2", "♭3", "4", "5", "♭6", "♭7"] },
 					lydian: { name: "Lydian", intervals: [0, 2, 4, 6, 7, 9, 11], degrees: ["1", "2", "3", "♯4", "5", "6", "7"] },
 					mixolydian: { name: "Mixolydian", intervals: [0, 2, 4, 5, 7, 9, 10], degrees: ["1", "2", "3", "4", "5", "6", "♭7"] },
-					aeolian: { name: "Aeolian (natural minor)", intervals: [0, 2, 3, 5, 7, 8, 10], degrees: ["1", "2", "♭3", "4", "5", "♭6", "♭7"] },
+					aeolian: { name: "Aeolian", aka: "Natural minor", intervals: [0, 2, 3, 5, 7, 8, 10], degrees: ["1", "2", "♭3", "4", "5", "♭6", "♭7"] },
 					locrian: { name: "Locrian", intervals: [0, 1, 3, 5, 6, 8, 10], degrees: ["1", "♭2", "♭3", "4", "♭5", "♭6", "♭7"] }
 				}
 			},
@@ -1222,10 +1226,10 @@
 				scales: {
 					harmonicMinor: { name: "Harmonic minor", intervals: [0, 2, 3, 5, 7, 8, 11], degrees: ["1", "2", "♭3", "4", "5", "♭6", "7"] },
 					locrianNaturalSix: { name: "Locrian natural 6", intervals: [0, 1, 3, 5, 6, 9, 10], degrees: ["1", "♭2", "♭3", "4", "♭5", "6", "♭7"] },
-					ionianSharpFive: { name: "Ionian #5", intervals: [0, 2, 4, 5, 8, 9, 11], degrees: ["1", "2", "3", "4", "♯5", "6", "7"] },
-					dorianSharpFour: { name: "Dorian #4", intervals: [0, 2, 3, 6, 7, 9, 10], degrees: ["1", "2", "♭3", "♯4", "5", "6", "♭7"] },
+					ionianSharpFive: { name: "Ionian ♯5", intervals: [0, 2, 4, 5, 8, 9, 11], degrees: ["1", "2", "3", "4", "♯5", "6", "7"] },
+					dorianSharpFour: { name: "Dorian ♯4", intervals: [0, 2, 3, 6, 7, 9, 10], degrees: ["1", "2", "♭3", "♯4", "5", "6", "♭7"] },
 					phrygianDominant: { name: "Phrygian dominant", intervals: [0, 1, 4, 5, 7, 8, 10], degrees: ["1", "♭2", "3", "4", "5", "♭6", "♭7"] },
-					lydianSharpTwo: { name: "Lydian #2", intervals: [0, 3, 4, 6, 7, 9, 11], degrees: ["1", "♯2", "3", "♯4", "5", "6", "7"] },
+					lydianSharpTwo: { name: "Lydian ♯2", intervals: [0, 3, 4, 6, 7, 9, 11], degrees: ["1", "♯2", "3", "♯4", "5", "6", "7"] },
 					ultraLocrian: { name: "Ultra Locrian", intervals: [0, 1, 3, 4, 6, 8, 9], degrees: ["1", "♭2", "♭3", "♭4", "♭5", "♭6", "♭♭7"] }
 				}
 			},
@@ -1233,36 +1237,36 @@
 				label: "Melodic minor modes",
 				scales: {
 					melodicMinor: { name: "Melodic minor", intervals: [0, 2, 3, 5, 7, 9, 11], degrees: ["1", "2", "♭3", "4", "5", "6", "7"] },
-					dorianFlatTwo: { name: "Dorian b2", intervals: [0, 1, 3, 5, 7, 9, 10], degrees: ["1", "♭2", "♭3", "4", "5", "6", "♭7"] },
+					dorianFlatTwo: { name: "Dorian ♭2", intervals: [0, 1, 3, 5, 7, 9, 10], degrees: ["1", "♭2", "♭3", "4", "5", "6", "♭7"] },
 					lydianAugmented: { name: "Lydian augmented", intervals: [0, 2, 4, 6, 8, 9, 11], degrees: ["1", "2", "3", "♯4", "♯5", "6", "7"] },
 					lydianDominant: { name: "Lydian dominant", intervals: [0, 2, 4, 6, 7, 9, 10], degrees: ["1", "2", "3", "♯4", "5", "6", "♭7"] },
-					mixolydianFlatSix: { name: "Mixolydian b6", intervals: [0, 2, 4, 5, 7, 8, 10], degrees: ["1", "2", "3", "4", "5", "♭6", "♭7"] },
+					mixolydianFlatSix: { name: "Mixolydian ♭6", intervals: [0, 2, 4, 5, 7, 8, 10], degrees: ["1", "2", "3", "4", "5", "♭6", "♭7"] },
 					locrianNaturalTwo: { name: "Locrian natural 2", intervals: [0, 2, 3, 5, 6, 8, 10], degrees: ["1", "2", "♭3", "4", "♭5", "♭6", "♭7"] },
-					altered: { name: "Altered (Super Locrian)", intervals: [0, 1, 3, 4, 6, 8, 10], degrees: ["1", "♭2", "♭3", "♭4", "♭5", "♭6", "♭7"] }
+					altered: { name: "Altered", aka: "Super Locrian", intervals: [0, 1, 3, 4, 6, 8, 10], degrees: ["1", "♭2", "♭3", "♭4", "♭5", "♭6", "♭7"] }
 				}
 			},
 			"harmonic-major": {
 				label: "Harmonic major modes",
 				scales: {
 					harmonicMajor: { name: "Harmonic major", description: "Major scale with a lowered sixth", intervals: [0, 2, 4, 5, 7, 8, 11], degrees: ["1", "2", "3", "4", "5", "♭6", "7"] },
-					dorianFlatFive: { name: "Dorian b5", intervals: [0, 2, 3, 5, 6, 9, 10], degrees: ["1", "2", "♭3", "4", "♭5", "6", "♭7"] },
-					phrygianFlatFour: { name: "Phrygian b4", intervals: [0, 1, 3, 4, 7, 8, 10], degrees: ["1", "♭2", "♭3", "♭4", "5", "♭6", "♭7"] },
-					lydianFlatThree: { name: "Lydian b3 (Lydian diminished)", intervals: [0, 2, 3, 6, 7, 9, 11], degrees: ["1", "2", "♭3", "♯4", "5", "6", "7"] },
-					mixolydianFlatTwo: { name: "Mixolydian b2", intervals: [0, 1, 4, 5, 7, 9, 10], degrees: ["1", "♭2", "3", "4", "5", "6", "♭7"] },
-					lydianAugmentedSharpTwo: { name: "Lydian augmented #2", intervals: [0, 3, 4, 6, 8, 9, 11], degrees: ["1", "♯2", "3", "♯4", "♯5", "6", "7"] },
-					locrianDoubleFlatSeven: { name: "Locrian bb7", intervals: [0, 1, 3, 5, 6, 8, 9], degrees: ["1", "♭2", "♭3", "4", "♭5", "♭6", "♭♭7"] }
+					dorianFlatFive: { name: "Dorian ♭5", intervals: [0, 2, 3, 5, 6, 9, 10], degrees: ["1", "2", "♭3", "4", "♭5", "6", "♭7"] },
+					phrygianFlatFour: { name: "Phrygian ♭4", intervals: [0, 1, 3, 4, 7, 8, 10], degrees: ["1", "♭2", "♭3", "♭4", "5", "♭6", "♭7"] },
+					lydianFlatThree: { name: "Lydian ♭3", aka: "Lydian diminished", intervals: [0, 2, 3, 6, 7, 9, 11], degrees: ["1", "2", "♭3", "♯4", "5", "6", "7"] },
+					mixolydianFlatTwo: { name: "Mixolydian ♭2", intervals: [0, 1, 4, 5, 7, 9, 10], degrees: ["1", "♭2", "3", "4", "5", "6", "♭7"] },
+					lydianAugmentedSharpTwo: { name: "Lydian augmented ♯2", intervals: [0, 3, 4, 6, 8, 9, 11], degrees: ["1", "♯2", "3", "♯4", "♯5", "6", "7"] },
+					locrianDoubleFlatSeven: { name: "Locrian ♭♭7", intervals: [0, 1, 3, 5, 6, 8, 9], degrees: ["1", "♭2", "♭3", "4", "♭5", "♭6", "♭♭7"] }
 				}
 			},
 			"double-harmonic": {
 				label: "Double harmonic modes",
 				scales: {
 					doubleHarmonic: { name: "Double harmonic", description: "Also known as Byzantine; has two augmented-second leaps", intervals: [0, 1, 4, 5, 7, 8, 11], degrees: ["1", "♭2", "3", "4", "5", "♭6", "7"] },
-					lydianSharpTwoSharpSix: { name: "Lydian #2 #6", intervals: [0, 3, 4, 6, 7, 10, 11], degrees: ["1", "♯2", "3", "♯4", "5", "♯6", "7"] },
+					lydianSharpTwoSharpSix: { name: "Lydian ♯2 ♯6", intervals: [0, 3, 4, 6, 7, 10, 11], degrees: ["1", "♯2", "3", "♯4", "5", "♯6", "7"] },
 					ultraphrygian: { name: "Ultraphrygian", intervals: [0, 1, 3, 4, 7, 8, 9], degrees: ["1", "♭2", "♭3", "♭4", "5", "♭6", "♭♭7"] },
 					hungarianMinor: { name: "Hungarian minor", description: "Harmonic minor with a raised fourth; also called Gypsy minor", intervals: [0, 2, 3, 6, 7, 8, 11], degrees: ["1", "2", "♭3", "♯4", "5", "♭6", "7"] },
 					oriental: { name: "Oriental", intervals: [0, 1, 4, 5, 6, 9, 10], degrees: ["1", "♭2", "3", "4", "♭5", "6", "♭7"] },
-					ionianSharpTwoSharpFive: { name: "Ionian #2 #5", intervals: [0, 3, 4, 5, 8, 9, 11], degrees: ["1", "♯2", "3", "4", "♯5", "6", "7"] },
-					locrianDoubleFlatThreeSeven: { name: "Locrian bb3 bb7", intervals: [0, 1, 2, 5, 6, 8, 9], degrees: ["1", "♭2", "♭♭3", "4", "♭5", "♭6", "♭♭7"] }
+					ionianSharpTwoSharpFive: { name: "Ionian ♯2 ♯5", intervals: [0, 3, 4, 5, 8, 9, 11], degrees: ["1", "♯2", "3", "4", "♯5", "6", "7"] },
+					locrianDoubleFlatThreeSeven: { name: "Locrian ♭♭3 ♭♭7", intervals: [0, 1, 2, 5, 6, 8, 9], degrees: ["1", "♭2", "♭♭3", "4", "♭5", "♭6", "♭♭7"] }
 				}
 			},
 			hexatonic: {
@@ -1283,18 +1287,18 @@
 					neapolitanMinor: { name: "Neapolitan minor", description: "Flat second with the upper tones of harmonic minor", intervals: [0, 1, 3, 5, 7, 8, 11], degrees: ["1", "♭2", "♭3", "4", "5", "♭6", "7"] },
 					hungarianMajor: { name: "Hungarian major", description: "Dominant sound with ♯2 and ♯4", intervals: [0, 3, 4, 6, 7, 9, 10], degrees: ["1", "♯2", "3", "♯4", "5", "6", "♭7"] },
 					romanianMajor: { name: "Romanian major", description: "Lydian dominant with a flat second", intervals: [0, 1, 4, 6, 7, 9, 10], degrees: ["1", "♭2", "3", "♯4", "5", "6", "♭7"] },
-					gypsy: { name: "Gypsy (♭7)", description: "Hungarian minor with a flat seventh", intervals: [0, 2, 3, 6, 7, 8, 10], degrees: ["1", "2", "♭3", "♯4", "5", "♭6", "♭7"] },
+					gypsy: { name: "Gypsy ♭7", description: "Hungarian minor with a flat seventh", intervals: [0, 2, 3, 6, 7, 8, 10], degrees: ["1", "2", "♭3", "♯4", "5", "♭6", "♭7"] },
 					spanishEightTone: { name: "Spanish 8-tone", description: "Phrygian with both minor and major third", intervals: [0, 1, 3, 4, 5, 6, 8, 10], degrees: ["1", "♭2", "♭3", "3", "4", "♭5", "♭6", "♭7"] }
 				}
 			},
 			eastern: {
 				label: "Indian & Middle Eastern",
 				scales: {
-					todi: { name: "Todi (thaat)", description: "Hindustani parent scale with ♭2, ♭3, ♯4 and ♭6", intervals: [0, 1, 3, 6, 7, 8, 11], degrees: ["1", "♭2", "♭3", "♯4", "5", "♭6", "7"] },
-					purvi: { name: "Purvi (thaat)", description: "Hindustani parent scale with ♭2, ♯4 and ♭6", intervals: [0, 1, 4, 6, 7, 8, 11], degrees: ["1", "♭2", "3", "♯4", "5", "♭6", "7"] },
-					marwa: { name: "Marwa (thaat)", description: "Hindustani parent scale with ♭2 and ♯4", intervals: [0, 1, 4, 6, 7, 9, 11], degrees: ["1", "♭2", "3", "♯4", "5", "6", "7"] },
+					todi: { name: "Todi", aka: "Thaat", description: "Hindustani parent scale with ♭2, ♭3, ♯4 and ♭6", intervals: [0, 1, 3, 6, 7, 8, 11], degrees: ["1", "♭2", "♭3", "♯4", "5", "♭6", "7"] },
+					purvi: { name: "Purvi", aka: "Thaat", description: "Hindustani parent scale with ♭2, ♯4 and ♭6", intervals: [0, 1, 4, 6, 7, 8, 11], degrees: ["1", "♭2", "3", "♯4", "5", "♭6", "7"] },
+					marwa: { name: "Marwa", aka: "Thaat", description: "Hindustani parent scale with ♭2 and ♯4", intervals: [0, 1, 4, 6, 7, 9, 11], degrees: ["1", "♭2", "3", "♯4", "5", "6", "7"] },
 					persian: { name: "Persian", description: "Contains a flat second and flat fifth", intervals: [0, 1, 4, 5, 6, 8, 11], degrees: ["1", "♭2", "3", "4", "♭5", "♭6", "7"] },
-					majorLocrian: { name: "Major Locrian (Arabian)", description: "Major lower half, Locrian upper half", intervals: [0, 2, 4, 5, 6, 8, 10], degrees: ["1", "2", "3", "4", "♭5", "♭6", "♭7"] }
+					majorLocrian: { name: "Major Locrian", aka: "Arabian", description: "Major lower half, Locrian upper half", intervals: [0, 2, 4, 5, 6, 8, 10], degrees: ["1", "2", "3", "4", "♭5", "♭6", "♭7"] }
 				}
 			},
 			symmetric: {
@@ -1780,19 +1784,22 @@
 				typeNav.append(button);
 			});
 			scaleSubmenu.append(typeNav);
-			const rootPitch = keys.indexOf(keySelect.value);
 			Object.entries(scaleFamilies[openMenuFamily].scales).forEach(([value, definition]) => {
+				const details = [definition.aka, definition.description].filter(Boolean).join(" · ");
 				const button = document.createElement("button");
 				button.type = "button";
-				button.className = "scale-option has-description";
+				button.className = `scale-option${details ? " has-description" : ""}`;
 				button.dataset.scale = value;
 				button.setAttribute("aria-pressed", String(chordFamily === openMenuFamily && chordScale === value));
 				const name = document.createElement("span");
 				name.textContent = definition.name;
-				const chords = document.createElement("span");
-				chords.className = "scale-option-description";
-				chords.textContent = buildScaleChords(definition, rootPitch, chordType).map(chord => chord.name).join("  ");
-				button.append(name, chords);
+				button.append(name);
+				if (details) {
+					const description = document.createElement("span");
+					description.className = "scale-option-description";
+					description.textContent = details;
+					button.append(description);
+				}
 				scaleSubmenu.append(button);
 			});
 		}
@@ -1831,18 +1838,19 @@
 			visibleScales.forEach(([value, definition]) => {
 				const button = document.createElement("button");
 				button.type = "button";
-				button.className = `scale-option${definition.description ? " has-description" : ""}`;
+				const details = [definition.aka, definition.description].filter(Boolean).join(" · ");
+				button.className = `scale-option${details ? " has-description" : ""}`;
 				button.dataset.scale = value;
 				button.setAttribute("aria-pressed", String(selectedFamily === openMenuFamily && selectedScale === value));
 				const name = document.createElement("span");
 				name.textContent = definition.name;
 				button.append(name);
-				if (definition.description) {
+				if (details) {
 					const description = document.createElement("span");
 					description.className = "scale-option-description";
-					description.textContent = definition.description;
+					description.textContent = details;
 					button.append(description);
-					button.setAttribute("aria-label", `${definition.name}. ${definition.description}`);
+					button.setAttribute("aria-label", `${definition.name}. ${details}`);
 				}
 				scaleSubmenu.append(button);
 			});
@@ -1857,9 +1865,9 @@
 			const activeChord = chords[selectedChord];
 
 			const titleWithoutTuning = `${key} ${definition.name} ${chordTypes[chordType].toLowerCase()}`;
-			const tuningTitle = tuningDisplayName();
+			const tuningTitle = tuningDisplayName(false);
 			scaleTitleMain.textContent = titleWithoutTuning;
-			scaleTitleTuning.textContent = `(${tuningTitle})`;
+			scaleTitleTuning.textContent = titleDetails(definition);
 			mobileScaleTitle.textContent = titleWithoutTuning;
 			document.querySelector("#scale-menu-summary").textContent = definition.name;
 			document.title = `${titleWithoutTuning} (${tuningTitle}) | Guitar fretboard`;
@@ -1937,9 +1945,9 @@
 					const scale = new Map(tones.map(tone => [tone.pitch, tone]));
 
 					const titleWithoutTuning = `${key} ${family.label} ${definition.name}`;
-					const tuningTitle = tuningDisplayName();
+					const tuningTitle = tuningDisplayName(false);
 					scaleTitleMain.textContent = titleWithoutTuning;
-					scaleTitleTuning.textContent = `(${tuningTitle})`;
+					scaleTitleTuning.textContent = titleDetails(definition);
 					mobileScaleTitle.textContent = titleWithoutTuning;
 					// Scale dropdown shows the selected scale's name (no family or subgroup).
 					document.querySelector("#scale-menu-summary").textContent = definition.name;
