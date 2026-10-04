@@ -1,4 +1,7 @@
-# <img src="docs/logo.png" alt="" width="44" align="center"> Scaleminator
+<h1>
+  <img src="docs/logo.png" alt="" height="72">
+  <img src="docs/title-light.svg" alt="Scaleminator" height="72">
+</h1>
 
 **An interactive fretboard for guitar, bass, cavaquinho and other string instruments.**
 Pick a root, a scale and a tuning, and see every note on the neck. Or switch to chords and walk through the harmony of a scale one chord at a time.
