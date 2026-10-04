@@ -1839,6 +1839,7 @@
 		}
 
 		function updateChords() {
+			saveSettings();
 			const key = keySelect.value;
 			const definition = scaleFamilies[chordFamily].scales[chordScale];
 			const chords = buildScaleChords(definition, keys.indexOf(key), chordType);
@@ -1896,6 +1897,7 @@
 
 		function updateScale(resetNoteStates = true) {
 					if (mode === "chords") return updateChords();
+					saveSettings();
 					const key = keySelect.value;
 					const family = scaleFamilies[selectedFamily];
 					const definition = family.scales[selectedScale];
@@ -2123,21 +2125,91 @@
 			document.addEventListener("webkitfullscreenchange", renderFullscreenToggle);
 		}
 
-		themeToggle.addEventListener("click", () => {
-			const isNight = document.body.dataset.theme !== "night";
+		function setTheme(isNight) {
 			document.body.dataset.theme = isNight ? "night" : "day";
 			themeToggle.setAttribute("aria-pressed", String(isNight));
 			themeToggle.setAttribute("aria-label", `${isNight ? "Disable" : "Enable"} night mode`);
 			themeToggle.innerHTML = `<span aria-hidden="true">${isNight ? "☀" : "☾"}</span> ${isNight ? "Day mode" : "Night mode"}`;
+		}
+		themeToggle.addEventListener("click", () => {
+			setTheme(document.body.dataset.theme !== "night");
+			saveSettings();
 		});
+
+		// Remember each visitor's settings in this browser (localStorage, nothing is sent anywhere).
+		const settingsKey = "scaleminator-settings";
+		let settingsReady = false;
+		function saveSettings() {
+			if (!settingsReady) return;
+			try {
+				localStorage.setItem(settingsKey, JSON.stringify({
+					theme: document.body.dataset.theme === "night" ? "night" : "day",
+					key: keySelect.value,
+					mode,
+					selectedFamily, selectedScale,
+					chordFamily, chordScale, chordType, selectedChord,
+					selectedTuning,
+					tuningInstrument: openTuningInstrument,
+					stringNotes: strings.map(string => string.note),
+					fretRange
+				}));
+			} catch (error) {}
+		}
+		function loadSettings() {
+			try {
+				return JSON.parse(localStorage.getItem(settingsKey)) || {};
+			} catch (error) {
+				return {};
+			}
+		}
+		// Only accept saved values that still exist in this version of the page.
+		const saved = loadSettings();
+		if (saved.theme === "night") setTheme(true);
+		if (keys.includes(saved.key)) keySelect.value = saved.key;
+		if (scaleFamilies[saved.selectedFamily]?.scales[saved.selectedScale]) {
+			selectedFamily = saved.selectedFamily;
+			selectedScale = saved.selectedScale;
+		}
+		if (chordFamilyKeys.includes(saved.chordFamily) && scaleFamilies[saved.chordFamily].scales[saved.chordScale]) {
+			chordFamily = saved.chordFamily;
+			chordScale = saved.chordScale;
+		}
+		if (saved.chordType in chordTypes) chordType = saved.chordType;
+		if (Number.isInteger(saved.selectedChord) && saved.selectedChord >= 0) selectedChord = saved.selectedChord;
+		if (saved.mode === "chords") {
+			mode = "chords";
+			modeSelect.value = "chords";
+			scaleLabel.textContent = "Chord scale";
+		}
+		openMenuFamily = mode === "chords" ? chordFamily : selectedFamily;
+		if (mode === "notes" && selectedFamily === "pentatonic") openPentatonicGroup = scaleFamilies.pentatonic.scales[selectedScale].group;
+		const savedCustomNotes = saved.selectedTuning === "custom" && Array.isArray(saved.stringNotes) &&
+			saved.stringNotes.length >= 3 && saved.stringNotes.length <= 8 && saved.stringNotes.every(note => noteNames.includes(note)) ?
+			saved.stringNotes : null;
+		if (tunings[saved.selectedTuning]) selectedTuning = saved.selectedTuning;
+		else if (savedCustomNotes) {
+			selectedTuning = "custom";
+			if (instruments[saved.tuningInstrument]) openTuningInstrument = saved.tuningInstrument;
+		}
+
 		populateScales();
-		setStringCount(6);
+		setStringCount(savedCustomNotes ? savedCustomNotes.length : 6);
+		if (savedCustomNotes) {
+			strings.forEach((string, index) => { string.note = savedCustomNotes[index]; });
+			setTotalFrets(instruments[openTuningInstrument].maxFrets);
+		}
 		populateTunings();
 		buildFretboard();
 		renderFretRange();
 		syncResponsiveControls();
 		updateTuning();
 		responsiveControlsReady = true;
+		settingsReady = true;
+		// The saved fret range is clamped to what fits on this screen.
+		if (saved.fretRange && Number.isInteger(saved.fretRange.start) && Number.isInteger(saved.fretRange.end)) {
+			setFretRange(saved.fretRange.start, saved.fretRange.end, "end");
+		}
+		saveSettings();
 	</script>
 </body>
 </html>
