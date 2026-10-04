@@ -766,10 +766,11 @@
 				overscroll-behavior: contain;
 				-webkit-overflow-scrolling: touch;
 			}
-			/* While the drawer is open the page behind it must not scroll (that is what pulls the browser bar back in). */
-			html:has(.mobile-controls-drawer[open]),
-			body:has(.mobile-controls-drawer[open]) { overflow: hidden; }
+			/* Locking the page with overflow:hidden makes mobile browsers bring their bar back, so instead the backdrop
+			   swallows swipes and the drawer content is always 1px taller than the drawer: overscroll-behavior only
+			   contains elements that actually scroll, so this keeps swipes from chaining to the page. */
 			.mobile-controls-drawer[open] .mobile-controls-backdrop { touch-action: none; }
+			#mobile-controls-content { min-height: calc(100% + 1px); }
 			#fullscreen-toggle:not([hidden]) { display: inline-flex; }
 			/* Left padding keeps the buttons clear of the ☰ button that sits over the drawer. */
 			.mobile-controls-panel .page-tools { flex-wrap: wrap; margin: 0 0 16px; padding-left: 50px; }
