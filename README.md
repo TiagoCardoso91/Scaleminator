@@ -1,3 +1,5 @@
+<p align="center"><img src="docs/logo.png" alt="Scaleminator logo" width="160"></p>
+
 # 🎸 Scaleminator
 
 **An interactive fretboard for guitar, bass, cavaquinho and other string instruments.**
@@ -131,6 +133,12 @@ On smaller screens, a compact layout shows up to 12 frets at a time, with no sid
 | 🌐 `scaleminator.html` | Loaded from Google Fonts | ~90 KB | You're online and want the lightest file, or you want to edit the code. Offline, it falls back to system fonts. |
 
 Both pages work the same way. The only difference is where the fonts come from.
+
+## 📲 Try it online
+
+Open [Scaleminator on GitHub Pages](https://tiagocardoso91.github.io/Scaleminator/scaleminator.html), or scan the code with your phone:
+
+<p align="center"><img src="docs/qr-code.png" alt="QR code that opens Scaleminator on GitHub Pages" width="220"></p>
 
 ## 🛠️ Built with
 
