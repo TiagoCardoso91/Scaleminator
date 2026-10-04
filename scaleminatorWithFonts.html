@@ -55,6 +55,10 @@
 
 		* { box-sizing: border-box; }
 
+		/* No pull-to-refresh / scroll chaining into the browser chrome on touch devices. */
+		html,
+		body { overscroll-behavior-y: none; }
+
 		body {
 			display: flex;
 			min-height: 100vh;
@@ -126,7 +130,9 @@
 		.title-main { min-width: 0; }
 		.title-tuning { flex: 0 0 auto; white-space: nowrap; font-family: inherit; font-size: .5em; font-weight: 400; }
 		.page-tools { display: flex; flex: 0 0 auto; justify-content: flex-end; }
-		#theme-toggle {
+		.page-tools { gap: 8px; }
+		#theme-toggle,
+		#fullscreen-toggle {
 			display: inline-flex;
 			align-items: center;
 			gap: 8px;
@@ -139,7 +145,10 @@
 			font-weight: 800;
 			cursor: pointer;
 		}
-		#theme-toggle:hover { border-color: var(--pink); }
+		#theme-toggle:hover,
+		#fullscreen-toggle:hover { border-color: var(--pink); }
+		/* Only offered in compact mode, and only where the Fullscreen API exists (JS removes [hidden]). */
+		#fullscreen-toggle { display: none; }
 
 		.key-control {
 			display: flex;
@@ -757,9 +766,16 @@
 				transform: translateX(-105%);
 				visibility: hidden;
 				transition: transform .2s ease, visibility .2s ease;
+				overscroll-behavior: contain;
 				-webkit-overflow-scrolling: touch;
 			}
-			.mobile-controls-panel .page-tools { margin: 0 0 16px; }
+			/* While the drawer is open the page behind it must not scroll (that is what pulls the browser bar back in). */
+			html:has(.mobile-controls-drawer[open]),
+			body:has(.mobile-controls-drawer[open]) { overflow: hidden; }
+			.mobile-controls-drawer[open] .mobile-controls-backdrop { touch-action: none; }
+			#fullscreen-toggle:not([hidden]) { display: inline-flex; }
+			/* Left padding keeps the buttons clear of the ☰ button that sits over the drawer. */
+			.mobile-controls-panel .page-tools { flex-wrap: wrap; margin: 0 0 16px; padding-left: 50px; }
 			.mobile-controls-panel .key-control { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 0; }
 			.mobile-controls-panel .control-group { justify-content: space-between; gap: 8px; }
 			.mobile-controls-panel .scale-menu > summary { min-width: 176px; max-width: 62vw; }
@@ -806,6 +822,18 @@
 
 		@media (max-width: 900px) and (orientation: landscape), (max-height: 520px), (pointer: coarse) and (orientation: landscape) {
 			main { padding: 8px 10px 10px; }
+			.mobile-topbar { min-height: 40px; margin-bottom: 4px; }
+			.mobile-controls-drawer > summary { width: 40px; min-height: 40px; }
+			.mobile-controls-panel { padding: 8px 12px 12px; }
+			.mobile-controls-panel .page-tools { min-height: 40px; align-items: center; margin: 0 0 8px; }
+			.mobile-controls-panel #theme-toggle,
+			.mobile-controls-panel #fullscreen-toggle { padding: 6px 9px; font-size: 13px; }
+			.mobile-controls-panel .key-control { gap: 6px; }
+			.mobile-controls-panel .key-control select,
+			.mobile-controls-panel .scale-menu > summary { min-height: 38px; padding-top: 6px; padding-bottom: 6px; }
+			.scale-family-button,
+			.scale-option { min-height: 36px; padding: 6px 8px; }
+			.pentatonic-group-button { min-height: 34px; }
 			.scale-notes { gap: 4px; margin-bottom: 6px; }
 			.notes-row { gap: 4px 12px; margin-bottom: 6px; }
 			.fret-range { gap: 8px; font-size: 11px; }
@@ -868,6 +896,7 @@
 			<h1 id="scale-title"><span id="scale-title-main" class="title-main">E Pentatonic Minor</span><span id="scale-title-tuning" class="title-tuning">(E standard)</span></h1>
 			<div id="page-tools-slot">
 				<div class="page-tools" id="page-tools">
+					<button id="fullscreen-toggle" type="button" aria-pressed="false" hidden><span aria-hidden="true">⛶</span> Full screen</button>
 					<button id="theme-toggle" type="button" aria-pressed="false" aria-label="Enable night mode"><span aria-hidden="true">☾</span> Night mode</button>
 				</div>
 			</div>
@@ -2075,6 +2104,27 @@
 			populateScales();
 			updateScale();
 		});
+		// Full screen hides the browser bars on phones (Android etc.; iPhone Safari has no Fullscreen API, so the button stays hidden there).
+		const fullscreenToggle = document.querySelector("#fullscreen-toggle");
+		const fullscreenRoot = document.documentElement;
+		const requestFullscreen = fullscreenRoot.requestFullscreen || fullscreenRoot.webkitRequestFullscreen;
+		const exitFullscreen = document.exitFullscreen || document.webkitExitFullscreen;
+		const fullscreenElement = () => document.fullscreenElement || document.webkitFullscreenElement;
+		function renderFullscreenToggle() {
+			const isFullscreen = Boolean(fullscreenElement());
+			fullscreenToggle.setAttribute("aria-pressed", String(isFullscreen));
+			fullscreenToggle.innerHTML = `<span aria-hidden="true">${isFullscreen ? "✕" : "⛶"}</span> ${isFullscreen ? "Exit full screen" : "Full screen"}`;
+		}
+		if (requestFullscreen && (document.fullscreenEnabled || document.webkitFullscreenEnabled)) {
+			fullscreenToggle.hidden = false;
+			fullscreenToggle.addEventListener("click", () => {
+				if (fullscreenElement()) exitFullscreen.call(document);
+				else Promise.resolve(requestFullscreen.call(fullscreenRoot, { navigationUI: "hide" })).catch(() => {});
+			});
+			document.addEventListener("fullscreenchange", renderFullscreenToggle);
+			document.addEventListener("webkitfullscreenchange", renderFullscreenToggle);
+		}
+
 		themeToggle.addEventListener("click", () => {
 			const isNight = document.body.dataset.theme !== "night";
 			document.body.dataset.theme = isNight ? "night" : "day";
